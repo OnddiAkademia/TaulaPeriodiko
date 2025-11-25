@@ -1,0 +1,2060 @@
+<!doctype html>
+<html lang="eu">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Taula periodikoa — Onddi Akademia</title>
+
+<!-- Fuente Arista 2.0 Alternate -->
+<style>
+@font-face {
+  font-family: 'Arista 2.0 Alternate';
+  src: url('https://raw.githubusercontent.com/Mikelikoptero/Taularako-argazkiak/main/AristaAlternate/Arista2.0Alternate.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+</style>
+
+<style>
+:root{
+  --panel-width:360px; 
+  --cell-size: 72px;
+  --gap-size: 6px;
+  --bg:#f8fafc; /* Fondo gris muy claro */
+  --zoom-level: 0.75;
+  --primary-green: #2d8659; /* Verde más suave y profesional */
+  --secondary-green: #3A795E;
+  --text-dark: #1e293b; /* Azul oscuro para mejor legibilidad */
+  --text-medium: #475569; /* Gris carbón */
+  --text-light: #64748b; /* Gris medio */
+  --bg-white: #ffffff; /* Blanco puro */
+  --bg-light: #f1f5f9; /* Gris muy claro */
+  --bg-medium: #e2e8f0; /* Gris claro */
+  --border-light: rgba(45, 134, 89, 0.15); /* Verde muy tenue */
+  --border-medium: rgba(45, 134, 89, 0.25); /* Verde suave */
+  --hover-green: rgba(45, 134, 89, 0.1); /* Verde muy tenue para hover */
+  --shadow-light: 0 4px 12px rgba(0,0,0,0.05); /* Sombra muy suave */
+  --shadow-medium: 0 8px 24px rgba(0,0,0,0.08); /* Sombra media */
+}
+
+*{box-sizing:border-box}
+body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;background:var(--bg);color:var(--text-dark);overflow:hidden;font-weight:400}
+.app{display:flex;height:100vh;width:100vw}
+/* left panel */
+.panel{width:var(--panel-width);min-width:var(--panel-width);background:var(--bg-white);padding:24px;border-right:1px solid var(--border-light);overflow:auto;flex-shrink:0;box-shadow:2px 0 8px rgba(0,0,0,0.03)}
+
+/* Título ONDDI AKADEMIA - Más elegante */
+.onddi-title {
+  font-family: 'Arista 2.0 Alternate', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--primary-green);
+  text-align: center;
+  margin: 0 0 30px 0;
+  padding: 0;
+  letter-spacing: 0.5px;
+  width: 100%;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.panel h1{margin:0 0 10px 0;font-size:18px;color:var(--text-dark);font-weight:600}
+.panel p{margin:0 0 16px 0;opacity:0.8;color:var(--text-medium);line-height:1.5}
+.card{background:var(--bg-light);padding:18px;border-radius:12px;border:1px solid var(--border-light);margin-bottom:20px;box-shadow:var(--shadow-light)}
+.big-square{width:84px;height:84px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:36px;margin-right:16px;color:var(--text-dark) !important;box-shadow:var(--shadow-light)}
+.info-head{display:flex;align-items:center;justify-content:space-between}
+.info-left{display:flex;align-items:center}
+.info-rows{margin-top:16px}
+.info-rows div{margin:10px 0;font-size:14px}
+.info-rows b{display:inline-block;width:170px;color:var(--text-medium);font-weight:500}
+.small-muted{font-size:12px;opacity:0.8;color:var(--text-light)}
+.footer{margin-top:16px;font-size:12px;opacity:0.7;color:var(--text-light)}
+
+/* Menú retráctil Baliabideak - Estilo claro */
+.resources-toggle {
+  background: var(--bg-light);
+  border-radius: 10px;
+  padding: 14px;
+  margin: 16px 0;
+  border: 1px solid var(--border-light);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow:var(--shadow-light)
+}
+
+.resources-toggle:hover {
+  background: var(--hover-green);
+  border-color: var(--border-medium);
+}
+
+.resources-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.resources-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.resources-icon {
+  transition: transform 0.3s ease;
+  color: var(--primary-green);
+  font-weight: bold;
+}
+
+.resources-toggle.active .resources-icon {
+  transform: rotate(180deg);
+}
+
+.resources-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.resources-toggle.active .resources-content {
+  max-height: 500px;
+}
+
+.resources-content-inner {
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Leyenda para bloques electrónicos - Estilo claro */
+.elec-legend {
+  background: var(--bg-light);
+  border-radius: 10px;
+  padding: 14px;
+  margin: 16px 0;
+  border: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow:var(--shadow-light)
+}
+
+.elec-legend-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.elec-legend-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+/* Pestaña retráctil para propiedades - Estilo claro */
+.properties-toggle {
+  background: var(--bg-light);
+  border-radius: 10px;
+  padding: 14px;
+  margin: 16px 0;
+  border: 1px solid var(--border-light);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow:var(--shadow-light)
+}
+
+.properties-toggle:hover {
+  background: var(--hover-green);
+  border-color: var(--border-medium);
+}
+
+.properties-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.properties-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.properties-icon {
+  transition: transform 0.3s ease;
+  color: var(--primary-green);
+  font-weight: bold;
+}
+
+.properties-toggle.active .properties-icon {
+  transform: rotate(180deg);
+}
+
+.properties-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.properties-toggle.active .properties-content {
+  max-height: 500px;
+}
+
+.properties-content-inner {
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Leyendas - Estilo claro */
+.electroneg-legend, .radius-legend, .ionization-legend {
+  background: var(--bg-light);
+  border-radius: 10px;
+  padding: 14px;
+  border: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  box-shadow:var(--shadow-light)
+}
+
+.electroneg-legend-header, .radius-legend-header, .ionization-legend-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.electroneg-legend-title, .radius-legend-title, .ionization-legend-title {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: help;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.title-tooltip {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--border-light);
+  border: 1px solid var(--border-medium);
+  color: var(--text-medium);
+  font-size: 11px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: help;
+  transition: all 0.2s ease;
+}
+
+.electroneg-legend-title:hover .title-tooltip, 
+.radius-legend-title:hover .title-tooltip, 
+.ionization-legend-title:hover .title-tooltip {
+  background: var(--border-medium);
+  border-color: var(--primary-green);
+  color: var(--text-dark);
+  transform: scale(1.1);
+}
+
+.tooltip-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--bg-white);
+  border: 1px solid var(--border-medium);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--text-dark);
+  width: 200px;
+  box-shadow: var(--shadow-medium);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: all 0.25s ease;
+  pointer-events: none;
+}
+
+.electroneg-legend-title:hover .tooltip-content,
+.radius-legend-title:hover .tooltip-content,
+.ionization-legend-title:hover .tooltip-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(3px);
+}
+
+.tooltip-content strong {
+  color: var(--primary-green);
+  display: block;
+  margin-bottom: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.electroneg-legend-gradient, .radius-legend-gradient, .ionization-legend-gradient {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--text-medium);
+}
+
+.electroneg-gradient-bar, .radius-gradient-bar, .ionization-gradient-bar {
+  flex: 1;
+  height: 20px;
+  border-radius: 6px;
+  margin: 0 8px;
+}
+
+.electroneg-gradient-bar {
+  background: linear-gradient(90deg, #e6f3ff, #3b82f6);
+}
+
+.radius-gradient-bar {
+  background: linear-gradient(90deg, #e8f5e8, #22c55e);
+}
+
+.ionization-gradient-bar {
+  background: linear-gradient(90deg, #ffe6e6, #ef4444);
+}
+
+/* Botones de toggle - Estilo claro */
+.elec-toggle-btn, .radius-toggle-btn, .electroneg-toggle-btn, .ionization-toggle-btn {
+  width: 44px;
+  height: 24px;
+  background: var(--border-light);
+  border-radius: 12px;
+  border: none;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.elec-toggle-btn::before, .radius-toggle-btn::before, .electroneg-toggle-btn::before, .ionization-toggle-btn::before {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: var(--bg-white);
+  border-radius: 50%;
+  top: 3px;
+  left: 3px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.elec-toggle-btn.active, .radius-toggle-btn.active, .electroneg-toggle-btn.active, .ionization-toggle-btn.active {
+  background: var(--primary-green);
+}
+
+.elec-toggle-btn.active::before, .radius-toggle-btn.active::before, .electroneg-toggle-btn.active::before, .ionization-toggle-btn.active::before {
+  transform: translateX(20px);
+}
+
+.elec-legend-items {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.elec-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-dark);
+  transition: all 0.3s ease;
+  border-radius: 6px;
+}
+
+.elec-legend-item:hover {
+  background: var(--hover-green);
+}
+
+.elec-legend:not(.active) .elec-legend-color {
+  opacity: 0.4;
+  filter: grayscale(0.7);
+}
+
+.elec-legend:not(.active) .elec-legend-item span {
+  opacity: 0.6;
+}
+
+.elec-legend.active .elec-legend-color {
+  opacity: 1;
+  filter: none;
+}
+
+.elec-legend.active .elec-legend-item span {
+  opacity: 1;
+}
+
+.electroneg-legend:not(.active) .electroneg-gradient-bar,
+.radius-legend:not(.active) .radius-gradient-bar,
+.ionization-legend:not(.active) .ionization-gradient-bar {
+  opacity: 0.4;
+  filter: grayscale(0.7);
+}
+
+.electroneg-legend:not(.active) .electroneg-legend-gradient span,
+.radius-legend:not(.active) .radius-legend-gradient span,
+.ionization-legend:not(.active) .ionization-legend-gradient span {
+  opacity: 0.6;
+}
+
+.electroneg-legend.active .electroneg-gradient-bar,
+.radius-legend.active .radius-gradient-bar,
+.ionization-legend.active .ionization-gradient-bar {
+  opacity: 1;
+  filter: none;
+}
+
+.electroneg-legend.active .electroneg-legend-gradient span,
+.radius-legend.active .radius-legend-gradient span,
+.ionization-legend.active .ionization-legend-gradient span {
+  opacity: 1;
+}
+
+.elec-legend-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  min-width: 20px;
+  transition: all 0.3s ease;
+}
+
+/* Colores pastel para bloques electrónicos - Más intensos */
+.s-block { background: #ffb3ba !important; color: var(--text-dark); } /* Rosa pastel fuerte */
+.p-block { background: #bae1ff !important; color: var(--text-dark); } /* Azul pastel fuerte */
+.d-block { background: #baffc9 !important; color: var(--text-dark); } /* Verde pastel fuerte */
+.f-block { background: #ffdfba !important; color: var(--text-dark); } /* Naranja pastel fuerte */
+
+/* Clases para propiedades - Estilo claro */
+.atomic-radius, .electronegativity, .ionization-energy { 
+  color: var(--text-dark) !important; 
+  transition: all 0.3s ease;
+}
+
+/* Estilo para elementos con datos desconocidos - Más sutiles */
+.cell.unknown-radius, .cell.unknown-electroneg, .cell.unknown-ionization {
+  opacity: 0.5;
+  filter: grayscale(0.6);
+  transform: scale(0.97);
+}
+
+.cell.unknown-radius:hover, .cell.unknown-electroneg:hover, .cell.unknown-ionization:hover {
+  opacity: 0.7;
+  filter: grayscale(0.4);
+  transform: translateY(-1px) scale(1.01);
+}
+
+/* Flechas de tendencia - Más sutiles */
+.trend-arrows {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.trend-arrows.active {
+  opacity: 1;
+}
+
+.trend-arrow {
+  position: absolute;
+  font-size: 22px;
+  font-weight: bold;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  animation: pulse 2s infinite;
+}
+
+.trend-arrow.radius {
+  color: #10b981;
+}
+
+.trend-arrow.electroneg {
+  color: #3b82f6;
+}
+
+.trend-arrow.ionization {
+  color: #ef4444;
+  text-shadow: 0 1px 3px rgba(239, 68, 68, 0.2);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Search Bar - Estilo claro */
+.search-container {
+  margin-bottom: 24px;
+  padding: 0 16px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.search-box {
+  width: 100%;
+  padding: 14px 18px;
+  background: var(--bg-white);
+  border: 2px solid var(--border-light);
+  border-radius: 12px;
+  color: var(--text-dark);
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-light);
+}
+
+.search-box:focus {
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 3px rgba(45, 134, 89, 0.1), var(--shadow-light);
+  transform: translateY(-1px);
+}
+
+.search-box::placeholder {
+  color: var(--text-light);
+  font-size: 15px;
+}
+
+/* Groups and Periods Labels - Estilo claro */
+.groups-container {
+  display: grid;
+  grid-template-columns: repeat(18, var(--cell-size));
+  gap: var(--gap-size);
+  margin-bottom: 12px;
+  padding: 0 20px;
+  margin-left: 44px;
+}
+
+.group-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-medium);
+  background: var(--bg-light);
+  border-radius: 6px;
+  padding: 4px;
+  min-height: 30px;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-light);
+}
+
+.group-label.highlighted {
+  background: var(--primary-green);
+  color: white;
+  box-shadow: 0 2px 8px rgba(45, 134, 89, 0.3);
+  transform: scale(1.05);
+}
+
+.period-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-medium);
+  background: var(--bg-light);
+  border-radius: 6px;
+  padding: 4px;
+  min-width: 30px;
+  height: var(--cell-size);
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-light);
+}
+
+.period-label.highlighted {
+  background: var(--primary-green);
+  color: white;
+  box-shadow: 0 2px 8px rgba(45, 134, 89, 0.3);
+  transform: scale(1.05);
+}
+
+.table-with-periods {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  gap: var(--gap-size);
+  padding: 0 14px;
+}
+
+.periods-column {
+  display: grid;
+  grid-template-rows: repeat(7, var(--cell-size));
+  gap: var(--gap-size);
+  margin-top: 14px;
+}
+
+/* Zoom Controls - Estilo claro */
+.zoom-controls {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--bg-white);
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  gap: 8px;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-medium);
+}
+
+.zoom-btn {
+  background: var(--bg-light);
+  border: none;
+  color: var(--text-dark);
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  border: 1px solid var(--border-light);
+}
+
+.zoom-btn:hover {
+  background: var(--hover-green);
+  border-color: var(--border-medium);
+  transform: scale(1.05);
+}
+
+.zoom-display {
+  color: var(--text-dark);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  min-width: 60px;
+  justify-content: center;
+  font-weight: 600;
+}
+
+/* table area */
+.container{
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  min-width: 0;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.table-complete-wrapper {
+  transform: scale(var(--zoom-level));
+  transform-origin: top left;
+  transition: transform 0.3s ease;
+  min-width: calc((var(--cell-size) * 18) + (var(--gap-size) * 17) + 28px + 30px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+}
+
+.periodic{
+  display:grid;
+  grid-template-columns:repeat(18, var(--cell-size));
+  grid-auto-rows:var(--cell-size);
+  gap:var(--gap-size);
+  background:var(--bg-white);
+  padding:16px;
+  border-radius:12px;
+  box-shadow:var(--shadow-medium);
+  border:1px solid var(--border-light);
+  position: relative;
+}
+
+/* Bottom series - Estilo claro */
+.bottom-series-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  align-items: flex-start;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.bottom-series{
+  display:grid;
+  grid-template-columns:repeat(15, var(--cell-size));
+  grid-auto-rows:var(--cell-size);
+  gap:var(--gap-size);
+  background:var(--bg-white);
+  padding:16px;
+  border-radius:12px;
+  box-shadow:var(--shadow-medium);
+  border:1px solid var(--border-light);
+  margin-left: calc(44px + 8px + (var(--cell-size) * 2) + (var(--gap-size) * 2));
+  width: calc((var(--cell-size) * 15) + (var(--gap-size) * 14) + 28px);
+}
+
+/* Celdas - Estilo claro */
+.cell{
+  background:var(--bg-light);
+  border-radius:8px;
+  padding:6px;
+  color:var(--text-dark);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  font-size:12px;
+  border:1px solid var(--border-light);
+  cursor:pointer;
+  transition:all 0.3s ease;
+  width:var(--cell-size);
+  height:var(--cell-size);
+  box-sizing:border-box;
+  box-shadow:var(--shadow-light)
+}
+.cell .num{font-size:11px;opacity:0.85;color:var(--text-medium)}
+.cell .sym{
+  font-size:26px;
+  font-weight:500;
+  line-height:1;
+  letter-spacing:-0.02em;
+  margin:0;
+  display:block;
+  text-align:center;
+  color:var(--text-dark);
+}
+.cell .ename{
+  font-size:11px;
+  opacity:0.95;
+  line-height:1.05;
+  margin-top:3px;
+  font-weight:600;
+  font-stretch:condensed;
+  letter-spacing:-0.02em;
+  text-align:center;
+  color:var(--text-dark);
+}
+.cell:hover{
+  transform:translateY(-3px) scale(1.03);
+  box-shadow:var(--shadow-medium);
+  border-color:var(--primary-green);
+  filter: brightness(1.15) saturate(1.2); /* Aclara el color original sin volverlo blanco */
+  background: inherit; /* Mantiene el color del grupo */
+}
+.cell.dimmed{opacity:0.4;transform:scale(0.95);filter:grayscale(0.5)}
+.cell.highlighted{
+  transform:scale(1.05);
+  box-shadow:0 0 20px rgba(45,134,89,0.3);
+  z-index:10;
+  border-color:var(--primary-green);
+  background:var(--bg-white);
+}
+.cell.search-match{
+  transform:scale(1.08);
+  box-shadow:0 0 25px rgba(45,134,89,0.4);
+  z-index:20;
+  border:2px solid var(--primary-green);
+  background:var(--bg-white);
+}
+.cell.search-nomatch{opacity:0.3;filter:grayscale(0.7);transform:scale(0.9)}
+.placeholder-cell{
+  background:transparent;
+  border:2px dashed var(--border-medium);
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--text-medium);
+  font-size:14px;
+  font-weight:600;
+  width:var(--cell-size);
+  height:var(--cell-size);
+  box-sizing:border-box;
+}
+
+.alkali{background:#ffb3ba !important;color:var(--text-dark)} /* Rosa pastel intenso */
+.alkaline{background:#ffdfba !important;color:var(--text-dark)} /* Naranja pastel intenso */
+.lanthanide{background:#baffc9 !important;color:var(--text-dark)} /* Verde pastel intenso */
+.actinide{background:#bae1ff !important;color:var(--text-dark)} /* Azul pastel intenso */
+.transition{background:#cce7ff !important;color:var(--text-dark)} /* Azul cielo intenso */
+.post-transition{background:#e2d1ff !important;color:var(--text-dark)} /* Lila pastel intenso */
+.metalloid{background:#c2f0c2 !important;color:var(--text-dark)} /* Verde pastel intenso */
+.nonmetal{background:#ffffba !important;color:var(--text-dark)} /* Amarillo pastel intenso */
+.halogen{background:#ffcc99 !important;color:var(--text-dark)} /* Melocotón pastel intenso */
+.noble{background:#ffb3ff !important;color:var(--text-dark)} /* Rosa pálido intenso */
+.other{background:#f0f0f0 !important;color:var(--text-dark)} /* Gris claro */
+
+/* table legend - Estilo claro */
+.table-legend{
+  grid-column:3 / span 10;
+  grid-row:2 / span 2;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  grid-template-rows:repeat(2,1fr);
+  gap:8px;
+  padding:16px;
+  background:var(--bg-light);
+  border-radius:10px;
+  border:1px solid var(--border-light);
+  font-size:13px;
+  box-shadow:var(--shadow-light)
+}
+.table-legend-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px;
+  cursor:pointer;
+  border-radius:8px;
+  transition:all 0.3s ease;
+  font-size:13px;
+  color:var(--text-dark);
+  border:1px solid transparent;
+}
+.table-legend-item:hover{
+  background:var(--hover-green);
+  border-color:var(--border-medium);
+  transform:translateY(-1px);
+}
+.table-legend-item.active{
+  background:var(--primary-green);
+  color:white;
+  box-shadow:0 4px 12px rgba(45,134,89,0.3);
+  border-color:var(--primary-green);
+}
+.table-legend-item .sw{
+  width:16px;
+  height:16px;
+  border-radius:4px;
+  min-width:16px;
+  box-shadow:0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Botones - Estilo claro y moderno */
+.btn-3d, .btn-balents, .btn-compounds, .btn-calc {
+  background: var(--bg-white) !important;
+  border: 2px solid var(--primary-green) !important;
+  color: var(--primary-green) !important;
+  padding: 12px 16px !important;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 !important;
+  width: 100% !important;
+  min-width: auto !important;
+  box-shadow: var(--shadow-light);
+}
+
+.btn-3d:hover, .btn-balents:hover, .btn-compounds:hover, .btn-calc:hover {
+  background: var(--primary-green) !important;
+  color: white !important;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.btn-3d:active, .btn-balents:active, .btn-compounds:active, .btn-calc:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-light);
+}
+
+/* Enlaces - Estilo claro */
+.element-name-link {
+  color: var(--text-dark) !important;
+  text-decoration: none !important;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: none !important;
+  transition: color 0.2s ease;
+}
+
+.element-name-link:hover {
+  color: var(--primary-green) !important;
+}
+
+#titleMain {
+  color: var(--text-dark) !important;
+}
+
+/* Responsive y detalles finos */
+@media (max-width: 1200px) {
+  :root {
+    --panel-width: 320px;
+    --cell-size: 64px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app {
+    flex-direction: column;
+  }
+  .panel {
+    width: 100%;
+    height: auto;
+    max-height: 40vh;
+  }
+  .container {
+    height: 60vh;
+  }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="panel">
+    <!-- Título ONDDI AKADEMIA - Estilo claro y moderno -->
+    <div class="onddi-title">ONDDI AKADEMIA</div>
+
+    <!-- Menú retráctil Baliabideak -->
+    <div class="resources-toggle" id="resourcesToggle">
+      <div class="resources-header">
+        <div class="resources-title">Baliabideak</div>
+        <div class="resources-icon">▼</div>
+      </div>
+      <div class="resources-content">
+        <div class="resources-content-inner">
+          <button class="btn-3d" id="btn3D">
+            <span>3D Orbitalak</span>
+          </button>
+          <button class="btn-balents" id="btnBalents">
+            <span>Balentziak</span>
+          </button>
+          <button class="btn-compounds" id="btnCompounds">
+            <span>Konposatu Inorganikoak</span>
+          </button>
+          <button class="btn-calc" id="btnCalc">
+            <span>Kalkulu Tresnak</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Información del elemento seleccionado - Estilo claro -->
+    <div class="card">
+      <div class="info-head">
+        <div class="info-left">
+          <div id="iconSquare" class="big-square" style="background:#f1f5f9">—</div>
+          <div>
+            <div id="titleMain" style="font-size:20px;font-weight:600">Aukeratu elementu bat</div>
+            <div id="subtitle" class="small-muted">Z = —</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-rows">
+        <div><b>Zenbaki atomikoa:</b> <span id="iz">—</span></div>
+        <div><b>Masa molarra (u):</b> <span id="imass">—</span></div>
+        <div><b>Balentziak:</b> <span id="ival">—</span></div>
+        <div><b>Konfigurazio elektronikoa:</b> <span id="iconfig">—</span></div>
+        <div><b>Elektronegatibitatea:</b> <span id="ielectroneg">—</span></div>
+        <div><b>Erradio atomikoa (pm):</b> <span id="iradius">—</span></div>
+        <div><b>Ionizazio energia (kJ/mol):</b> <span id="iionization">—</span></div>
+      </div>
+
+      <div class="footer">Taula periodikoko datu orokorrak.</div>
+    </div>
+
+    <!-- Leyenda para bloques electrónicos - Estilo claro -->
+    <div class="elec-legend" id="elecLegend">
+      <div class="elec-legend-header">
+        <div class="elec-legend-title">Orbital atomikoak</div>
+        <button class="elec-toggle-btn" id="elecToggleBtn"></button>
+      </div>
+      <div class="elec-legend-items">
+        <div class="elec-legend-item">
+  <div class="elec-legend-color" style="background: #ffb3ba"></div> <!-- Rosa más intenso -->
+  <span>s</span>
+</div>
+<div class="elec-legend-item">
+  <div class="elec-legend-color" style="background: #bae1ff"></div> <!-- Azul más intenso -->
+  <span>p</span>
+</div>
+<div class="elec-legend-item">
+  <div class="elec-legend-color" style="background: #baffc9"></div> <!-- Verde más intenso -->
+  <span>d</span>
+</div>
+<div class="elec-legend-item">
+  <div class="elec-legend-color" style="background: #ffdfba"></div> <!-- Naranja más intenso -->
+  <span>f</span>
+</div>
+      </div>
+    </div>
+
+    <!-- Pestaña retráctil para propiedades - Estilo claro -->
+    <div class="properties-toggle" id="propertiesToggle">
+      <div class="properties-header">
+        <div class="properties-title">Propietateak</div>
+        <div class="properties-icon">▼</div>
+      </div>
+      <div class="properties-content">
+        <div class="properties-content-inner">
+          <div class="electroneg-legend" id="electronegLegend">
+            <div class="electroneg-legend-header">
+              <div class="electroneg-legend-title">
+                Elektronegatibitatea
+                <div class="title-tooltip">?</div>
+                <div class="tooltip-content">
+                  <strong>Elektronegatibitatearen joera</strong><br>
+                  Gezien norantzan handitu
+                </div>
+              </div>
+              <button class="electroneg-toggle-btn" id="electronegToggleBtn"></button>
+            </div>
+            <div class="electroneg-legend-gradient">
+              <span>Txikia</span>
+              <div class="electroneg-gradient-bar"></div>
+              <span>Handia</span>
+            </div>
+          </div>
+
+          <div class="radius-legend" id="radiusLegend">
+            <div class="radius-legend-header">
+              <div class="radius-legend-title">
+                Erradio atomikoak
+                <div class="title-tooltip">?</div>
+                <div class="tooltip-content">
+                  <strong>Erradioaren joera</strong><br>
+                  Gezien norantzan handitu
+                </div>
+              </div>
+              <button class="radius-toggle-btn" id="radiusToggleBtn"></button>
+            </div>
+            <div class="radius-legend-gradient">
+              <span>Txikia</span>
+              <div class="radius-gradient-bar"></div>
+              <span>Handia</span>
+            </div>
+          </div>
+
+          <div class="ionization-legend" id="ionizationLegend">
+            <div class="ionization-legend-header">
+              <div class="ionization-legend-title">
+                Ionizazio energia
+                <div class="title-tooltip">?</div>
+                <div class="tooltip-content">
+                  <strong>Ionizazio energiaren joera</strong><br>
+                  Gezien norantzan handitu
+                </div>
+              </div>
+              <button class="ionization-toggle-btn" id="ionizationToggleBtn"></button>
+            </div>
+            <div class="ionization-legend-gradient">
+              <span>Txikia</span>
+              <div class="ionization-gradient-bar"></div>
+              <span>Handia</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="container">
+    <!-- Search Bar - Estilo claro -->
+    <div class="search-container">
+      <input type="text" class="search-box" id="searchInput" placeholder="Bilatu elementua... (izenaz, sinboloaz edo zenbaki atomikoaz)">
+    </div>
+
+    <div class="table-complete-wrapper">
+      <!-- Contenedor para flechas de tendencia -->
+      <div class="trend-arrows" id="trendArrows">
+        <!-- Flechas para radio atómico (verdes) -->
+        <div class="trend-arrow radius down" style="left: 40px; top: 40px;">↓</div>
+        <div class="trend-arrow radius down" style="left: 40px; top: 120px;">↓</div>
+        <div class="trend-arrow radius down" style="left: 40px; top: 200px;">↓</div>
+        <div class="trend-arrow radius down" style="left: 40px; top: 280px;">↓</div>
+        <div class="trend-arrow radius down" style="left: 40px; top: 360px;">↓</div>
+        <div class="trend-arrow radius down" style="left: 40px; top: 440px;">↓</div>
+        <div class="trend-arrow radius down" style="left: 40px; top: 520px;">↓</div>
+        <div class="trend-arrow radius down" style="left: 40px; top: 600px;">↓</div>
+        
+        <!-- Flecha horizontal (He → H) -->
+        <div class="trend-arrow radius right" style="left: 1400px; top: 30px;">↓</div>
+        <div class="trend-arrow radius right" style="left: 1320px; top: 30px;">↓</div>
+        <div class="trend-arrow radius right" style="left: 1240px; top: 30px;">↓</div>
+        <div class="trend-arrow radius right" style="left: 1160px; top: 30px;">↓</div>
+        <div class="trend-arrow radius right" style="left: 1080px; top: 30px;">↓</div>
+        <div class="trend-arrow radius right" style="left: 1000px; top: 30px;">↓</div>
+        <div class="trend-arrow radius right" style="left: 920px; top: 30px;">↓</div>
+        <div class="trend-arrow radius right" style="left: 840px; top: 30px;">↓</div>
+        <div class="trend-arrow radius right" style="left: 760px; top: 30px;">↓</div>
+        <div class="trend-arrow radius right" style="left: 680px; top: 30px;">↓</div>
+        <div class="trend-arrow radius right" style="left: 600px; top: 30px;">↓</div>
+        <div class="trend-arrow radius right" style="left: 520px; top: 30px;">↓</div>
+        <div class="trend-arrow radius right" style="left: 440px; top: 30px;">↓</div>
+        <div class="trend-arrow radius right" style="left: 360px; top: 30px;">↓</div>
+        <div class="trend-arrow radius right" style="left: 280px; top: 30px;">↓</div>
+        <div class="trend-arrow radius right" style="left: 200px; top: 30px;">↓</div>
+        <div class="trend-arrow radius right" style="left: 120px; top: 30px;">↓</div>
+        
+        <!-- Flechas para electronegatividad (azules) -->
+        <div class="trend-arrow electroneg up" style="left: 40px; top: 600px;">↓</div>
+        <div class="trend-arrow electroneg up" style="left: 40px; top: 520px;">↓</div>
+        <div class="trend-arrow electroneg up" style="left: 40px; top: 440px;">↓</div>
+        <div class="trend-arrow electroneg up" style="left: 40px; top: 360px;">↓</div>
+        <div class="trend-arrow electroneg up" style="left: 40px; top: 280px;">↓</div>
+        <div class="trend-arrow electroneg up" style="left: 40px; top: 200px;">↓</div>
+        <div class="trend-arrow electroneg up" style="left: 40px; top: 120px;">↓</div>
+        <div class="trend-arrow electroneg up" style="left: 40px; top: 40px;">↓</div>
+        
+        <!-- Flecha horizontal (Fr → F) -->
+        <div class="trend-arrow electroneg left" style="left: 120px; top: 30px;">↓</div>
+        <div class="trend-arrow electroneg left" style="left: 200px; top: 30px;">↓</div>
+        <div class="trend-arrow electroneg left" style="left: 280px; top: 30px;">↓</div>
+        <div class="trend-arrow electroneg left" style="left: 360px; top: 30px;">↓</div>
+        <div class="trend-arrow electroneg left" style="left: 440px; top: 30px;">↓</div>
+        <div class="trend-arrow electroneg left" style="left: 520px; top: 30px;">↓</div>
+        <div class="trend-arrow electroneg left" style="left: 600px; top: 30px;">↓</div>
+        <div class="trend-arrow electroneg left" style="left: 680px; top: 30px;">↓</div>
+        <div class="trend-arrow electroneg left" style="left: 760px; top: 30px;">↓</div>
+        <div class="trend-arrow electroneg left" style="left: 840px; top: 30px;">↓</div>
+        <div class="trend-arrow electroneg left" style="left: 920px; top: 30px;">↓</div>
+        <div class="trend-arrow electroneg left" style="left: 1000px; top: 30px;">↓</div>
+        <div class="trend-arrow electroneg left" style="left: 1080px; top: 30px;">↓</div>
+        <div class="trend-arrow electroneg left" style="left: 1160px; top: 30px;">↓</div>
+        <div class="trend-arrow electroneg left" style="left: 1240px; top: 30px;">↓</div>
+        <div class="trend-arrow electroneg left" style="left: 1320px; top: 30px;">↓</div>
+        <div class="trend-arrow electroneg left" style="left: 1400px; top: 30px;">↓</div>
+        
+        <!-- Flechas para ionizazio energia (rojas) -->
+        <div class="trend-arrow ionization up" style="left: 40px; top: 600px;">↓</div>
+        <div class="trend-arrow ionization up" style="left: 40px; top: 520px;">↓</div>
+        <div class="trend-arrow ionization up" style="left: 40px; top: 440px;">↓</div>
+        <div class="trend-arrow ionization up" style="left: 40px; top: 360px;">↓</div>
+        <div class="trend-arrow ionization up" style="left: 40px; top: 280px;">↓</div>
+        <div class="trend-arrow ionization up" style="left: 40px; top: 200px;">↓</div>
+        <div class="trend-arrow ionization up" style="left: 40px; top: 120px;">↓</div>
+        <div class="trend-arrow ionization up" style="left: 40px; top: 40px;">↓</div>
+        
+        <div class="trend-arrow ionization left" style="left: 120px; top: 30px;">↓</div>
+        <div class="trend-arrow ionization left" style="left: 200px; top: 30px;">↓</div>
+        <div class="trend-arrow ionization left" style="left: 280px; top: 30px;">↓</div>
+        <div class="trend-arrow ionization left" style="left: 360px; top: 30px;">↓</div>
+        <div class="trend-arrow ionization left" style="left: 440px; top: 30px;">↓</div>
+        <div class="trend-arrow ionization left" style="left: 520px; top: 30px;">↓</div>
+        <div class="trend-arrow ionization left" style="left: 600px; top: 30px;">↓</div>
+        <div class="trend-arrow ionization left" style="left: 680px; top: 30px;">↓</div>
+        <div class="trend-arrow ionization left" style="left: 760px; top: 30px;">↓</div>
+        <div class="trend-arrow ionization left" style="left: 840px; top: 30px;">↓</div>
+        <div class="trend-arrow ionization left" style="left: 920px; top: 30px;">↓</div>
+        <div class="trend-arrow ionization left" style="left: 1000px; top: 30px;">↓</div>
+        <div class="trend-arrow ionization left" style="left: 1080px; top: 30px;">↓</div>
+        <div class="trend-arrow ionization left" style="left: 1160px; top: 30px;">↓</div>
+        <div class="trend-arrow ionization left" style="left: 1240px; top: 30px;">↓</div>
+        <div class="trend-arrow ionization left" style="left: 1320px; top: 30px;">↓</div>
+        <div class="trend-arrow ionization left" style="left: 1400px; top: 30px;">↓</div>
+      </div>
+
+      <!-- Groups Labels -->
+      <div class="groups-container">
+        <div class="group-label">1</div>
+        <div class="group-label">2</div>
+        <div class="group-label">3</div>
+        <div class="group-label">4</div>
+        <div class="group-label">5</div>
+        <div class="group-label">6</div>
+        <div class="group-label">7</div>
+        <div class="group-label">8</div>
+        <div class="group-label">9</div>
+        <div class="group-label">10</div>
+        <div class="group-label">11</div>
+        <div class="group-label">12</div>
+        <div class="group-label">13</div>
+        <div class="group-label">14</div>
+        <div class="group-label">15</div>
+        <div class="group-label">16</div>
+        <div class="group-label">17</div>
+        <div class="group-label">18</div>
+      </div>
+
+      <div class="table-with-periods">
+        <!-- Periods Labels -->
+        <div class="periods-column">
+          <div class="period-label">1</div>
+          <div class="period-label">2</div>
+          <div class="period-label">3</div>
+          <div class="period-label">4</div>
+          <div class="period-label">5</div>
+          <div class="period-label">6</div>
+          <div class="period-label">7</div>
+        </div>
+
+        <!-- Main Table -->
+        <div class="periodic" id="table"></div>
+      </div>
+
+      <div class="bottom-series-container">
+        <div class="bottom-series" id="lanthanides"></div>
+        <div class="bottom-series" id="actinides"></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Controles de Zoom - Estilo claro -->
+<div class="zoom-controls">
+  <button class="zoom-btn" id="zoomOut">−</button>
+  <div class="zoom-display" id="zoomLevel">100%</div>
+  <button class="zoom-btn" id="zoomIn">+</button>
+  <button class="zoom-btn" id="zoomReset">↺</button>
+</div>
+
+<script>
+// Elements dataset con electronegatividad, radio atómico y ionizazio energia añadidos
+const elements = [
+ {z:1,sym:'H',name:'Hidrogeno',mass:1.008,val:[-1,1],config:'1s¹',group:'nonmetal',x:1,y:1,radius:53,electroneg:2.20,ionization:1312},
+ {z:2,sym:'He',name:'Helio',mass:4.0026,val:[0],config:'1s²',group:'noble',x:18,y:1,radius:31,electroneg:0,ionization:2372},
+ {z:3,sym:'Li',name:'Litio',mass:6.94,val:[1],config:'[He] 2s¹',group:'alkali',x:1,y:2,radius:167,electroneg:0.98,ionization:520},
+ {z:4,sym:'Be',name:'Berilio',mass:9.0122,val:[2],config:'[He] 2s²',group:'alkaline',x:2,y:2,radius:112,electroneg:1.57,ionization:899},
+ {z:5,sym:'B',name:'Boro',mass:10.81,val:[3],config:'[He] 2s² 2p¹',group:'metalloid',x:13,y:2,radius:87,electroneg:2.04,ionization:801},
+ {z:6,sym:'C',name:'Karbono',mass:12.011,val:[-4,2,4],config:'[He] 2s² 2p²',group:'nonmetal',x:14,y:2,radius:67,electroneg:2.55,ionization:1086},
+ {z:7,sym:'N',name:'Nitrogeno',mass:14.007,val:[-3,1,3,5],config:'[He] 2s² 2p³',group:'nonmetal',x:15,y:2,radius:56,electroneg:3.04,ionization:1402},
+ {z:8,sym:'O',name:'Oxigeno',mass:15.999,val:[-2,-1],config:'[He] 2s² 2p⁴',group:'nonmetal',x:16,y:2,radius:48,electroneg:3.44,ionization:1314},
+ {z:9,sym:'F',name:'Fluor',mass:18.998,val:[-1],config:'[He] 2s² 2p⁵',group:'halogen',x:17,y:2,radius:42,electroneg:3.98,ionization:1681},
+ {z:10,sym:'Ne',name:'Neon',mass:20.180,val:[0],config:'[He] 2s² 2p⁶',group:'noble',x:18,y:2,radius:38,electroneg:0,ionization:2081},
+
+ {z:11,sym:'Na',name:'Sodio',mass:22.990,val:[1],config:'[Ne] 3s¹',group:'alkali',x:1,y:3,radius:190,electroneg:0.93,ionization:496},
+ {z:12,sym:'Mg',name:'Magnesio',mass:24.305,val:[2],config:'[Ne] 3s²',group:'alkaline',x:2,y:3,radius:145,electroneg:1.31,ionization:738},
+ {z:13,sym:'Al',name:'Aluminio',mass:26.982,val:[3],config:'[Ne] 3s² 3p¹',group:'post-transition',x:13,y:3,radius:118,electroneg:1.61,ionization:577},
+ {z:14,sym:'Si',name:'Silizio',mass:28.085,val:[-4,4],config:'[Ne] 3s² 3p²',group:'metalloid',x:14,y:3,radius:111,electroneg:1.90,ionization:786},
+ {z:15,sym:'P',name:'Fosforo',mass:30.974,val:[-3,3,5],config:'[Ne] 3s² 3p³',group:'nonmetal',x:15,y:3,radius:98,electroneg:2.19,ionization:1012},
+ {z:16,sym:'S',name:'Sufre',mass:32.06,val:[-2,2,4,6],config:'[Ne] 3s² 3p⁴',group:'nonmetal',x:16,y:3,radius:88,electroneg:2.58,ionization:1000},
+ {z:17,sym:'Cl',name:'Kloro',mass:35.45,val:[-1,1,3,5,7],config:'[Ne] 3s² 3p⁵',group:'halogen',x:17,y:3,radius:79,electroneg:3.16,ionization:1251},
+ {z:18,sym:'Ar',name:'Argon',mass:39.948,val:[0],config:'[Ne] 3s² 3p⁶',group:'noble',x:18,y:3,radius:71,electroneg:0,ionization:1521},
+
+ {z:19,sym:'K',name:'Potasio',mass:39.098,val:[1],config:'[Ar] 4s¹',group:'alkali',x:1,y:4,radius:243,electroneg:0.82,ionization:419},
+ {z:20,sym:'Ca',name:'Kaltzio',mass:40.078,val:[2],config:'[Ar] 4s²',group:'alkaline',x:2,y:4,radius:194,electroneg:1.00,ionization:590},
+ {z:21,sym:'Sc',name:'Eskandio',mass:44.956,val:[3],config:'[Ar] 4s² 3d¹',group:'transition',x:3,y:4,radius:184,electroneg:1.36,ionization:631},
+ {z:22,sym:'Ti',name:'Titanio',mass:47.867,val:[2,3,4],config:'[Ar] 4s² 3d²',group:'transition',x:4,y:4,radius:176,electroneg:1.54,ionization:658},
+ {z:23,sym:'V',name:'Banadio',mass:50.942,val:[2,3,4,5],config:'[Ar] 4s² 3d³',group:'transition',x:5,y:4,radius:171,electroneg:1.63,ionization:650},
+ {z:24,sym:'Cr',name:'Kromo',mass:51.996,val:[2,3,6],config:'[Ar] 4s² 3d⁴',group:'transition',x:6,y:4,radius:166,electroneg:1.66,ionization:653},
+ {z:25,sym:'Mn',name:'Manganeso',mass:54.938,val:[2,3,4,6,7],config:'[Ar] 4s² 3d⁵',group:'transition',x:7,y:4,radius:161,electroneg:1.55,ionization:717},
+ {z:26,sym:'Fe',name:'Burdin',mass:55.845,val:[2,3],config:'[Ar] 4s² 3d⁶',group:'transition',x:8,y:4,radius:156,electroneg:1.83,ionization:762},
+ {z:27,sym:'Co',name:'Kobalto',mass:58.933,val:[2,3],config:'[Ar] 4s² 3d⁷',group:'transition',x:9,y:4,radius:152,electroneg:1.88,ionization:760},
+ {z:28,sym:'Ni',name:'Nikel',mass:58.693,val:[2,3],config:'[Ar] 4s² 3d⁸',group:'transition',x:10,y:4,radius:149,electroneg:1.91,ionization:737},
+ {z:29,sym:'Cu',name:'Kobre',mass:63.546,val:[1,2],config:'[Ar] 4s² 3d⁹',group:'transition',x:11,y:4,radius:145,electroneg:1.90,ionization:745},
+ {z:30,sym:'Zn',name:'Zink',mass:65.38,val:[2],config:'[Ar] 4s² 3d¹⁰',group:'transition',x:12,y:4,radius:142,electroneg:1.65,ionization:906},
+ {z:31,sym:'Ga',name:'Galio',mass:69.723,val:[3],config:'[Ar] 4s² 3d¹⁰ 4p¹',group:'post-transition',x:13,y:4,radius:136,electroneg:1.81,ionization:579},
+ {z:32,sym:'Ge',name:'Germanio',mass:72.630,val:[4],config:'[Ar] 4s² 3d¹⁰ 4p²',group:'metalloid',x:14,y:4,radius:125,electroneg:2.01,ionization:762},
+ {z:33,sym:'As',name:'Artseniko',mass:74.922,val:[-3,3,5],config:'[Ar] 4s² 3d¹⁰ 4p³',group:'metalloid',x:15,y:4,radius:114,electroneg:2.18,ionization:947},
+ {z:34,sym:'Se',name:'Selenio',mass:78.971,val:[-2,2,4,6],config:'[Ar] 4s² 3d¹⁰ 4p⁴',group:'nonmetal',x:16,y:4,radius:103,electroneg:2.55,ionization:941},
+ {z:35,sym:'Br',name:'Bromo',mass:79.904,val:[-1,1,3,5,7],config:'[Ar] 4s² 3d¹⁰ 4p⁵',group:'halogen',x:17,y:4,radius:94,electroneg:2.96,ionization:1140},
+ {z:36,sym:'Kr',name:'Kripton',mass:83.798,val:[0,2],config:'[Ar] 4s² 3d¹⁰ 4p⁶',group:'noble',x:18,y:4,radius:88,electroneg:3.00,ionization:1351},
+
+ {z:37,sym:'Rb',name:'Rubidio',mass:85.468,val:[1],config:'[Kr] 5s¹',group:'alkali',x:1,y:5,radius:265,electroneg:0.82,ionization:403},
+ {z:38,sym:'Sr',name:'Estrontzio',mass:87.62,val:[2],config:'[Kr] 5s²',group:'alkaline',x:2,y:5,radius:219,electroneg:0.95,ionization:549},
+ {z:39,sym:'Y',name:'Itrio',mass:88.906,val:[3],config:'[Kr] 5s² 4d¹',group:'transition',x:3,y:5,radius:212,electroneg:1.22,ionization:600},
+ {z:40,sym:'Zr',name:'Zirkonio',mass:91.224,val:[4],config:'[Kr] 5s² 4d²',group:'transition',x:4,y:5,radius:206,electroneg:1.33,ionization:640},
+ {z:41,sym:'Nb',name:'Niobio',mass:92.906,val:[3,5],config:'[Kr] 5s² 4d³',group:'transition',x:5,y:5,radius:198,electroneg:1.6,ionization:652},
+ {z:42,sym:'Mo',name:'Molibdeno',mass:95.95,val:[2,3,4,5,6],config:'[Kr] 5s² 4d⁴',group:'transition',x:6,y:5,radius:190,electroneg:2.16,ionization:684},
+ {z:43,sym:'Tc',name:'Teknezio',mass:98,val:[4,7],config:'[Kr] 5s² 4d⁵',group:'transition',x:7,y:5,radius:183,electroneg:1.9,ionization:702},
+ {z:44,sym:'Ru',name:'Rutenio',mass:101.07,val:[3,4,6,8],config:'[Kr] 5s² 4d⁶',group:'transition',x:8,y:5,radius:178,electroneg:2.2,ionization:710},
+ {z:45,sym:'Rh',name:'Rodio',mass:102.91,val:[3,4],config:'[Kr] 5s² 4d⁷',group:'transition',x:9,y:5,radius:173,electroneg:2.28,ionization:720},
+ {z:46,sym:'Pd',name:'Paladio',mass:106.42,val:[2,4],config:'[Kr] 5s² 4d⁸',group:'transition',x:10,y:5,radius:169,electroneg:2.20,ionization:804},
+ {z:47,sym:'Ag',name:'Zilar',mass:107.87,val:[1],config:'[Kr] 5s² 4d⁹',group:'transition',x:11,y:5,radius:165,electroneg:1.93,ionization:731},
+ {z:48,sym:'Cd',name:'Kadmio',mass:112.41,val:[2],config:'[Kr] 5s² 4d¹⁰',group:'transition',x:12,y:5,radius:161,electroneg:1.69,ionization:867},
+ {z:49,sym:'In',name:'Indio',mass:114.82,val:[3],config:'[Kr] 5s² 4d¹⁰ 5p¹',group:'post-transition',x:13,y:5,radius:156,electroneg:1.78,ionization:558},
+ {z:50,sym:'Sn',name:'Eztainu',mass:118.71,val:[2,4],config:'[Kr] 5s² 4d¹⁰ 5p²',group:'post-transition',x:14,y:5,radius:145,electroneg:1.96,ionization:709},
+ {z:51,sym:'Sb',name:'Antimonio',mass:121.76,val:[-3,3,5],config:'[Kr] 5s² 4d¹⁰ 5p³',group:'metalloid',x:15,y:5,radius:133,electroneg:2.05,ionization:834},
+ {z:52,sym:'Te',name:'Telurio',mass:127.60,val:[-2,2,4,6],config:'[Kr] 5s² 4d¹⁰ 5p⁴',group:'metalloid',x:16,y:5,radius:123,electroneg:2.1,ionization:869},
+ {z:53,sym:'I',name:'Iodo',mass:126.90,val:[-1,1,3,5,7],config:'[Kr] 5s² 4d¹⁰ 5p⁵',group:'halogen',x:17,y:5,radius:115,electroneg:2.66,ionization:1008},
+ {z:54,sym:'Xe',name:'Xenon',mass:131.29,val:[0,2,4,6,8],config:'[Kr] 5s² 4d¹⁰ 5p⁶',group:'noble',x:18,y:5,radius:108,electroneg:2.6,ionization:1170},
+
+ {z:55,sym:'Cs',name:'Zesio',mass:132.91,val:[1],config:'[Xe] 6s¹',group:'alkali',x:1,y:6,radius:298,electroneg:0.79,ionization:376},
+ {z:56,sym:'Ba',name:'Bario',mass:137.33,val:[2],config:'[Xe] 6s²',group:'alkaline',x:2,y:6,radius:253,electroneg:0.89,ionization:503},
+ // Placeholder for lanthanides 57-71
+ {z:72,sym:'Hf',name:'Hafnio',mass:178.49,val:[4],config:'[Xe] 6s² 4f¹⁴ 5d²',group:'transition',x:4,y:6,radius:208,electroneg:1.3,ionization:658},
+ {z:73,sym:'Ta',name:'Tantalo',mass:180.95,val:[5],config:'[Xe] 6s² 4f¹⁴ 5d³',group:'transition',x:5,y:6,radius:200,electroneg:1.5,ionization:761},
+ {z:74,sym:'W',name:'Wolfram',mass:183.84,val:[4,6],config:'[Xe] 6s² 4f¹⁴ 5d⁴',group:'transition',x:6,y:6,radius:193,electroneg:2.36,ionization:770},
+ {z:75,sym:'Re',name:'Renio',mass:186.21,val:[-1,2,4,6,7],config:'[Xe] 6s² 4f¹⁴ 5d⁵',group:'transition',x:7,y:6,radius:188,electroneg:1.9,ionization:760},
+ {z:76,sym:'Os',name:'Osmio',mass:190.23,val:[2,3,4,6,8],config:'[Xe] 6s² 4f¹⁴ 5d⁶',group:'transition',x:8,y:6,radius:185,electroneg:2.2,ionization:840},
+ {z:77,sym:'Ir',name:'Iridio',mass:192.22,val:[3,4,6],config:'[Xe] 6s² 4f¹⁴ 5d⁷',group:'transition',x:9,y:6,radius:180,electroneg:2.20,ionization:880},
+ {z:78,sym:'Pt',name:'Platino',mass:195.08,val:[2,4],config:'[Xe] 6s² 4f¹⁴ 5d⁸',group:'transition',x:10,y:6,radius:177,electroneg:2.28,ionization:870},
+ {z:79,sym:'Au',name:'Urre',mass:196.97,val:[1,3],config:'[Xe] 6s² 4f¹⁴ 5d⁹',group:'transition',x:11,y:6,radius:174,electroneg:2.54,ionization:890},
+ {z:80,sym:'Hg',name:'Merkurio',mass:200.59,val:[1,2],config:'[Xe] 6s² 4f¹⁴ 5d¹⁰',group:'transition',x:12,y:6,radius:171,electroneg:2.00,ionization:1007},
+ {z:81,sym:'Tl',name:'Talio',mass:204.38,val:[1,3],config:'[Xe] 6s² 4f¹⁴ 5d¹⁰ 6p¹',group:'post-transition',x:13,y:6,radius:156,electroneg:1.62,ionization:589},
+ {z:82,sym:'Pb',name:'Berun',mass:207.2,val:[2,4],config:'[Xe] 6s² 4f¹⁴ 5d¹⁰ 6p²',group:'post-transition',x:14,y:6,radius:154,electroneg:1.87,ionization:716},
+ {z:83,sym:'Bi',name:'Bismuto',mass:208.98,val:[3,5],config:'[Xe] 6s² 4f¹⁴ 5d¹⁰ 6p³',group:'post-transition',x:15,y:6,radius:143,electroneg:2.02,ionization:703},
+ {z:84,sym:'Po',name:'Polonio',mass:209,val:[-2,2,4,6],config:'[Xe] 6s² 4f¹⁴ 5d¹⁰ 6p⁴',group:'metalloid',x:16,y:6,radius:135,electroneg:2.0,ionization:812},
+ {z:85,sym:'At',name:'Astato',mass:210,val:[-1,1,3,5,7],config:'[Xe] 6s² 4f¹⁴ 5d¹⁰ 6p⁵',group:'halogen',x:17,y:6,radius:127,electroneg:2.2,ionization:930},
+ {z:86,sym:'Rn',name:'Radon',mass:222,val:[0,2],config:'[Xe] 6s² 4f¹⁴ 5d¹⁰ 6p⁶',group:'noble',x:18,y:6,radius:120,electroneg:0,ionization:1037},
+
+ {z:87,sym:'Fr',name:'Frantzio',mass:223,val:[1],config:'[Rn] 7s¹',group:'alkali',x:1,y:7,radius:0,electroneg:0.7,ionization:380},
+ {z:88,sym:'Ra',name:'Radio',mass:226,val:[2],config:'[Rn] 7s²',group:'alkaline',x:2,y:7,radius:0,electroneg:0.9,ionization:509},
+ // Placeholder for actinides 89-103
+ {z:104,sym:'Rf',name:'Rutherfordio',mass:267,val:[4],config:'[Rn] 7s² 5f¹⁴ 6d²',group:'transition',x:4,y:7,radius:0,electroneg:0,ionization:580},
+ {z:105,sym:'Db',name:'Dubnio',mass:268,val:[5],config:'[Rn] 7s² 5f¹⁴ 6d³',group:'transition',x:5,y:7,radius:0,electroneg:0,ionization:0},
+ {z:106,sym:'Sg',name:'Seaborgio',mass:271,val:[6],config:'[Rn] 7s² 5f¹⁴ 6d⁴',group:'transition',x:6,y:7,radius:0,electroneg:0,ionization:0},
+ {z:107,sym:'Bh',name:'Bohrio',mass:270,val:[7],config:'[Rn] 7s² 5f¹⁴ 6d⁵',group:'transition',x:7,y:7,radius:0,electroneg:0,ionization:0},
+ {z:108,sym:'Hs',name:'Hassio',mass:269,val:[6,8],config:'[Rn] 7s² 5f¹⁴ 6d⁶',group:'transition',x:8,y:7,radius:0,electroneg:0,ionization:0},
+ {z:109,sym:'Mt',name:'Meitnerio',mass:278,val:[],config:'—',group:'transition',x:9,y:7,radius:0,electroneg:0,ionization:0},
+ {z:110,sym:'Ds',name:'Darmstadtio',mass:281,val:[],config:'—',group:'transition',x:10,y:7,radius:0,electroneg:0,ionization:0},
+ {z:111,sym:'Rg',name:'Roentgenio',mass:282,val:[],config:'—',group:'transition',x:11,y:7,radius:0,electroneg:0,ionization:0},
+ {z:112,sym:'Cn',name:'Kopernizio',mass:285,val:[],config:'[Rn] 7s² 5f¹⁴ 6d¹⁰',group:'transition',x:12,y:7,radius:0,electroneg:0,ionization:0},
+ {z:113,sym:'Nh',name:'Nihonio',mass:286,val:[],config:'[Rn] 7s² 5f¹⁴ 5d¹⁰ 7p¹',group:'post-transition',x:13,y:7,radius:0,electroneg:0,ionization:0},
+ {z:114,sym:'Fl',name:'Flerovio',mass:289,val:[],config:'—',group:'post-transition',x:14,y:7,radius:0,electroneg:0,ionization:0},
+ {z:115,sym:'Mc',name:'Moskovio',mass:289,val:[],config:'—',group:'post-transition',x:15,y:7,radius:0,electroneg:0,ionization:0},
+ {z:116,sym:'Lv',name:'Livermorio',mass:293,val:[],config:'—',group:'post-transition',x:16,y:7,radius:0,electroneg:0,ionization:0},
+ {z:117,sym:'Ts',name:'Teneso',mass:294,val:[],config:'—',group:'halogen',x:17,y:7,radius:0,electroneg:0,ionization:0},
+ {z:118,sym:'Og',name:'Oganeson',mass:294,val:[0],config:'—',group:'noble',x:18,y:7,radius:0,electroneg:0,ionization:0}
+];
+
+// Lanthanides and Actinides for bottom rows
+const lanthanides = [
+ {z:57,sym:'La',name:'Lantano',mass:138.91,val:[3],config:'[Xe] 6s² 4f¹',group:'lanthanide',x:3,radius:187,electroneg:1.1,ionization:538},
+ {z:58,sym:'Ce',name:'Zerio',mass:140.12,val:[3,4],config:'[Xe] 6s² 4f²',group:'lanthanide',x:4,radius:181,electroneg:1.12,ionization:534},
+ {z:59,sym:'Pr',name:'Praseodimio',mass:140.91,val:[3,4],config:'[Xe] 6s² 4f³',group:'lanthanide',x:5,radius:182,electroneg:1.13,ionization:527},
+ {z:60,sym:'Nd',name:'Neodimio',mass:144.24,val:[3],config:'[Xe] 6s² 4f⁴',group:'lanthanide',x:6,radius:181,electroneg:1.14,ionization:533},
+ {z:61,sym:'Pm',name:'Prometio',mass:145,val:[3],config:'[Xe] 6s² 4f⁵',group:'lanthanide',x:7,radius:183,electroneg:1.13,ionization:540},
+ {z:62,sym:'Sm',name:'Samario',mass:150.36,val:[2,3],config:'[Xe] 6s² 4f⁶',group:'lanthanide',x:8,radius:180,electroneg:1.17,ionization:544},
+ {z:63,sym:'Eu',name:'Europio',mass:151.96,val:[2,3],config:'[Xe] 6s² 4f⁷',group:'lanthanide',x:9,radius:199,electroneg:1.2,ionization:547},
+ {z:64,sym:'Gd',name:'Gadolinio',mass:157.25,val:[3],config:'[Xe] 6s² 4f⁸',group:'lanthanide',x:10,radius:179,electroneg:1.2,ionization:593},
+ {z:65,sym:'Tb',name:'Terbio',mass:158.93,val:[3,4],config:'[Xe] 6s² 4f⁹',group:'lanthanide',x:11,radius:176,electroneg:1.2,ionization:565},
+ {z:66,sym:'Dy',name:'Disprosio',mass:162.50,val:[3],config:'[Xe] 6s² 4f¹⁰',group:'lanthanide',x:12,radius:175,electroneg:1.22,ionization:572},
+ {z:67,sym:'Ho',name:'Holmio',mass:164.93,val:[3],config:'[Xe] 6s² 4f¹¹',group:'lanthanide',x:13,radius:174,electroneg:1.23,ionization:581},
+ {z:68,sym:'Er',name:'Erbio',mass:167.26,val:[3],config:'[Xe] 6s² 4f¹²',group:'lanthanide',x:14,radius:173,electroneg:1.24,ionization:589},
+ {z:69,sym:'Tm',name:'Tulio',mass:168.93,val:[2,3],config:'[Xe] 6s² 4f¹³',group:'lanthanide',x:15,radius:172,electroneg:1.25,ionization:596},
+ {z:70,sym:'Yb',name:'Iterbio',mass:173.05,val:[2,3],config:'[Xe] 6s² 4f¹⁴',group:'lanthanide',x:16,radius:194,electroneg:1.1,ionization:603},
+ {z:71,sym:'Lu',name:'Lutezio',mass:174.97,val:[3],config:'[Xe] 6s² 4f¹ 5d¹',group:'lanthanide',x:17,radius:172,electroneg:1.27,ionization:524}
+];
+
+const actinides = [
+ {z:89,sym:'Ac',name:'Aktinio',mass:227,val:[3],config:'[Rn] 7s² 5f¹',group:'actinide',x:3,radius:188,electroneg:1.1,ionization:499},
+ {z:90,sym:'Th',name:'Torio',mass:232.04,val:[4],config:'[Rn] 7s² 5f²',group:'actinide',x:4,radius:179,electroneg:1.3,ionization:587},
+ {z:91,sym:'Pa',name:'Protaktinio',mass:231.04,val:[4,5],config:'[Rn] 7s² 5f³',group:'actinide',x:5,radius:163,electroneg:1.5,ionization:568},
+ {z:92,sym:'U',name:'Uranio',mass:238.03,val:[3,4,5,6],config:'[Rn] 7s² 5f⁴',group:'actinide',x:6,radius:156,electroneg:1.38,ionization:597},
+ {z:93,sym:'Np',name:'Neptunio',mass:237,val:[3,4,5,6,7],config:'[Rn] 7s² 5f⁵',group:'actinide',x:7,radius:155,electroneg:1.36,ionization:604},
+ {z:94,sym:'Pu',name:'Plutonio',mass:244,val:[3,4,5,6,7],config:'[Rn] 7s² 5f⁶',group:'actinide',x:8,radius:159,electroneg:1.28,ionization:584},
+ {z:95,sym:'Am',name:'Amerizio',mass:243,val:[3,4,5,6],config:'[Rn] 7s² 5f⁷',group:'actinide',x:9,radius:173,electroneg:1.13,ionization:578},
+ {z:96,sym:'Cm',name:'Kurio',mass:247,val:[3,4],config:'[Rn] 7s² 5f⁸',group:'actinide',x:10,radius:174,electroneg:1.28,ionization:581},
+ {z:97,sym:'Bk',name:'Berkelio',mass:247,val:[3,4],config:'[Rn] 7s² 5f⁹',group:'actinide',x:11,radius:170,electroneg:1.3,ionization:601},
+ {z:98,sym:'Cf',name:'Kalifornio',mass:251,val:[3],config:'[Rn] 7s² 5f¹⁰',group:'actinide',x:12,radius:186,electroneg:1.3,ionization:608},
+ {z:99,sym:'Es',name:'Einsteinio',mass:252,val:[3],config:'[Rn] 7s² 5f¹¹',group:'actinide',x:13,radius:186,electroneg:1.3,ionization:619},
+ {z:100,sym:'Fm',name:'Fermio',mass:257,val:[3],config:'[Rn] 7s² 5f¹²',group:'actinide',x:14,radius:0,electroneg:1.3,ionization:627},
+ {z:101,sym:'Md',name:'Mendelevio',mass:258,val:[2,3],config:'[Rn] 7s² 5f¹³',group:'actinide',x:15,radius:0,electroneg:1.3,ionization:635},
+ {z:102,sym:'No',name:'Nobelio',mass:259,val:[2,3],config:'[Rn] 7s² 5f¹⁴',group:'actinide',x:16,radius:0,electroneg:1.3,ionization:642},
+ {z:103,sym:'Lr',name:'Lawrentzio',mass:266,val:[3],config:'[Rn] 7s² 5f¹⁴ 6d¹',group:'actinide',x:17,radius:0,electroneg:0,ionization:470}
+];
+
+// [MANTÉN TODAS LAS DEFINICIONES DE ELEMENTS, LANTHANIDES, ACTINIDES...]
+
+const table = document.getElementById('table');
+const lanthanidesContainer = document.getElementById('lanthanides');
+const actinidesContainer = document.getElementById('actinides');
+const searchInput = document.getElementById('searchInput');
+const elecToggleBtn = document.getElementById('elecToggleBtn');
+const elecLegend = document.getElementById('elecLegend');
+const electronegToggleBtn = document.getElementById('electronegToggleBtn');
+const electronegLegend = document.getElementById('electronegLegend');
+const radiusToggleBtn = document.getElementById('radiusToggleBtn');
+const radiusLegend = document.getElementById('radiusLegend');
+const ionizationToggleBtn = document.getElementById('ionizationToggleBtn');
+const ionizationLegend = document.getElementById('ionizationLegend');
+const propertiesToggle = document.getElementById('propertiesToggle');
+const trendArrows = document.getElementById('trendArrows');
+const radiusTitle = document.querySelector('.radius-legend-title');
+const electronegTitle = document.querySelector('.electroneg-legend-title');
+const ionizationTitle = document.querySelector('.ionization-legend-title');
+
+// Referencias para los botones
+const btn3D = document.getElementById('btn3D');
+const btnBalents = document.getElementById('btnBalents');
+const btnCompounds = document.getElementById('btnCompounds');
+const btnCalc = document.getElementById('btnCalc');
+const resourcesToggle = document.getElementById('resourcesToggle');
+
+// Store all cell elements for highlighting
+let allCells = [];
+let groupLabels = [];
+let periodLabels = [];
+let isElecConfigMode = false;
+let isElectronegMode = false;
+let isRadiusMode = false;
+let isIonizationMode = false;
+
+// Función para mostrar/ocultar las flechas de tendencia
+function toggleTrendArrows(show, type) {
+  const allArrows = trendArrows.querySelectorAll('.trend-arrow');
+  
+  allArrows.forEach(arrow => {
+    arrow.style.display = 'none';
+  });
+  
+  if (show) {
+    const arrowsToShow = trendArrows.querySelectorAll(`.trend-arrow.${type}`);
+    arrowsToShow.forEach(arrow => {
+      arrow.style.display = 'block';
+    });
+    trendArrows.classList.add('active');
+  } else {
+    trendArrows.classList.remove('active');
+  }
+}
+
+// Event listeners para las flechas de tendencia
+radiusTitle.addEventListener('mouseenter', () => {
+  toggleTrendArrows(true, 'radius');
+});
+
+radiusTitle.addEventListener('mouseleave', () => {
+  toggleTrendArrows(false);
+});
+
+electronegTitle.addEventListener('mouseenter', () => {
+  toggleTrendArrows(true, 'electroneg');
+});
+
+electronegTitle.addEventListener('mouseleave', () => {
+  toggleTrendArrows(false);
+});
+
+ionizationTitle.addEventListener('mouseenter', () => {
+  toggleTrendArrows(true, 'ionization');
+});
+
+ionizationTitle.addEventListener('mouseleave', () => {
+  toggleTrendArrows(false);
+});
+
+// Función para mostrar/ocultar la pestaña de propiedades
+propertiesToggle.addEventListener('click', function(e) {
+  if (e.target.closest('.properties-header') || e.target === this) {
+    this.classList.toggle('active');
+  }
+});
+
+resourcesToggle.addEventListener('click', function(e) {
+  if (e.target.closest('.resources-header') || e.target === this) {
+    this.classList.toggle('active');
+  }
+});
+
+// TOGGLE FUNCTIONALITY - ORBITALES ATÓMICOS
+elecToggleBtn.addEventListener('click', function() {
+  isElecConfigMode = !isElecConfigMode;
+  
+  if (isElecConfigMode) {
+    this.classList.add('active');
+    elecLegend.classList.add('active');
+    applyElectronBlockColors();
+  } else {
+    this.classList.remove('active');
+    elecLegend.classList.remove('active');
+    removeElectronBlockColors();
+  }
+});
+
+function applyElectronBlockColors() {
+  allCells.forEach(cell => {
+    const z = parseInt(cell.dataset.z);
+    
+    // Bloque s: Grupos 1 y 2 + Helio
+    if (z === 1 || z === 3 || z === 4 ||  // H, Li, Be
+        z === 11 || z === 12 ||           // Na, Mg
+        z === 19 || z === 20 ||           // K, Ca
+        z === 37 || z === 38 ||           // Rb, Sr
+        z === 55 || z === 56 ||           // Cs, Ba
+        z === 87 || z === 88 ||           // Fr, Ra
+        z === 2) {                        // He (aunque está en grupo 18, es bloque s)
+      cell.classList.add('s-block');
+    }
+    // Bloque p: Grupos 13-18 (excepto Helio)
+    else if ((z >= 5 && z <= 10) ||       // B, C, N, O, F, Ne
+             (z >= 13 && z <= 18) ||      // Al, Si, P, S, Cl, Ar
+             (z >= 31 && z <= 36) ||      // Ga, Ge, As, Se, Br, Kr
+             (z >= 49 && z <= 54) ||      // In, Sn, Sb, Te, I, Xe
+             (z >= 81 && z <= 86) ||      // Tl, Pb, Bi, Po, At, Rn
+             (z >= 113 && z <= 118)) {    // Nh, Fl, Mc, Lv, Ts, Og
+      cell.classList.add('p-block');
+    }
+    // Bloque d: Grupos 3-12 + Lutecio (71) + Lawrencio (103)
+    else if ((z >= 21 && z <= 30) ||      // Sc, Ti, V, Cr, Mn, Fe, Co, Ni, Cu, Zn
+             (z >= 39 && z <= 48) ||      // Y, Zr, Nb, Mo, Tc, Ru, Rh, Pd, Ag, Cd
+             (z >= 72 && z <= 80) ||      // Hf, Ta, W, Re, Os, Ir, Pt, Au, Hg
+             (z >= 104 && z <= 112) ||    // Rf, Db, Sg, Bh, Hs, Mt, Ds, Rg, Cn
+             z === 71 || z === 103) {     // Lu, Lr
+      cell.classList.add('d-block');
+    }
+    // Bloque f: Lantánidos (57-70) + Actínidos (89-102)
+    else if ((z >= 57 && z <= 70) ||      // La, Ce, Pr, Nd, Pm, Sm, Eu, Gd, Tb, Dy, Ho, Er, Tm, Yb
+             (z >= 89 && z <= 102)) {     // Ac, Th, Pa, U, Np, Pu, Am, Cm, Bk, Cf, Es, Fm, Md, No
+      cell.classList.add('f-block');
+    }
+  });
+}
+
+function removeElectronBlockColors() {
+  allCells.forEach(cell => {
+    cell.classList.remove('s-block', 'p-block', 'd-block', 'f-block');
+  });
+}
+
+// TOGGLE FUNCTIONALITY - ELETRONEGATIVIDAD
+electronegToggleBtn.addEventListener('click', function() {
+  isElectronegMode = !isElectronegMode;
+  
+  if (isElectronegMode) {
+    this.classList.add('active');
+    electronegLegend.classList.add('active');
+    applyElectronegativityColors();
+  } else {
+    this.classList.remove('active');
+    electronegLegend.classList.remove('active');
+    removePropertyColors('electroneg');
+  }
+});
+
+function applyElectronegativityColors() {
+  // Encontrar valores mínimo y máximo de electronegatividad
+  let minElectroneg = Infinity;
+  let maxElectroneg = -Infinity;
+  
+  const allElements = [...elements, ...lanthanides, ...actinides];
+  allElements.forEach(el => {
+    if (el.electroneg && el.electroneg > 0) {
+      minElectroneg = Math.min(minElectroneg, el.electroneg);
+      maxElectroneg = Math.max(maxElectroneg, el.electroneg);
+    }
+  });
+  
+  // Aplicar colores basados en la electronegatividad
+  allCells.forEach(cell => {
+    const z = parseInt(cell.dataset.z);
+    let element = allElements.find(el => el.z === z);
+    
+    if (element && element.electroneg && element.electroneg > 0) {
+      const normalized = (element.electroneg - minElectroneg) / (maxElectroneg - minElectroneg);
+      const intensity = Math.floor(normalized * 100);
+      cell.style.background = `hsl(210, 70%, ${85 - intensity * 0.4}%)`;
+      cell.classList.add('electronegativity');
+    } else {
+      cell.classList.add('unknown-electroneg');
+    }
+  });
+}
+
+// TOGGLE FUNCTIONALITY - RADIO ATÓMICO
+radiusToggleBtn.addEventListener('click', function() {
+  isRadiusMode = !isRadiusMode;
+  
+  if (isRadiusMode) {
+    this.classList.add('active');
+    radiusLegend.classList.add('active');
+    applyAtomicRadiusColors();
+  } else {
+    this.classList.remove('active');
+    radiusLegend.classList.remove('active');
+    removePropertyColors('radius');
+  }
+});
+
+function applyAtomicRadiusColors() {
+  // Encontrar valores mínimo y máximo de radio atómico
+  let minRadius = Infinity;
+  let maxRadius = -Infinity;
+  
+  const allElements = [...elements, ...lanthanides, ...actinides];
+  allElements.forEach(el => {
+    if (el.radius && el.radius > 0) {
+      minRadius = Math.min(minRadius, el.radius);
+      maxRadius = Math.max(maxRadius, el.radius);
+    }
+  });
+  
+  // Aplicar colores basados en el radio atómico
+  allCells.forEach(cell => {
+    const z = parseInt(cell.dataset.z);
+    let element = allElements.find(el => el.z === z);
+    
+    if (element && element.radius && element.radius > 0) {
+      const normalized = (element.radius - minRadius) / (maxRadius - minRadius);
+      const intensity = Math.floor(normalized * 100);
+      cell.style.background = `hsl(120, 70%, ${85 - intensity * 0.4}%)`;
+      cell.classList.add('atomic-radius');
+    } else {
+      cell.classList.add('unknown-radius');
+    }
+  });
+}
+
+// TOGGLE FUNCTIONALITY - ENERGÍA DE IONIZACIÓN
+ionizationToggleBtn.addEventListener('click', function() {
+  isIonizationMode = !isIonizationMode;
+  
+  if (isIonizationMode) {
+    this.classList.add('active');
+    ionizationLegend.classList.add('active');
+    applyIonizationEnergyColors();
+  } else {
+    this.classList.remove('active');
+    ionizationLegend.classList.remove('active');
+    removePropertyColors('ionization');
+  }
+});
+
+function applyIonizationEnergyColors() {
+  // Encontrar valores mínimo y máximo de energía de ionización
+  let minIonization = Infinity;
+  let maxIonization = -Infinity;
+  
+  const allElements = [...elements, ...lanthanides, ...actinides];
+  allElements.forEach(el => {
+    if (el.ionization && el.ionization > 0) {
+      minIonization = Math.min(minIonization, el.ionization);
+      maxIonization = Math.max(maxIonization, el.ionization);
+    }
+  });
+  
+  // Aplicar colores basados en la energía de ionización
+  allCells.forEach(cell => {
+    const z = parseInt(cell.dataset.z);
+    let element = allElements.find(el => el.z === z);
+    
+    if (element && element.ionization && element.ionization > 0) {
+      const normalized = (element.ionization - minIonization) / (maxIonization - minIonization);
+      const intensity = Math.floor(normalized * 100);
+      cell.style.background = `hsl(0, 70%, ${85 - intensity * 0.4}%)`;
+      cell.classList.add('ionization-energy');
+    } else {
+      cell.classList.add('unknown-ionization');
+    }
+  });
+}
+
+// Función para remover colores de propiedades
+function removePropertyColors(property) {
+  allCells.forEach(cell => {
+    cell.classList.remove('atomic-radius', 'electronegativity', 'ionization-energy');
+    cell.classList.remove('unknown-radius', 'unknown-electroneg', 'unknown-ionization');
+    cell.style.background = '';
+  });
+}
+
+// [MANTÉN EL RESTO DEL CÓDIGO PARA CREAR LA TABLA, LEGEND, ETC...]
+// create grid placeholders to preserve spacing
+for(let r=1;r<=7;r++){
+  for(let c=1;c<=18;c++){
+    const ph = document.createElement('div');
+    ph.style.gridColumn=c;
+    ph.style.gridRow=r;
+    ph.style.visibility='hidden';
+    table.appendChild(ph);
+  }
+}
+
+// Add placeholder cells for 57-71 and 89-103
+function createPlaceholderCell(text, column, row) {
+  const placeholder = document.createElement('div');
+  placeholder.className = 'placeholder-cell';
+  placeholder.style.gridColumn = column;
+  placeholder.style.gridRow = row;
+  placeholder.textContent = text;
+  table.appendChild(placeholder);
+}
+
+// Create placeholders for lanthanides and actinides in main table
+createPlaceholderCell('57-71', 3, 6);
+createPlaceholderCell('89-103', 3, 7);
+
+// Create table legend with hover functionality
+function createTableLegend() {
+  const legend = document.createElement('div');
+  legend.className = 'table-legend';
+  
+  const legendItems = [
+  {color: '#f8d7da', text: 'Metal Alkalinoak', group: 'alkali'},
+  {color: '#fff3cd', text: 'Metal Lurralkalinoak', group: 'alkaline'},
+  {color: '#cce5ff', text: 'Trantsizio Metalak', group: 'transition'},
+  {color: '#f0e6ff', text: 'Beste metalak', group: 'post-transition'},
+  {color: '#d4edda', text: 'Metaloideak', group: 'metalloid'},
+  {color: '#fff9c4', text: 'Ez-metalak', group: 'nonmetal'},
+  {color: '#ffe4b5', text: 'Halogenoak', group: 'halogen'},
+  {color: '#f8d7f8', text: 'Gas nobleak', group: 'noble'},
+  {color: '#d1ecf1', text: 'Lantanoideak', group: 'lanthanide'},
+  {color: '#e2e3f3', text: 'Aktinoideak', group: 'actinide'}
+];
+
+  legendItems.forEach(item => {
+    const legendItem = document.createElement('div');
+    legendItem.className = 'table-legend-item';
+    legendItem.dataset.group = item.group;
+    legendItem.innerHTML = `
+      <div class="sw" style="background:${item.color}"></div>
+      <span>${item.text}</span>
+    `;
+    
+    // Add hover events
+    legendItem.addEventListener('mouseenter', () => highlightGroup(item.group, legendItem));
+    legendItem.addEventListener('mouseleave', () => removeHighlight(legendItem));
+    
+    legend.appendChild(legendItem);
+  });
+
+  table.appendChild(legend);
+}
+
+// Highlight elements of a specific group
+function highlightGroup(group, legendItem) {
+  // Add active class to legend item
+  legendItem.classList.add('active');
+  
+  // Highlight matching cells and dim others
+  allCells.forEach(cell => {
+    if (cell.classList.contains(group)) {
+      cell.classList.add('highlighted');
+    } else {
+      cell.classList.add('dimmed');
+    }
+  });
+}
+
+// Remove highlighting
+function removeHighlight(legendItem) {
+  // Remove active class from legend item
+  legendItem.classList.remove('active');
+  
+  // Remove highlighting from all cells
+  allCells.forEach(cell => {
+    cell.classList.remove('highlighted');
+    cell.classList.remove('dimmed');
+  });
+}
+
+function groupClass(g){
+  switch(g){
+    case 'alkali': return 'alkali';
+    case 'alkaline': return 'alkaline';
+    case 'lanthanide': return 'lanthanide';
+    case 'actinide': return 'actinide';
+    case 'transition': return 'transition';
+    case 'post-transition': return 'post-transition';
+    case 'metalloid': return 'metalloid';
+    case 'nonmetal': return 'nonmetal';
+    case 'halogen': return 'halogen';
+    case 'noble': return 'noble';
+    default: return 'other';
+  }
+}
+
+// MODIFICADO: Función para destacar grupo y periodo - NO destacar grupo para lantánidos y actínidos
+function highlightGroupAndPeriod(group, period, isLanthanideOrActinide = false) {
+  // Remove previous highlights
+  removeGroupAndPeriodHighlights();
+  
+  // Solo destacar grupo si NO es un lantánido o actínido
+  if (!isLanthanideOrActinide && group >= 1 && group <= 18) {
+    const groupLabel = groupLabels[group - 1];
+    if (groupLabel) {
+      groupLabel.classList.add('highlighted');
+    }
+  }
+  
+  // Destacar periodo siempre (lantánidos son periodo 6, actínidos periodo 7)
+  if (period >= 1 && period <= 7) {
+    const periodLabel = periodLabels[period - 1];
+    if (periodLabel) {
+      periodLabel.classList.add('highlighted');
+    }
+  }
+}
+
+// Function to remove group and period highlights
+function removeGroupAndPeriodHighlights() {
+  groupLabels.forEach(label => label.classList.remove('highlighted'));
+  periodLabels.forEach(label => label.classList.remove('highlighted'));
+}
+
+// place main table elements
+elements.forEach(el=>{
+  const d = document.createElement('div');
+  d.className = 'cell ' + groupClass(el.group);
+  d.style.gridColumn = el.x;
+  d.style.gridRow = el.y;
+  d.dataset.z = el.z;
+  d.dataset.group = el.group;
+  d.dataset.period = el.y;
+  d.innerHTML = `<div style="display:flex;justify-content:space-between"><div class='num'>${el.z}</div></div><div style="text-align:center;margin-top:4px"><div class='sym'>${el.sym}</div><div class='ename'>${el.name}</div></div>`;
+  
+  // Add mouse events for highlighting group and period
+  d.addEventListener('mouseenter', () => {
+    highlightGroupAndPeriod(el.x, el.y, false);
+  });
+  
+  d.addEventListener('mouseleave', () => {
+    removeGroupAndPeriodHighlights();
+  });
+  
+  d.addEventListener('click', ()=> show(el,d));
+  table.appendChild(d);
+  allCells.push(d);
+});
+
+// Create table legend
+createTableLegend();
+
+// place lanthanides (including La)
+lanthanides.forEach((el, index)=>{
+  const d = document.createElement('div');
+  d.className = 'cell ' + groupClass(el.group);
+  d.style.gridColumn = el.x - 2;
+  d.dataset.z = el.z;
+  d.dataset.group = el.group;
+  d.dataset.period = 6;
+  d.innerHTML = `<div style="display:flex;justify-content:space-between"><div class='num'>${el.z}</div></div><div style="text-align:center;margin-top:4px"><div class='sym'>${el.sym}</div><div class='ename'>${el.name}</div></div>`;
+  
+  d.addEventListener('mouseenter', () => {
+    highlightGroupAndPeriod(el.x, 6, true);
+  });
+  
+  d.addEventListener('mouseleave', () => {
+    removeGroupAndPeriodHighlights();
+  });
+  
+  d.addEventListener('click', ()=> show(el,d));
+  lanthanidesContainer.appendChild(d);
+  allCells.push(d);
+});
+
+// place actinides (including Ac)
+actinides.forEach((el, index)=>{
+  const d = document.createElement('div');
+  d.className = 'cell ' + groupClass(el.group);
+  d.style.gridColumn = el.x - 2;
+  d.dataset.z = el.z;
+  d.dataset.group = el.group;
+  d.dataset.period = 7;
+  d.innerHTML = `<div style="display:flex;justify-content:space-between"><div class='num'>${el.z}</div></div><div style="text-align:center;margin-top:4px"><div class='sym'>${el.sym}</div><div class='ename'>${el.name}</div></div>`;
+  
+  d.addEventListener('mouseenter', () => {
+    highlightGroupAndPeriod(el.x, 7, true);
+  });
+  
+  d.addEventListener('mouseleave', () => {
+    removeGroupAndPeriodHighlights();
+  });
+  
+  d.addEventListener('click', ()=> show(el,d));
+  actinidesContainer.appendChild(d);
+  allCells.push(d);
+});
+
+// Initialize group and period labels
+function initLabels() {
+  const groupsContainer = document.querySelector('.groups-container');
+  groupLabels = Array.from(groupsContainer.querySelectorAll('.group-label'));
+  
+  const periodsColumn = document.querySelector('.periods-column');
+  periodLabels = Array.from(periodsColumn.querySelectorAll('.period-label'));
+}
+
+// show info in panel
+function show(el, cell){
+  const icon = document.getElementById('iconSquare');
+  const title = document.getElementById('titleMain');
+  const subtitle = document.getElementById('subtitle');
+  
+  const elementName = el.name;
+  let wikipediaUrl;
+  
+  if (elementName === 'Merkurio') {
+    wikipediaUrl = 'https://eu.wikipedia.org/wiki/Merkurio_(elementua)';
+  } else if (elementName === 'Zerio') {
+    wikipediaUrl = 'https://eu.wikipedia.org/wiki/Zerio_(elementua)';
+  } else {
+    wikipediaUrl = `https://eu.wikipedia.org/wiki/${encodeURIComponent(elementName)}`;
+  }
+  
+  title.innerHTML = `<a href="${wikipediaUrl}" target="_blank" class="element-name-link" id="elementLink">${elementName}</a>`;
+  subtitle.textContent = `Z = ${el.z}`;
+  
+  document.getElementById('iz').textContent = el.z;
+  document.getElementById('imass').textContent = el.mass ? el.mass + ' u' : '—';
+  document.getElementById('ival').textContent = (el.val && el.val.length)? el.val.join(', '): '—';
+  document.getElementById('iconfig').textContent = el.config || '—';
+  
+  const electronegDisplay = document.getElementById('ielectroneg');
+  if (el.electroneg && el.electroneg > 0) {
+    electronegDisplay.textContent = el.electroneg.toFixed(2);
+  } else {
+    electronegDisplay.textContent = 'Ezezaguna';
+  }
+  
+  const radiusDisplay = document.getElementById('iradius');
+  if (el.radius && el.radius > 0) {
+    radiusDisplay.textContent = el.radius + ' pm';
+  } else {
+    radiusDisplay.textContent = 'Ezezaguna';
+  }
+  
+  const ionizationDisplay = document.getElementById('iionization');
+  if (el.ionization && el.ionization > 0) {
+    ionizationDisplay.textContent = el.ionization + ' kJ/mol';
+  } else {
+    ionizationDisplay.textContent = 'Ezezaguna';
+  }
+  
+  const computedStyle = window.getComputedStyle(cell);
+  let bgColor = computedStyle.backgroundColor;
+
+  if (bgColor === 'rgba(0, 0, 0, 0)' || bgColor.includes('255, 255, 255')) {
+    const groupClasses = cell.className.split(' ');
+    for (let className of groupClasses) {
+      if (className.includes('block') || ['alkali', 'alkaline', 'transition', 'post-transition', 'metalloid', 'nonmetal', 'halogen', 'noble', 'lanthanide', 'actinide'].includes(className)) {
+        const tempDiv = document.createElement('div');
+        tempDiv.className = 'cell ' + className;
+        tempDiv.style.position = 'absolute';
+        tempDiv.style.visibility = 'hidden';
+        document.body.appendChild(tempDiv);
+        const tempStyle = window.getComputedStyle(tempDiv);
+        bgColor = tempStyle.backgroundColor;
+        document.body.removeChild(tempDiv);
+        break;
+      }
+    }
+  }
+
+  icon.style.background = bgColor;
+  icon.textContent = el.sym;
+}
+
+// Para abrir en la misma pestaña
+btn3D.addEventListener('click', () => {
+  window.location.href = 'Orbitalak/';
+});
+
+btnBalents.addEventListener('click', () => {
+  window.location.href = 'BalentzienTaula/';
+});
+
+btnCompounds.addEventListener('click', () => {
+  window.location.href = 'KonposatuInorganiko/';
+});
+
+btnCalc.addEventListener('click', () => {
+  window.location.href = 'Kalkulagailu/';
+});
+
+// Search functionality
+searchInput.addEventListener('input', function() {
+  const searchTerm = this.value.toLowerCase().trim();
+  
+  allCells.forEach(cell => {
+    const z = parseInt(cell.dataset.z);
+    let element;
+    
+    if (z >= 57 && z <= 71) {
+      element = lanthanides.find(el => el.z === z);
+    } else if (z >= 89 && z <= 103) {
+      element = actinides.find(el => el.z === z);
+    } else {
+      element = elements.find(el => el.z === z);
+    }
+    
+    if (element) {
+      const matches = element.name.toLowerCase().includes(searchTerm) ||
+                     element.sym.toLowerCase().includes(searchTerm) ||
+                     element.z.toString().includes(searchTerm);
+      
+      cell.classList.remove('search-match', 'search-nomatch');
+      
+      if (searchTerm === '') {
+        cell.style.opacity = '';
+        cell.style.filter = '';
+        cell.style.transform = '';
+        cell.style.border = '';
+      } else if (matches) {
+        cell.classList.add('search-match');
+      } else {
+        cell.classList.add('search-nomatch');
+      }
+    }
+  });
+});
+
+/* ---------- ZOOM + AUTO-FIT JUNTOS ---------- */
+let userZoom = 1;
+
+function applyZoom() {
+  const wrapper = document.querySelector('.table-complete-wrapper');
+  const container = document.querySelector('.container');
+  if (!wrapper || !container) return;
+
+  const naturalW = wrapper.scrollWidth;
+  const naturalH = wrapper.scrollHeight;
+  const availW   = container.clientWidth  - 40;
+  const availH   = container.clientHeight - 120;
+  const scaleW   = availW / naturalW;
+  const scaleH   = availH / naturalH;
+  const base     = Math.min(scaleW, scaleH, 1.4);
+  const minBase  = Math.max(base, 0.75);
+  const finalScale = minBase * userZoom;
+
+  wrapper.style.transform = `scale(${finalScale})`;
+  wrapper.style.transformOrigin = 'top left';
+
+  const zoomDisplay = document.getElementById('zoomLevel');
+  if (zoomDisplay) zoomDisplay.textContent = Math.round(finalScale * 100) + '%';
+}
+
+/* controles */
+document.getElementById('zoomIn').addEventListener('click', () => {
+  if (userZoom < 2) { userZoom += 0.05; applyZoom(); }
+});
+document.getElementById('zoomOut').addEventListener('click', () => {
+  if (userZoom > 0.5) { userZoom -= 0.05; applyZoom(); }
+});
+document.getElementById('zoomReset').addEventListener('click', () => {
+  userZoom = 1; applyZoom();
+});
+
+/* primera carga y redimensionados */
+applyZoom();
+window.addEventListener('resize', applyZoom);
+
+// initialize
+initLabels();
+show(elements[0], document.querySelector('.cell'));
+toggleTrendArrows(false);
+</script> 
+</body>
+</html>
+
+
+
+
+
+
+
+
+
