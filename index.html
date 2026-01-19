@@ -440,11 +440,30 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   transition: all 0.3s ease;
 }
 
+/* Clases para anular colores de grupo cuando se activa modo propiedad */
+.property-mode .alkali,
+.property-mode .alkaline,
+.property-mode .lanthanide,
+.property-mode .actinide,
+.property-mode .transition,
+.property-mode .post-transition,
+.property-mode .metalloid,
+.property-mode .nonmetal,
+.property-mode .halogen,
+.property-mode .noble,
+.property-mode .other,
+.property-mode .s-block,
+.property-mode .p-block,
+.property-mode .d-block,
+.property-mode .f-block {
+  background: inherit !important;
+}
+
 /* Colores pastel para bloques electrónicos - Más intensos */
-.s-block { background: #ffb3ba !important; color: var(--text-dark); } /* Rosa pastel fuerte */
-.p-block { background: #bae1ff !important; color: var(--text-dark); } /* Azul pastel fuerte */
-.d-block { background: #baffc9 !important; color: var(--text-dark); } /* Verde pastel fuerte */
-.f-block { background: #ffdfba !important; color: var(--text-dark); } /* Naranja pastel fuerte */
+.s-block { background: #ffb3ba; color: var(--text-dark); } /* Rosa pastel fuerte */
+.p-block { background: #bae1ff; color: var(--text-dark); } /* Azul pastel fuerte */
+.d-block { background: #baffc9; color: var(--text-dark); } /* Verde pastel fuerte */
+.f-block { background: #ffdfba; color: var(--text-dark); } /* Naranja pastel fuerte */
 
 /* Clases para propiedades - Estilo claro */
 .atomic-radius, .electronegativity, .ionization-energy { 
@@ -798,17 +817,18 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   box-sizing:border-box;
 }
 
-.alkali{background:#ffb3ba !important;color:var(--text-dark)} /* Rosa pastel intenso */
-.alkaline{background:#ffdfba !important;color:var(--text-dark)} /* Naranja pastel intenso */
-.lanthanide{background:#baffc9 !important;color:var(--text-dark)} /* Verde pastel intenso */
-.actinide{background:#bae1ff !important;color:var(--text-dark)} /* Azul pastel intenso */
-.transition{background:#cce7ff !important;color:var(--text-dark)} /* Azul cielo intenso */
-.post-transition{background:#e2d1ff !important;color:var(--text-dark)} /* Lila pastel intenso */
-.metalloid{background:#c2f0c2 !important;color:var(--text-dark)} /* Verde pastel intenso */
-.nonmetal{background:#ffffba !important;color:var(--text-dark)} /* Amarillo pastel intenso */
-.halogen{background:#ffcc99 !important;color:var(--text-dark)} /* Melocotón pastel intenso */
-.noble{background:#ffb3ff !important;color:var(--text-dark)} /* Rosa pálido intenso */
-.other{background:#f0f0f0 !important;color:var(--text-dark)} /* Gris claro */
+/* Colores de grupos - SIN !important para permitir sobrescribir */
+.alkali{background:#ffb3ba;color:var(--text-dark)} /* Rosa pastel intenso */
+.alkaline{background:#ffdfba;color:var(--text-dark)} /* Naranja pastel intenso */
+.lanthanide{background:#baffc9;color:var(--text-dark)} /* Verde pastel intenso */
+.actinide{background:#bae1ff;color:var(--text-dark)} /* Azul pastel intenso */
+.transition{background:#cce7ff;color:var(--text-dark)} /* Azul cielo intenso */
+.post-transition{background:#e2d1ff;color:var(--text-dark)} /* Lila pastel intenso */
+.metalloid{background:#c2f0c2;color:var(--text-dark)} /* Verde pastel intenso */
+.nonmetal{background:#ffffba;color:var(--text-dark)} /* Amarillo pastel intenso */
+.halogen{background:#ffcc99;color:var(--text-dark)} /* Melocotón pastel intenso */
+.noble{background:#ffb3ff;color:var(--text-dark)} /* Rosa pálido intenso */
+.other{background:#f0f0f0;color:var(--text-dark)} /* Gris claro */
 
 /* table legend - Estilo claro */
 .table-legend{
@@ -1367,8 +1387,6 @@ const actinides = [
  {z:103,sym:'Lr',name:'Lawrentzio',mass:266,val:[3],config:'[Rn] 7s² 5f¹⁴ 6d¹',group:'actinide',x:17,radius:0,electroneg:0,ionization:470}
 ];
 
-// [MANTÉN TODAS LAS DEFINICIONES DE ELEMENTS, LANTHANIDES, ACTINIDES...]
-
 const table = document.getElementById('table');
 const lanthanidesContainer = document.getElementById('lanthanides');
 const actinidesContainer = document.getElementById('actinides');
@@ -1476,6 +1494,11 @@ elecToggleBtn.addEventListener('click', function() {
 });
 
 function applyElectronBlockColors() {
+  // Agregar clase property-mode para anular colores de grupo
+  table.classList.add('property-mode');
+  lanthanidesContainer.classList.add('property-mode');
+  actinidesContainer.classList.add('property-mode');
+  
   allCells.forEach(cell => {
     const z = parseInt(cell.dataset.z);
     
@@ -1515,8 +1538,28 @@ function applyElectronBlockColors() {
 }
 
 function removeElectronBlockColors() {
+  // Remover clase property-mode
+  table.classList.remove('property-mode');
+  lanthanidesContainer.classList.remove('property-mode');
+  actinidesContainer.classList.remove('property-mode');
+  
   allCells.forEach(cell => {
     cell.classList.remove('s-block', 'p-block', 'd-block', 'f-block');
+    // Restaurar color original del grupo
+    const z = parseInt(cell.dataset.z);
+    let element;
+    
+    if (z >= 57 && z <= 71) {
+      element = lanthanides.find(el => el.z === z);
+    } else if (z >= 89 && z <= 103) {
+      element = actinides.find(el => el.z === z);
+    } else {
+      element = elements.find(el => el.z === z);
+    }
+    
+    if (element) {
+      cell.className = 'cell ' + groupClass(element.group);
+    }
   });
 }
 
@@ -1536,6 +1579,11 @@ electronegToggleBtn.addEventListener('click', function() {
 });
 
 function applyElectronegativityColors() {
+  // Agregar clase property-mode para anular colores de grupo
+  table.classList.add('property-mode');
+  lanthanidesContainer.classList.add('property-mode');
+  actinidesContainer.classList.add('property-mode');
+  
   // Encontrar valores mínimo y máximo de electronegatividad
   let minElectroneg = Infinity;
   let maxElectroneg = -Infinity;
@@ -1580,6 +1628,11 @@ radiusToggleBtn.addEventListener('click', function() {
 });
 
 function applyAtomicRadiusColors() {
+  // Agregar clase property-mode para anular colores de grupo
+  table.classList.add('property-mode');
+  lanthanidesContainer.classList.add('property-mode');
+  actinidesContainer.classList.add('property-mode');
+  
   // Encontrar valores mínimo y máximo de radio atómico
   let minRadius = Infinity;
   let maxRadius = -Infinity;
@@ -1624,6 +1677,11 @@ ionizationToggleBtn.addEventListener('click', function() {
 });
 
 function applyIonizationEnergyColors() {
+  // Agregar clase property-mode para anular colores de grupo
+  table.classList.add('property-mode');
+  lanthanidesContainer.classList.add('property-mode');
+  actinidesContainer.classList.add('property-mode');
+  
   // Encontrar valores mínimo y máximo de energía de ionización
   let minIonization = Infinity;
   let maxIonization = -Infinity;
@@ -1654,14 +1712,35 @@ function applyIonizationEnergyColors() {
 
 // Función para remover colores de propiedades
 function removePropertyColors(property) {
+  // Remover clase property-mode
+  table.classList.remove('property-mode');
+  lanthanidesContainer.classList.remove('property-mode');
+  actinidesContainer.classList.remove('property-mode');
+  
   allCells.forEach(cell => {
     cell.classList.remove('atomic-radius', 'electronegativity', 'ionization-energy');
     cell.classList.remove('unknown-radius', 'unknown-electroneg', 'unknown-ionization');
     cell.style.background = '';
+    
+    // Restaurar el color de grupo original
+    const z = parseInt(cell.dataset.z);
+    let element;
+    
+    if (z >= 57 && z <= 71) {
+      element = lanthanides.find(el => el.z === z);
+    } else if (z >= 89 && z <= 103) {
+      element = actinides.find(el => el.z === z);
+    } else {
+      element = elements.find(el => el.z === z);
+    }
+    
+    if (element) {
+      // Aplicar la clase de grupo correspondiente
+      cell.className = 'cell ' + groupClass(element.group);
+    }
   });
 }
 
-// [MANTÉN EL RESTO DEL CÓDIGO PARA CREAR LA TABLA, LEGEND, ETC...]
 // create grid placeholders to preserve spacing
 for(let r=1;r<=7;r++){
   for(let c=1;c<=18;c++){
@@ -2049,12 +2128,3 @@ toggleTrendArrows(false);
 </script> 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
