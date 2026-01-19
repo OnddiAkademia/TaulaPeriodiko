@@ -1510,6 +1510,7 @@ function applyElectronBlockColors() {
         z === 55 || z === 56 ||           // Cs, Ba
         z === 87 || z === 88 ||           // Fr, Ra
         z === 2) {                        // He (aunque está en grupo 18, es bloque s)
+      cell.style.backgroundColor = '#ffb3ba'; // Rosa pastel
       cell.classList.add('s-block');
     }
     // Bloque p: Grupos 13-18 (excepto Helio)
@@ -1519,6 +1520,7 @@ function applyElectronBlockColors() {
              (z >= 49 && z <= 54) ||      // In, Sn, Sb, Te, I, Xe
              (z >= 81 && z <= 86) ||      // Tl, Pb, Bi, Po, At, Rn
              (z >= 113 && z <= 118)) {    // Nh, Fl, Mc, Lv, Ts, Og
+      cell.style.backgroundColor = '#bae1ff'; // Azul pastel
       cell.classList.add('p-block');
     }
     // Bloque d: Grupos 3-12 + Lutecio (71) + Lawrencio (103)
@@ -1527,12 +1529,17 @@ function applyElectronBlockColors() {
              (z >= 72 && z <= 80) ||      // Hf, Ta, W, Re, Os, Ir, Pt, Au, Hg
              (z >= 104 && z <= 112) ||    // Rf, Db, Sg, Bh, Hs, Mt, Ds, Rg, Cn
              z === 71 || z === 103) {     // Lu, Lr
+      cell.style.backgroundColor = '#baffc9'; // Verde pastel
       cell.classList.add('d-block');
     }
     // Bloque f: Lantánidos (57-70) + Actínidos (89-102)
     else if ((z >= 57 && z <= 70) ||      // La, Ce, Pr, Nd, Pm, Sm, Eu, Gd, Tb, Dy, Ho, Er, Tm, Yb
              (z >= 89 && z <= 102)) {     // Ac, Th, Pa, U, Np, Pu, Am, Cm, Bk, Cf, Es, Fm, Md, No
+      cell.style.backgroundColor = '#ffdfba'; // Naranja pastel
       cell.classList.add('f-block');
+    } else {
+      // Para elementos que no entran en ninguna categoría
+      cell.style.backgroundColor = '#f0f0f0';
     }
   });
 }
@@ -1558,7 +1565,10 @@ function removeElectronBlockColors() {
     }
     
     if (element) {
+      // Aplicar la clase de grupo correspondiente
       cell.className = 'cell ' + groupClass(element.group);
+      // Limpiar el estilo inline
+      cell.style.backgroundColor = '';
     }
   });
 }
@@ -1603,10 +1613,12 @@ function applyElectronegativityColors() {
     
     if (element && element.electroneg && element.electroneg > 0) {
       const normalized = (element.electroneg - minElectroneg) / (maxElectroneg - minElectroneg);
-      const intensity = Math.floor(normalized * 100);
-      cell.style.background = `hsl(210, 70%, ${85 - intensity * 0.4}%)`;
+      // Convertir a color azul (desde azul claro a oscuro)
+      const blueValue = Math.floor(100 + normalized * 155); // 100-255
+      cell.style.backgroundColor = `rgb(${100 - normalized * 50}, ${150 - normalized * 100}, ${blueValue})`;
       cell.classList.add('electronegativity');
     } else {
+      cell.style.backgroundColor = '#f1f5f9'; // Gris claro para desconocidos
       cell.classList.add('unknown-electroneg');
     }
   });
@@ -1652,10 +1664,12 @@ function applyAtomicRadiusColors() {
     
     if (element && element.radius && element.radius > 0) {
       const normalized = (element.radius - minRadius) / (maxRadius - minRadius);
-      const intensity = Math.floor(normalized * 100);
-      cell.style.background = `hsl(120, 70%, ${85 - intensity * 0.4}%)`;
+      // Convertir a color verde (desde verde claro a oscuro)
+      const greenValue = Math.floor(100 + normalized * 155); // 100-255
+      cell.style.backgroundColor = `rgb(${150 - normalized * 100}, ${greenValue}, ${100 - normalized * 50})`;
       cell.classList.add('atomic-radius');
     } else {
+      cell.style.backgroundColor = '#f1f5f9'; // Gris claro para desconocidos
       cell.classList.add('unknown-radius');
     }
   });
@@ -1701,10 +1715,12 @@ function applyIonizationEnergyColors() {
     
     if (element && element.ionization && element.ionization > 0) {
       const normalized = (element.ionization - minIonization) / (maxIonization - minIonization);
-      const intensity = Math.floor(normalized * 100);
-      cell.style.background = `hsl(0, 70%, ${85 - intensity * 0.4}%)`;
+      // Convertir a color rojo (desde rojo claro a oscuro)
+      const redValue = Math.floor(100 + normalized * 155); // 100-255
+      cell.style.backgroundColor = `rgb(${redValue}, ${150 - normalized * 100}, ${100 - normalized * 50})`;
       cell.classList.add('ionization-energy');
     } else {
+      cell.style.backgroundColor = '#f1f5f9'; // Gris claro para desconocidos
       cell.classList.add('unknown-ionization');
     }
   });
@@ -1720,7 +1736,7 @@ function removePropertyColors(property) {
   allCells.forEach(cell => {
     cell.classList.remove('atomic-radius', 'electronegativity', 'ionization-energy');
     cell.classList.remove('unknown-radius', 'unknown-electroneg', 'unknown-ionization');
-    cell.style.background = '';
+    cell.style.backgroundColor = '';
     
     // Restaurar el color de grupo original
     const z = parseInt(cell.dataset.z);
