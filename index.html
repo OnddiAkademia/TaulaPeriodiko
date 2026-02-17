@@ -1503,12 +1503,11 @@ electronegToggleBtn.addEventListener('click', function() {
       
       if (element && element.electroneg && element.electroneg > 0) {
         const normalized = (element.electroneg - minElectroneg) / (maxElectroneg - minElectroneg);
-        // SOLO AZUL: rojo y verde fijos, solo variamos el azul
-        // Valores bajos (Francio): azul claro (rgb(100, 150, 150))
-        // Valores altos (Flúor): azul oscuro (rgb(100, 150, 255))
-        const r = 100; // Fijo
-        const g = 150; // Fijo
-        const b = Math.floor(150 + normalized * 105); // Varía de 150 a 255
+        // Usar los colores del degradado de electronegatividad: #e6f3ff a #3b82f6
+        // Convertir a RGB: #e6f3ff = rgb(230, 243, 255), #3b82f6 = rgb(59, 130, 246)
+        const r = Math.floor(230 - normalized * (230 - 59));
+        const g = Math.floor(243 - normalized * (243 - 130));
+        const b = Math.floor(255 - normalized * (255 - 246));
         cell.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
         cell.classList.add('electronegativity');
       } else {
@@ -1548,10 +1547,11 @@ radiusToggleBtn.addEventListener('click', function() {
       
       if (element && element.radius && element.radius > 0) {
         const normalized = (element.radius - minRadius) / (maxRadius - minRadius);
-        // SOLO VERDE: rojo y azul fijos, solo variamos el verde
-        const r = 100; // Fijo
-        const g = Math.floor(150 + normalized * 105); // Varía de 150 a 255
-        const b = 100; // Fijo
+        // Usar los colores del degradado de radio atómico: #e8f5e8 a #22c55e
+        // Convertir a RGB: #e8f5e8 = rgb(232, 245, 232), #22c55e = rgb(34, 197, 94)
+        const r = Math.floor(232 - normalized * (232 - 34));
+        const g = Math.floor(245 - normalized * (245 - 197));
+        const b = Math.floor(232 - normalized * (232 - 94));
         cell.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
         cell.classList.add('atomic-radius');
       } else {
@@ -1591,10 +1591,11 @@ ionizationToggleBtn.addEventListener('click', function() {
       
       if (element && element.ionization && element.ionization > 0) {
         const normalized = (element.ionization - minIonization) / (maxIonization - minIonization);
-        // SOLO ROJO: verde y azul fijos, solo variamos el rojo
-        const r = Math.floor(150 + normalized * 105); // Varía de 150 a 255
-        const g = 100; // Fijo
-        const b = 100; // Fijo
+        // Usar los colores del degradado de ionización: #ffe6e6 a #ef4444
+        // Convertir a RGB: #ffe6e6 = rgb(255, 230, 230), #ef4444 = rgb(239, 68, 68)
+        const r = Math.floor(255 - normalized * (255 - 239));
+        const g = Math.floor(230 - normalized * (230 - 68));
+        const b = Math.floor(230 - normalized * (230 - 68));
         cell.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
         cell.classList.add('ionization-energy');
       } else {
