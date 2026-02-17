@@ -20,30 +20,28 @@
   --panel-width:360px; 
   --cell-size: 72px;
   --gap-size: 6px;
-  --bg:#f8fafc; /* Fondo gris muy claro */
+  --bg:#f8fafc;
   --zoom-level: 0.75;
-  --primary-green: #2d8659; /* Verde más suave y profesional */
+  --primary-green: #2d8659;
   --secondary-green: #3A795E;
-  --text-dark: #1e293b; /* Azul oscuro para mejor legibilidad */
-  --text-medium: #475569; /* Gris carbón */
-  --text-light: #64748b; /* Gris medio */
-  --bg-white: #ffffff; /* Blanco puro */
-  --bg-light: #f1f5f9; /* Gris muy claro */
-  --bg-medium: #e2e8f0; /* Gris claro */
-  --border-light: rgba(45, 134, 89, 0.15); /* Verde muy tenue */
-  --border-medium: rgba(45, 134, 89, 0.25); /* Verde suave */
-  --hover-green: rgba(45, 134, 89, 0.1); /* Verde muy tenue para hover */
-  --shadow-light: 0 4px 12px rgba(0,0,0,0.05); /* Sombra muy suave */
-  --shadow-medium: 0 8px 24px rgba(0,0,0,0.08); /* Sombra media */
+  --text-dark: #1e293b;
+  --text-medium: #475569;
+  --text-light: #64748b;
+  --bg-white: #ffffff;
+  --bg-light: #f1f5f9;
+  --bg-medium: #e2e8f0;
+  --border-light: rgba(45, 134, 89, 0.15);
+  --border-medium: rgba(45, 134, 89, 0.25);
+  --hover-green: rgba(45, 134, 89, 0.1);
+  --shadow-light: 0 4px 12px rgba(0,0,0,0.05);
+  --shadow-medium: 0 8px 24px rgba(0,0,0,0.08);
 }
 
 *{box-sizing:border-box}
 body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;background:var(--bg);color:var(--text-dark);overflow:hidden;font-weight:400}
 .app{display:flex;height:100vh;width:100vw}
-/* left panel */
 .panel{width:var(--panel-width);min-width:var(--panel-width);background:var(--bg-white);padding:24px;border-right:1px solid var(--border-light);overflow:auto;flex-shrink:0;box-shadow:2px 0 8px rgba(0,0,0,0.03)}
 
-/* Título ONDDI AKADEMIA - Más elegante */
 .onddi-title {
   font-family: 'Arista 2.0 Alternate', sans-serif;
   font-size: 28px;
@@ -69,7 +67,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
 .small-muted{font-size:12px;opacity:0.8;color:var(--text-light)}
 .footer{margin-top:16px;font-size:12px;opacity:0.7;color:var(--text-light)}
 
-/* Menú retráctil Baliabideak - Estilo claro */
 .resources-toggle {
   background: var(--bg-light);
   border-radius: 10px;
@@ -126,7 +123,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   gap: 10px;
 }
 
-/* Leyenda para bloques electrónicos - Estilo claro */
 .elec-legend {
   background: var(--bg-light);
   border-radius: 10px;
@@ -153,7 +149,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   margin: 0;
 }
 
-/* Pestaña retráctil para propiedades - Estilo claro */
 .properties-toggle {
   background: var(--bg-light);
   border-radius: 10px;
@@ -210,7 +205,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   gap: 12px;
 }
 
-/* Leyendas - Estilo claro */
 .electroneg-legend, .radius-legend, .ionization-legend {
   background: var(--bg-light);
   border-radius: 10px;
@@ -332,7 +326,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   background: linear-gradient(90deg, #ffe6e6, #ef4444);
 }
 
-/* Botones de toggle - Estilo claro */
 .elec-toggle-btn, .radius-toggle-btn, .electroneg-toggle-btn, .ionization-toggle-btn {
   width: 44px;
   height: 24px;
@@ -440,7 +433,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   transition: all 0.3s ease;
 }
 
-/* Clases para anular colores de grupo cuando se activa modo propiedad */
 .property-mode .alkali,
 .property-mode .alkaline,
 .property-mode .lanthanide,
@@ -455,35 +447,26 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   background: inherit !important;
 }
 
-/* Clases para bloques electrónicos - Colores mejorados */
 .property-mode .s-block { 
-  background: #ffb3ba !important; /* Rosa pastel fuerte */
+  background: #ffb3ba !important;
   border-color: #ff8a95 !important;
 }
 
 .property-mode .p-block { 
-  background: #bae1ff !important; /* Azul pastel fuerte */
+  background: #bae1ff !important;
   border-color: #8ac8ff !important;
 }
 
 .property-mode .d-block { 
-  background: #baffc9 !important; /* Verde pastel fuerte */
+  background: #baffc9 !important;
   border-color: #8affa3 !important;
 }
 
 .property-mode .f-block { 
-  background: #ffdfba !important; /* Naranja pastel fuerte */
+  background: #ffdfba !important;
   border-color: #ffc085 !important;
 }
 
-/* Clases para propiedades - Estilo claro */
-.property-mode .atomic-radius, 
-.property-mode .electronegativity, 
-.property-mode .ionization-energy { 
-  color: var(--text-dark) !important; 
-}
-
-/* Estilo para elementos con datos desconocidos - Más sutiles */
 .cell.unknown-radius, .cell.unknown-electroneg, .cell.unknown-ionization {
   opacity: 0.5;
   filter: grayscale(0.6);
@@ -496,7 +479,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   transform: translateY(-1px) scale(1.01);
 }
 
-/* Flechas de tendencia - Más sutiles */
 .trend-arrows {
   position: absolute;
   top: 0;
@@ -539,7 +521,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   50% { opacity: 1; }
 }
 
-/* Search Bar - Estilo claro */
 .search-container {
   margin-bottom: 24px;
   padding: 0 16px;
@@ -571,7 +552,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   font-size: 15px;
 }
 
-/* Groups and Periods Labels - Estilo claro */
 .groups-container {
   display: grid;
   grid-template-columns: repeat(18, var(--cell-size));
@@ -640,7 +620,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   margin-top: 14px;
 }
 
-/* Zoom Controls - Estilo claro */
 .zoom-controls {
   position: fixed;
   top: 20px;
@@ -690,7 +669,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   font-weight: 600;
 }
 
-/* table area */
 .container{
   flex: 1;
   padding: 20px;
@@ -726,7 +704,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   position: relative;
 }
 
-/* Bottom series - Estilo claro */
 .bottom-series-container {
   display: flex;
   flex-direction: column;
@@ -751,7 +728,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   width: calc((var(--cell-size) * 15) + (var(--gap-size) * 14) + 28px);
 }
 
-/* Celdas - Estilo claro */
 .cell{
   background:var(--bg-light);
   border-radius:8px;
@@ -795,8 +771,8 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   transform:translateY(-3px) scale(1.03);
   box-shadow:var(--shadow-medium);
   border-color:var(--primary-green);
-  filter: brightness(1.15) saturate(1.2); /* Aclara el color original sin volverlo blanco */
-  background: inherit; /* Mantiene el color del grupo */
+  filter: brightness(1.15) saturate(1.2);
+  background: inherit;
 }
 .cell.dimmed{opacity:0.4;transform:scale(0.95);filter:grayscale(0.5)}
 .cell.highlighted{
@@ -829,20 +805,18 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   box-sizing:border-box;
 }
 
-/* Colores de grupos - IMPORTANTE: Sin !important para permitir sobrescribir */
-.alkali{background:#ffb3ba;color:var(--text-dark)} /* Rosa pastel intenso */
-.alkaline{background:#ffdfba;color:var(--text-dark)} /* Naranja pastel intenso */
-.lanthanide{background:#baffc9;color:var(--text-dark)} /* Verde pastel intenso */
-.actinide{background:#bae1ff;color:var(--text-dark)} /* Azul pastel intenso */
-.transition{background:#cce7ff;color:var(--text-dark)} /* Azul cielo intenso */
-.post-transition{background:#e2d1ff;color:var(--text-dark)} /* Lila pastel intenso */
-.metalloid{background:#c2f0c2;color:var(--text-dark)} /* Verde pastel intenso */
-.nonmetal{background:#ffffba;color:var(--text-dark)} /* Amarillo pastel intenso */
-.halogen{background:#ffcc99;color:var(--text-dark)} /* Melocotón pastel intenso */
-.noble{background:#ffb3ff;color:var(--text-dark)} /* Rosa pálido intenso */
-.other{background:#f0f0f0;color:var(--text-dark)} /* Gris claro */
+.alkali{background:#ffb3ba;color:var(--text-dark)}
+.alkaline{background:#ffdfba;color:var(--text-dark)}
+.lanthanide{background:#baffc9;color:var(--text-dark)}
+.actinide{background:#bae1ff;color:var(--text-dark)}
+.transition{background:#cce7ff;color:var(--text-dark)}
+.post-transition{background:#e2d1ff;color:var(--text-dark)}
+.metalloid{background:#c2f0c2;color:var(--text-dark)}
+.nonmetal{background:#ffffba;color:var(--text-dark)}
+.halogen{background:#ffcc99;color:var(--text-dark)}
+.noble{background:#ffb3ff;color:var(--text-dark)}
+.other{background:#f0f0f0;color:var(--text-dark)}
 
-/* table legend - Estilo claro */
 .table-legend{
   grid-column:3 / span 10;
   grid-row:2 / span 2;
@@ -888,7 +862,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   box-shadow:0 1px 3px rgba(0,0,0,0.1);
 }
 
-/* Botones - Estilo claro y moderno */
 .btn-3d, .btn-balents, .btn-compounds, .btn-calc {
   background: var(--bg-white) !important;
   border: 2px solid var(--primary-green) !important;
@@ -921,7 +894,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   box-shadow: var(--shadow-light);
 }
 
-/* Enlaces - Estilo claro */
 .element-name-link {
   color: var(--text-dark) !important;
   text-decoration: none !important;
@@ -939,7 +911,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   color: var(--text-dark) !important;
 }
 
-/* Responsive y detalles finos */
 @media (max-width: 1200px) {
   :root {
     --panel-width: 320px;
@@ -965,10 +936,8 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
 <body>
 <div class="app">
   <aside class="panel">
-    <!-- Título ONDDI AKADEMIA - Estilo claro y moderno -->
     <div class="onddi-title">ONDDI AKADEMIA</div>
 
-    <!-- Menú retráctil Baliabideak -->
     <div class="resources-toggle" id="resourcesToggle">
       <div class="resources-header">
         <div class="resources-title">Baliabideak</div>
@@ -992,7 +961,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
       </div>
     </div>
 
-    <!-- Información del elemento seleccionado - Estilo claro -->
     <div class="card">
       <div class="info-head">
         <div class="info-left">
@@ -1017,7 +985,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
       <div class="footer">Taula periodikoko datu orokorrak.</div>
     </div>
 
-    <!-- Leyenda para bloques electrónicos - Estilo claro -->
     <div class="elec-legend" id="elecLegend">
       <div class="elec-legend-header">
         <div class="elec-legend-title">Orbital atomikoak</div>
@@ -1025,25 +992,24 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
       </div>
       <div class="elec-legend-items">
         <div class="elec-legend-item">
-  <div class="elec-legend-color" style="background: #ffb3ba"></div> <!-- Rosa más intenso -->
+  <div class="elec-legend-color" style="background: #ffb3ba"></div>
   <span>s</span>
 </div>
 <div class="elec-legend-item">
-  <div class="elec-legend-color" style="background: #bae1ff"></div> <!-- Azul más intenso -->
+  <div class="elec-legend-color" style="background: #bae1ff"></div>
   <span>p</span>
 </div>
 <div class="elec-legend-item">
-  <div class="elec-legend-color" style="background: #baffc9"></div> <!-- Verde más intenso -->
+  <div class="elec-legend-color" style="background: #baffc9"></div>
   <span>d</span>
 </div>
 <div class="elec-legend-item">
-  <div class="elec-legend-color" style="background: #ffdfba"></div> <!-- Naranja más intenso -->
+  <div class="elec-legend-color" style="background: #ffdfba"></div>
   <span>f</span>
 </div>
       </div>
     </div>
 
-    <!-- Pestaña retráctil para propiedades - Estilo claro -->
     <div class="properties-toggle" id="propertiesToggle">
       <div class="properties-header">
         <div class="properties-title">Propietateak</div>
@@ -1113,15 +1079,12 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   </aside>
 
   <main class="container">
-    <!-- Search Bar - Estilo claro -->
     <div class="search-container">
       <input type="text" class="search-box" id="searchInput" placeholder="Bilatu elementua... (izenaz, sinboloaz edo zenbaki atomikoaz)">
     </div>
 
     <div class="table-complete-wrapper">
-      <!-- Contenedor para flechas de tendencia -->
       <div class="trend-arrows" id="trendArrows">
-        <!-- Flechas para radio atómico (verdes) -->
         <div class="trend-arrow radius down" style="left: 40px; top: 40px;">↓</div>
         <div class="trend-arrow radius down" style="left: 40px; top: 120px;">↓</div>
         <div class="trend-arrow radius down" style="left: 40px; top: 200px;">↓</div>
@@ -1131,7 +1094,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
         <div class="trend-arrow radius down" style="left: 40px; top: 520px;">↓</div>
         <div class="trend-arrow radius down" style="left: 40px; top: 600px;">↓</div>
         
-        <!-- Flecha horizontal (He → H) -->
         <div class="trend-arrow radius right" style="left: 1400px; top: 30px;">←</div>
         <div class="trend-arrow radius right" style="left: 1320px; top: 30px;">←</div>
         <div class="trend-arrow radius right" style="left: 1240px; top: 30px;">←</div>
@@ -1150,7 +1112,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
         <div class="trend-arrow radius right" style="left: 200px; top: 30px;">←</div>
         <div class="trend-arrow radius right" style="left: 120px; top: 30px;">←</div>
         
-        <!-- Flechas para electronegatividad (azules) -->
         <div class="trend-arrow electroneg up" style="left: 40px; top: 600px;">↑</div>
         <div class="trend-arrow electroneg up" style="left: 40px; top: 520px;">↑</div>
         <div class="trend-arrow electroneg up" style="left: 40px; top: 440px;">↑</div>
@@ -1160,7 +1121,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
         <div class="trend-arrow electroneg up" style="left: 40px; top: 120px;">↑</div>
         <div class="trend-arrow electroneg up" style="left: 40px; top: 40px;">↑</div>
         
-        <!-- Flecha horizontal (Fr → F) -->
         <div class="trend-arrow electroneg left" style="left: 120px; top: 30px;">→</div>
         <div class="trend-arrow electroneg left" style="left: 200px; top: 30px;">→</div>
         <div class="trend-arrow electroneg left" style="left: 280px; top: 30px;">→</div>
@@ -1179,7 +1139,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
         <div class="trend-arrow electroneg left" style="left: 1320px; top: 30px;">→</div>
         <div class="trend-arrow electroneg left" style="left: 1400px; top: 30px;">→</div>
         
-        <!-- Flechas para ionizazio energia (rojas) -->
         <div class="trend-arrow ionization up" style="left: 40px; top: 600px;">↑</div>
         <div class="trend-arrow ionization up" style="left: 40px; top: 520px;">↑</div>
         <div class="trend-arrow ionization up" style="left: 40px; top: 440px;">↑</div>
@@ -1208,7 +1167,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
         <div class="trend-arrow ionization left" style="left: 1400px; top: 30px;">→</div>
       </div>
 
-      <!-- Groups Labels -->
       <div class="groups-container">
         <div class="group-label">1</div>
         <div class="group-label">2</div>
@@ -1231,7 +1189,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
       </div>
 
       <div class="table-with-periods">
-        <!-- Periods Labels -->
         <div class="periods-column">
           <div class="period-label">1</div>
           <div class="period-label">2</div>
@@ -1242,7 +1199,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
           <div class="period-label">7</div>
         </div>
 
-        <!-- Main Table -->
         <div class="periodic" id="table"></div>
       </div>
 
@@ -1254,7 +1210,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   </main>
 </div>
 
-<!-- Controles de Zoom - Estilo claro -->
 <div class="zoom-controls">
   <button class="zoom-btn" id="zoomOut">−</button>
   <div class="zoom-display" id="zoomLevel">100%</div>
@@ -1263,7 +1218,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
 </div>
 
 <script>
-// Elements dataset con electronegatividad, radio atómico y ionizazio energia añadidos
 const elements = [
  {z:1,sym:'H',name:'Hidrogeno',mass:1.008,val:[-1,1],config:'1s¹',group:'nonmetal',x:1,y:1,radius:53,electroneg:2.20,ionization:1312},
  {z:2,sym:'He',name:'Helio',mass:4.0026,val:[0],config:'1s²',group:'noble',x:18,y:1,radius:31,electroneg:0,ionization:2372},
@@ -1325,7 +1279,6 @@ const elements = [
 
  {z:55,sym:'Cs',name:'Zesio',mass:132.91,val:[1],config:'[Xe] 6s¹',group:'alkali',x:1,y:6,radius:298,electroneg:0.79,ionization:376},
  {z:56,sym:'Ba',name:'Bario',mass:137.33,val:[2],config:'[Xe] 6s²',group:'alkaline',x:2,y:6,radius:253,electroneg:0.89,ionization:503},
- // Placeholder for lanthanides 57-71
  {z:72,sym:'Hf',name:'Hafnio',mass:178.49,val:[4],config:'[Xe] 6s² 4f¹⁴ 5d²',group:'transition',x:4,y:6,radius:208,electroneg:1.3,ionization:658},
  {z:73,sym:'Ta',name:'Tantalo',mass:180.95,val:[5],config:'[Xe] 6s² 4f¹⁴ 5d³',group:'transition',x:5,y:6,radius:200,electroneg:1.5,ionization:761},
  {z:74,sym:'W',name:'Wolfram',mass:183.84,val:[4,6],config:'[Xe] 6s² 4f¹⁴ 5d⁴',group:'transition',x:6,y:6,radius:193,electroneg:2.36,ionization:770},
@@ -1344,7 +1297,6 @@ const elements = [
 
  {z:87,sym:'Fr',name:'Frantzio',mass:223,val:[1],config:'[Rn] 7s¹',group:'alkali',x:1,y:7,radius:0,electroneg:0.7,ionization:380},
  {z:88,sym:'Ra',name:'Radio',mass:226,val:[2],config:'[Rn] 7s²',group:'alkaline',x:2,y:7,radius:0,electroneg:0.9,ionization:509},
- // Placeholder for actinides 89-103
  {z:104,sym:'Rf',name:'Rutherfordio',mass:267,val:[4],config:'[Rn] 7s² 5f¹⁴ 6d²',group:'transition',x:4,y:7,radius:0,electroneg:0,ionization:580},
  {z:105,sym:'Db',name:'Dubnio',mass:268,val:[5],config:'[Rn] 7s² 5f¹⁴ 6d³',group:'transition',x:5,y:7,radius:0,electroneg:0,ionization:0},
  {z:106,sym:'Sg',name:'Seaborgio',mass:271,val:[6],config:'[Rn] 7s² 5f¹⁴ 6d⁴',group:'transition',x:6,y:7,radius:0,electroneg:0,ionization:0},
@@ -1362,7 +1314,6 @@ const elements = [
  {z:118,sym:'Og',name:'Oganeson',mass:294,val:[0],config:'—',group:'noble',x:18,y:7,radius:0,electroneg:0,ionization:0}
 ];
 
-// Lanthanides and Actinides for bottom rows
 const lanthanides = [
  {z:57,sym:'La',name:'Lantano',mass:138.91,val:[3],config:'[Xe] 6s² 4f¹',group:'lanthanide',x:3,radius:187,electroneg:1.1,ionization:538},
  {z:58,sym:'Ce',name:'Zerio',mass:140.12,val:[3,4],config:'[Xe] 6s² 4f²',group:'lanthanide',x:4,radius:181,electroneg:1.12,ionization:534},
@@ -1417,14 +1368,12 @@ const radiusTitle = document.querySelector('.radius-legend-title');
 const electronegTitle = document.querySelector('.electroneg-legend-title');
 const ionizationTitle = document.querySelector('.ionization-legend-title');
 
-// Referencias para los botones
 const btn3D = document.getElementById('btn3D');
 const btnBalents = document.getElementById('btnBalents');
 const btnCompounds = document.getElementById('btnCompounds');
 const btnCalc = document.getElementById('btnCalc');
 const resourcesToggle = document.getElementById('resourcesToggle');
 
-// Store all cell elements for highlighting
 let allCells = [];
 let groupLabels = [];
 let periodLabels = [];
@@ -1433,7 +1382,6 @@ let isElectronegMode = false;
 let isRadiusMode = false;
 let isIonizationMode = false;
 
-// Función para mostrar/ocultar las flechas de tendencia
 function toggleTrendArrows(show, type) {
   const allArrows = trendArrows.querySelectorAll('.trend-arrow');
   
@@ -1452,7 +1400,6 @@ function toggleTrendArrows(show, type) {
   }
 }
 
-// Event listeners para las flechas de tendencia
 radiusTitle.addEventListener('mouseenter', () => {
   toggleTrendArrows(true, 'radius');
 });
@@ -1477,7 +1424,6 @@ ionizationTitle.addEventListener('mouseleave', () => {
   toggleTrendArrows(false);
 });
 
-// Función para mostrar/ocultar la pestaña de propiedades
 propertiesToggle.addEventListener('click', function(e) {
   if (e.target.closest('.properties-header') || e.target === this) {
     this.classList.toggle('active');
@@ -1490,88 +1436,21 @@ resourcesToggle.addEventListener('click', function(e) {
   }
 });
 
-// TOGGLE FUNCTIONALITY - ORBITALES ATÓMICOS
-elecToggleBtn.addEventListener('click', function() {
-  // Desactivar modos de propiedades si están activos
-  if (isElectronegMode) {
-    isElectronegMode = false;
-    electronegToggleBtn.classList.remove('active');
-    electronegLegend.classList.remove('active');
-  }
-  if (isRadiusMode) {
-    isRadiusMode = false;
-    radiusToggleBtn.classList.remove('active');
-    radiusLegend.classList.remove('active');
-  }
-  if (isIonizationMode) {
-    isIonizationMode = false;
-    ionizationToggleBtn.classList.remove('active');
-    ionizationLegend.classList.remove('active');
-  }
+function resetAllModes() {
+  isElecConfigMode = false;
+  isElectronegMode = false;
+  isRadiusMode = false;
+  isIonizationMode = false;
   
-  isElecConfigMode = !isElecConfigMode;
+  elecToggleBtn.classList.remove('active');
+  elecLegend.classList.remove('active');
+  electronegToggleBtn.classList.remove('active');
+  electronegLegend.classList.remove('active');
+  radiusToggleBtn.classList.remove('active');
+  radiusLegend.classList.remove('active');
+  ionizationToggleBtn.classList.remove('active');
+  ionizationLegend.classList.remove('active');
   
-  if (isElecConfigMode) {
-    this.classList.add('active');
-    elecLegend.classList.add('active');
-    applyElectronBlockColors();
-  } else {
-    this.classList.remove('active');
-    elecLegend.classList.remove('active');
-    removeAllModes();
-  }
-});
-
-function applyElectronBlockColors() {
-  // Agregar clase property-mode para anular colores de grupo
-  table.classList.add('property-mode');
-  lanthanidesContainer.classList.add('property-mode');
-  actinidesContainer.classList.add('property-mode');
-  
-  allCells.forEach(cell => {
-    const z = parseInt(cell.dataset.z);
-    
-    // Limpiar estilos inline y clases de propiedades
-    cell.style.backgroundColor = '';
-    cell.classList.remove('s-block', 'p-block', 'd-block', 'f-block', 'atomic-radius', 'electronegativity', 'ionization-energy', 'unknown-radius', 'unknown-electroneg', 'unknown-ionization');
-    
-    // Bloque s: Grupos 1 y 2 + Helio
-    if (z === 1 || z === 3 || z === 4 ||  // H, Li, Be
-        z === 11 || z === 12 ||           // Na, Mg
-        z === 19 || z === 20 ||           // K, Ca
-        z === 37 || z === 38 ||           // Rb, Sr
-        z === 55 || z === 56 ||           // Cs, Ba
-        z === 87 || z === 88 ||           // Fr, Ra
-        z === 2) {                        // He (aunque está en grupo 18, es bloque s)
-      cell.classList.add('s-block');
-    }
-    // Bloque p: Grupos 13-18 (excepto Helio)
-    else if ((z >= 5 && z <= 10) ||       // B, C, N, O, F, Ne
-             (z >= 13 && z <= 18) ||      // Al, Si, P, S, Cl, Ar
-             (z >= 31 && z <= 36) ||      // Ga, Ge, As, Se, Br, Kr
-             (z >= 49 && z <= 54) ||      // In, Sn, Sb, Te, I, Xe
-             (z >= 81 && z <= 86) ||      // Tl, Pb, Bi, Po, At, Rn
-             (z >= 113 && z <= 118)) {    // Nh, Fl, Mc, Lv, Ts, Og
-      cell.classList.add('p-block');
-    }
-    // Bloque d: Grupos 3-12 + Lutecio (71) + Lawrencio (103)
-    else if ((z >= 21 && z <= 30) ||      // Sc, Ti, V, Cr, Mn, Fe, Co, Ni, Cu, Zn
-             (z >= 39 && z <= 48) ||      // Y, Zr, Nb, Mo, Tc, Ru, Rh, Pd, Ag, Cd
-             (z >= 72 && z <= 80) ||      // Hf, Ta, W, Re, Os, Ir, Pt, Au, Hg
-             (z >= 104 && z <= 112) ||    // Rf, Db, Sg, Bh, Hs, Mt, Ds, Rg, Cn
-             z === 71 || z === 103) {     // Lu, Lr
-      cell.classList.add('d-block');
-    }
-    // Bloque f: Lantánidos (57-70) + Actínidos (89-102)
-    else if ((z >= 57 && z <= 70) ||      // La, Ce, Pr, Nd, Pm, Sm, Eu, Gd, Tb, Dy, Ho, Er, Tm, Yb
-             (z >= 89 && z <= 102)) {     // Ac, Th, Pa, U, Np, Pu, Am, Cm, Bk, Cf, Es, Fm, Md, No
-      cell.classList.add('f-block');
-    }
-  });
-}
-
-function removeAllModes() {
-  // Remover clase property-mode
   table.classList.remove('property-mode');
   lanthanidesContainer.classList.remove('property-mode');
   actinidesContainer.classList.remove('property-mode');
@@ -1581,7 +1460,6 @@ function removeAllModes() {
     cell.classList.remove('unknown-radius', 'unknown-electroneg', 'unknown-ionization');
     cell.style.backgroundColor = '';
     
-    // Restaurar color original del grupo
     const z = parseInt(cell.dataset.z);
     let element;
     
@@ -1594,51 +1472,56 @@ function removeAllModes() {
     }
     
     if (element) {
-      // Aplicar la clase de grupo correspondiente (eliminando otras clases)
       cell.className = 'cell ' + groupClass(element.group);
     }
   });
 }
 
-// TOGGLE FUNCTIONALITY - ELETRONEGATIVIDAD
-electronegToggleBtn.addEventListener('click', function() {
-  // Desactivar otros modos
-  if (isElecConfigMode) {
-    isElecConfigMode = false;
-    elecToggleBtn.classList.remove('active');
-    elecLegend.classList.remove('active');
-  }
-  if (isRadiusMode) {
-    isRadiusMode = false;
-    radiusToggleBtn.classList.remove('active');
-    radiusLegend.classList.remove('active');
-  }
-  if (isIonizationMode) {
-    isIonizationMode = false;
-    ionizationToggleBtn.classList.remove('active');
-    ionizationLegend.classList.remove('active');
-  }
+elecToggleBtn.addEventListener('click', function() {
+  resetAllModes();
   
-  isElectronegMode = !isElectronegMode;
+  isElecConfigMode = true;
+  this.classList.add('active');
+  elecLegend.classList.add('active');
   
-  if (isElectronegMode) {
-    this.classList.add('active');
-    electronegLegend.classList.add('active');
-    applyElectronegativityColors();
-  } else {
-    this.classList.remove('active');
-    electronegLegend.classList.remove('active');
-    removeAllModes();
-  }
-});
-
-function applyElectronegativityColors() {
-  // Agregar clase property-mode para anular colores de grupo
   table.classList.add('property-mode');
   lanthanidesContainer.classList.add('property-mode');
   actinidesContainer.classList.add('property-mode');
   
-  // Encontrar valores mínimo y máximo de electronegatividad
+  allCells.forEach(cell => {
+    const z = parseInt(cell.dataset.z);
+    
+    cell.classList.remove('s-block', 'p-block', 'd-block', 'f-block');
+    
+    if (z === 1 || z === 3 || z === 4 || z === 11 || z === 12 || z === 19 || z === 20 || 
+        z === 37 || z === 38 || z === 55 || z === 56 || z === 87 || z === 88 || z === 2) {
+      cell.classList.add('s-block');
+    }
+    else if ((z >= 5 && z <= 10) || (z >= 13 && z <= 18) || (z >= 31 && z <= 36) || 
+             (z >= 49 && z <= 54) || (z >= 81 && z <= 86) || (z >= 113 && z <= 118)) {
+      cell.classList.add('p-block');
+    }
+    else if ((z >= 21 && z <= 30) || (z >= 39 && z <= 48) || (z >= 72 && z <= 80) || 
+             (z >= 104 && z <= 112) || z === 71 || z === 103) {
+      cell.classList.add('d-block');
+    }
+    else if ((z >= 57 && z <= 70) || (z >= 89 && z <= 102)) {
+      cell.classList.add('f-block');
+    }
+  });
+});
+
+electronegToggleBtn.addEventListener('click', function() {
+  resetAllModes();
+  
+  isElectronegMode = true;
+  this.classList.add('active');
+  electronegLegend.classList.add('active');
+  
+  table.classList.add('property-mode');
+  lanthanidesContainer.classList.add('property-mode');
+  actinidesContainer.classList.add('property-mode');
+  
   let minElectroneg = Infinity;
   let maxElectroneg = -Infinity;
   
@@ -1650,69 +1533,38 @@ function applyElectronegativityColors() {
     }
   });
   
-  // Aplicar colores basados en la electronegatividad
   allCells.forEach(cell => {
     const z = parseInt(cell.dataset.z);
     let element = allElements.find(el => el.z === z);
     
-    // Limpiar clases y estilos inline anteriores
-    cell.classList.remove('s-block', 'p-block', 'd-block', 'f-block', 'atomic-radius', 'electronegativity', 'ionization-energy');
+    cell.classList.remove('s-block', 'p-block', 'd-block', 'f-block', 'atomic-radius', 'ionization-energy');
     cell.classList.remove('unknown-radius', 'unknown-electroneg', 'unknown-ionization');
     
     if (element && element.electroneg && element.electroneg > 0) {
       const normalized = (element.electroneg - minElectroneg) / (maxElectroneg - minElectroneg);
-      // Azul: de claro a oscuro (rgb(200,230,255) a rgb(0,0,200))
       const r = Math.floor(200 - normalized * 200);
       const g = Math.floor(230 - normalized * 230);
       const b = Math.floor(200 + normalized * 55);
       cell.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
       cell.classList.add('electronegativity');
     } else {
-      cell.style.backgroundColor = '#f1f5f9'; // Gris claro para desconocidos
+      cell.style.backgroundColor = '#f1f5f9';
       cell.classList.add('unknown-electroneg');
     }
   });
-}
-
-// TOGGLE FUNCTIONALITY - RADIO ATÓMICO
-radiusToggleBtn.addEventListener('click', function() {
-  // Desactivar otros modos
-  if (isElecConfigMode) {
-    isElecConfigMode = false;
-    elecToggleBtn.classList.remove('active');
-    elecLegend.classList.remove('active');
-  }
-  if (isElectronegMode) {
-    isElectronegMode = false;
-    electronegToggleBtn.classList.remove('active');
-    electronegLegend.classList.remove('active');
-  }
-  if (isIonizationMode) {
-    isIonizationMode = false;
-    ionizationToggleBtn.classList.remove('active');
-    ionizationLegend.classList.remove('active');
-  }
-  
-  isRadiusMode = !isRadiusMode;
-  
-  if (isRadiusMode) {
-    this.classList.add('active');
-    radiusLegend.classList.add('active');
-    applyAtomicRadiusColors();
-  } else {
-    this.classList.remove('active');
-    radiusLegend.classList.remove('active');
-    removeAllModes();
-  }
 });
 
-function applyAtomicRadiusColors() {
-  // Agregar clase property-mode para anular colores de grupo
+radiusToggleBtn.addEventListener('click', function() {
+  resetAllModes();
+  
+  isRadiusMode = true;
+  this.classList.add('active');
+  radiusLegend.classList.add('active');
+  
   table.classList.add('property-mode');
   lanthanidesContainer.classList.add('property-mode');
   actinidesContainer.classList.add('property-mode');
   
-  // Encontrar valores mínimo y máximo de radio atómico
   let minRadius = Infinity;
   let maxRadius = -Infinity;
   
@@ -1724,69 +1576,38 @@ function applyAtomicRadiusColors() {
     }
   });
   
-  // Aplicar colores basados en el radio atómico
   allCells.forEach(cell => {
     const z = parseInt(cell.dataset.z);
     let element = allElements.find(el => el.z === z);
     
-    // Limpiar clases y estilos inline anteriores
-    cell.classList.remove('s-block', 'p-block', 'd-block', 'f-block', 'atomic-radius', 'electronegativity', 'ionization-energy');
+    cell.classList.remove('s-block', 'p-block', 'd-block', 'f-block', 'electronegativity', 'ionization-energy');
     cell.classList.remove('unknown-radius', 'unknown-electroneg', 'unknown-ionization');
     
     if (element && element.radius && element.radius > 0) {
       const normalized = (element.radius - minRadius) / (maxRadius - minRadius);
-      // Verde: de claro a oscuro (rgb(200,255,200) a rgb(0,150,0))
       const r = Math.floor(200 - normalized * 200);
       const g = Math.floor(200 + normalized * 55);
       const b = Math.floor(200 - normalized * 200);
       cell.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
       cell.classList.add('atomic-radius');
     } else {
-      cell.style.backgroundColor = '#f1f5f9'; // Gris claro para desconocidos
+      cell.style.backgroundColor = '#f1f5f9';
       cell.classList.add('unknown-radius');
     }
   });
-}
-
-// TOGGLE FUNCTIONALITY - ENERGÍA DE IONIZACIÓN
-ionizationToggleBtn.addEventListener('click', function() {
-  // Desactivar otros modos
-  if (isElecConfigMode) {
-    isElecConfigMode = false;
-    elecToggleBtn.classList.remove('active');
-    elecLegend.classList.remove('active');
-  }
-  if (isElectronegMode) {
-    isElectronegMode = false;
-    electronegToggleBtn.classList.remove('active');
-    electronegLegend.classList.remove('active');
-  }
-  if (isRadiusMode) {
-    isRadiusMode = false;
-    radiusToggleBtn.classList.remove('active');
-    radiusLegend.classList.remove('active');
-  }
-  
-  isIonizationMode = !isIonizationMode;
-  
-  if (isIonizationMode) {
-    this.classList.add('active');
-    ionizationLegend.classList.add('active');
-    applyIonizationEnergyColors();
-  } else {
-    this.classList.remove('active');
-    ionizationLegend.classList.remove('active');
-    removeAllModes();
-  }
 });
 
-function applyIonizationEnergyColors() {
-  // Agregar clase property-mode para anular colores de grupo
+ionizationToggleBtn.addEventListener('click', function() {
+  resetAllModes();
+  
+  isIonizationMode = true;
+  this.classList.add('active');
+  ionizationLegend.classList.add('active');
+  
   table.classList.add('property-mode');
   lanthanidesContainer.classList.add('property-mode');
   actinidesContainer.classList.add('property-mode');
   
-  // Encontrar valores mínimo y máximo de energía de ionización
   let minIonization = Infinity;
   let maxIonization = -Infinity;
   
@@ -1798,31 +1619,27 @@ function applyIonizationEnergyColors() {
     }
   });
   
-  // Aplicar colores basados en la energía de ionización
   allCells.forEach(cell => {
     const z = parseInt(cell.dataset.z);
     let element = allElements.find(el => el.z === z);
     
-    // Limpiar clases y estilos inline anteriores
-    cell.classList.remove('s-block', 'p-block', 'd-block', 'f-block', 'atomic-radius', 'electronegativity', 'ionization-energy');
+    cell.classList.remove('s-block', 'p-block', 'd-block', 'f-block', 'electronegativity', 'atomic-radius');
     cell.classList.remove('unknown-radius', 'unknown-electroneg', 'unknown-ionization');
     
     if (element && element.ionization && element.ionization > 0) {
       const normalized = (element.ionization - minIonization) / (maxIonization - minIonization);
-      // Rojo: de claro a oscuro (rgb(255,200,200) a rgb(200,0,0))
       const r = Math.floor(200 + normalized * 55);
       const g = Math.floor(200 - normalized * 200);
       const b = Math.floor(200 - normalized * 200);
       cell.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
       cell.classList.add('ionization-energy');
     } else {
-      cell.style.backgroundColor = '#f1f5f9'; // Gris claro para desconocidos
+      cell.style.backgroundColor = '#f1f5f9';
       cell.classList.add('unknown-ionization');
     }
   });
-}
+});
 
-// create grid placeholders to preserve spacing
 for(let r=1;r<=7;r++){
   for(let c=1;c<=18;c++){
     const ph = document.createElement('div');
@@ -1833,7 +1650,6 @@ for(let r=1;r<=7;r++){
   }
 }
 
-// Add placeholder cells for 57-71 and 89-103
 function createPlaceholderCell(text, column, row) {
   const placeholder = document.createElement('div');
   placeholder.className = 'placeholder-cell';
@@ -1843,11 +1659,9 @@ function createPlaceholderCell(text, column, row) {
   table.appendChild(placeholder);
 }
 
-// Create placeholders for lanthanides and actinides in main table
 createPlaceholderCell('57-71', 3, 6);
 createPlaceholderCell('89-103', 3, 7);
 
-// Create table legend with hover functionality
 function createTableLegend() {
   const legend = document.createElement('div');
   legend.className = 'table-legend';
@@ -1874,7 +1688,6 @@ function createTableLegend() {
       <span>${item.text}</span>
     `;
     
-    // Add hover events
     legendItem.addEventListener('mouseenter', () => highlightGroup(item.group, legendItem));
     legendItem.addEventListener('mouseleave', () => removeHighlight(legendItem));
     
@@ -1884,12 +1697,9 @@ function createTableLegend() {
   table.appendChild(legend);
 }
 
-// Highlight elements of a specific group
 function highlightGroup(group, legendItem) {
-  // Add active class to legend item
   legendItem.classList.add('active');
   
-  // Highlight matching cells and dim others
   allCells.forEach(cell => {
     if (cell.classList.contains(group)) {
       cell.classList.add('highlighted');
@@ -1899,12 +1709,9 @@ function highlightGroup(group, legendItem) {
   });
 }
 
-// Remove highlighting
 function removeHighlight(legendItem) {
-  // Remove active class from legend item
   legendItem.classList.remove('active');
   
-  // Remove highlighting from all cells
   allCells.forEach(cell => {
     cell.classList.remove('highlighted');
     cell.classList.remove('dimmed');
@@ -1927,12 +1734,9 @@ function groupClass(g){
   }
 }
 
-// MODIFICADO: Función para destacar grupo y periodo - NO destacar grupo para lantánidos y actínidos
 function highlightGroupAndPeriod(group, period, isLanthanideOrActinide = false) {
-  // Remove previous highlights
   removeGroupAndPeriodHighlights();
   
-  // Solo destacar grupo si NO es un lantánido o actínido
   if (!isLanthanideOrActinide && group >= 1 && group <= 18) {
     const groupLabel = groupLabels[group - 1];
     if (groupLabel) {
@@ -1940,7 +1744,6 @@ function highlightGroupAndPeriod(group, period, isLanthanideOrActinide = false) 
     }
   }
   
-  // Destacar periodo siempre (lantánidos son periodo 6, actínidos periodo 7)
   if (period >= 1 && period <= 7) {
     const periodLabel = periodLabels[period - 1];
     if (periodLabel) {
@@ -1949,13 +1752,11 @@ function highlightGroupAndPeriod(group, period, isLanthanideOrActinide = false) 
   }
 }
 
-// Function to remove group and period highlights
 function removeGroupAndPeriodHighlights() {
   groupLabels.forEach(label => label.classList.remove('highlighted'));
   periodLabels.forEach(label => label.classList.remove('highlighted'));
 }
 
-// place main table elements
 elements.forEach(el=>{
   const d = document.createElement('div');
   d.className = 'cell ' + groupClass(el.group);
@@ -1966,7 +1767,6 @@ elements.forEach(el=>{
   d.dataset.period = el.y;
   d.innerHTML = `<div style="display:flex;justify-content:space-between"><div class='num'>${el.z}</div></div><div style="text-align:center;margin-top:4px"><div class='sym'>${el.sym}</div><div class='ename'>${el.name}</div></div>`;
   
-  // Add mouse events for highlighting group and period
   d.addEventListener('mouseenter', () => {
     highlightGroupAndPeriod(el.x, el.y, false);
   });
@@ -1980,10 +1780,8 @@ elements.forEach(el=>{
   allCells.push(d);
 });
 
-// Create table legend
 createTableLegend();
 
-// place lanthanides (including La)
 lanthanides.forEach((el, index)=>{
   const d = document.createElement('div');
   d.className = 'cell ' + groupClass(el.group);
@@ -2006,7 +1804,6 @@ lanthanides.forEach((el, index)=>{
   allCells.push(d);
 });
 
-// place actinides (including Ac)
 actinides.forEach((el, index)=>{
   const d = document.createElement('div');
   d.className = 'cell ' + groupClass(el.group);
@@ -2029,7 +1826,6 @@ actinides.forEach((el, index)=>{
   allCells.push(d);
 });
 
-// Initialize group and period labels
 function initLabels() {
   const groupsContainer = document.querySelector('.groups-container');
   groupLabels = Array.from(groupsContainer.querySelectorAll('.group-label'));
@@ -2038,7 +1834,6 @@ function initLabels() {
   periodLabels = Array.from(periodsColumn.querySelectorAll('.period-label'));
 }
 
-// show info in panel
 function show(el, cell){
   const icon = document.getElementById('iconSquare');
   const title = document.getElementById('titleMain');
@@ -2084,16 +1879,13 @@ function show(el, cell){
     ionizationDisplay.textContent = 'Ezezaguna';
   }
   
-  // Obtener color actual de la celda (teniendo en cuenta modos de propiedad)
   let bgColor = cell.style.backgroundColor;
   
   if (!bgColor || bgColor === 'rgba(0, 0, 0, 0)' || bgColor === 'transparent') {
-    // Si no hay estilo inline, usar el color de la clase
     const computedStyle = window.getComputedStyle(cell);
     bgColor = computedStyle.backgroundColor;
   }
   
-  // Si aún no tenemos color, usar el predeterminado
   if (!bgColor || bgColor === 'rgba(0, 0, 0, 0)' || bgColor === 'transparent') {
     bgColor = '#f1f5f9';
   }
@@ -2102,7 +1894,6 @@ function show(el, cell){
   icon.textContent = el.sym;
 }
 
-// Para abrir en la misma pestaña
 btn3D.addEventListener('click', () => {
   window.location.href = 'Orbitalak/';
 });
@@ -2119,7 +1910,6 @@ btnCalc.addEventListener('click', () => {
   window.location.href = 'Kalkulagailu/';
 });
 
-// Search functionality
 searchInput.addEventListener('input', function() {
   const searchTerm = this.value.toLowerCase().trim();
   
@@ -2156,7 +1946,6 @@ searchInput.addEventListener('input', function() {
   });
 });
 
-/* ---------- ZOOM + AUTO-FIT JUNTOS ---------- */
 let userZoom = 1;
 
 function applyZoom() {
@@ -2181,7 +1970,6 @@ function applyZoom() {
   if (zoomDisplay) zoomDisplay.textContent = Math.round(finalScale * 100) + '%';
 }
 
-/* controles */
 document.getElementById('zoomIn').addEventListener('click', () => {
   if (userZoom < 2) { userZoom += 0.05; applyZoom(); }
 });
@@ -2192,11 +1980,9 @@ document.getElementById('zoomReset').addEventListener('click', () => {
   userZoom = 1; applyZoom();
 });
 
-/* primera carga y redimensionados */
 applyZoom();
 window.addEventListener('resize', applyZoom);
 
-// initialize
 initLabels();
 show(elements[0], document.querySelector('.cell'));
 toggleTrendArrows(false);
