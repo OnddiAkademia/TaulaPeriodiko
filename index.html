@@ -1503,8 +1503,11 @@ electronegToggleBtn.addEventListener('click', function() {
       
       if (element && element.electroneg && element.electroneg > 0) {
         const normalized = (element.electroneg - minElectroneg) / (maxElectroneg - minElectroneg);
-        const r = Math.floor(200 - normalized * 200);
-        const g = Math.floor(230 - normalized * 230);
+        // SOLO AZUL: variamos el azul y mantenemos rojo y verde bajos
+        // Azul claro: rgb(220, 235, 255) para valores bajos (Francio)
+        // Azul oscuro: rgb(0, 60, 200) para valores altos (Flúor)
+        const r = Math.floor(220 - normalized * 220);
+        const g = Math.floor(235 - normalized * 175);
         const b = Math.floor(200 + normalized * 55);
         cell.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
         cell.classList.add('electronegativity');
@@ -1545,6 +1548,7 @@ radiusToggleBtn.addEventListener('click', function() {
       
       if (element && element.radius && element.radius > 0) {
         const normalized = (element.radius - minRadius) / (maxRadius - minRadius);
+        // SOLO VERDE: variamos el verde y mantenemos rojo y azul bajos
         const r = Math.floor(200 - normalized * 200);
         const g = Math.floor(200 + normalized * 55);
         const b = Math.floor(200 - normalized * 200);
@@ -1587,6 +1591,7 @@ ionizationToggleBtn.addEventListener('click', function() {
       
       if (element && element.ionization && element.ionization > 0) {
         const normalized = (element.ionization - minIonization) / (maxIonization - minIonization);
+        // SOLO ROJO: variamos el rojo y mantenemos verde y azul bajos
         const r = Math.floor(200 + normalized * 55);
         const g = Math.floor(200 - normalized * 200);
         const b = Math.floor(200 - normalized * 200);
