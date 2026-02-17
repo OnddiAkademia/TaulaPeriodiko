@@ -729,7 +729,12 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   box-sizing:border-box;
   box-shadow:var(--shadow-light)
 }
-.cell .num{font-size:11px;opacity:0.85;color:var(--text-medium)}
+.cell .num{
+  font-size:11px;
+  opacity:1;
+  color:#000000 !important; /* Números atómicos en negro */
+  font-weight:600; /* Un poco más grueso para mejor visibilidad */
+}
 .cell .sym{
   font-size:26px;
   font-weight:500;
