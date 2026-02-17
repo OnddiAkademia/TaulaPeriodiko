@@ -123,6 +123,65 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   gap: 10px;
 }
 
+/* Estilo para el contenedor de Balentziak (igual que los demás) */
+.valences-container {
+  background: var(--bg-light);
+  border-radius: 10px;
+  padding: 14px;
+  margin: 16px 0;
+  border: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow:var(--shadow-light)
+}
+
+.valences-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.valences-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.valences-toggle-btn {
+  width: 44px;
+  height: 24px;
+  background: var(--border-light);
+  border-radius: 12px;
+  border: none;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.valences-toggle-btn::before {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: var(--bg-white);
+  border-radius: 50%;
+  top: 3px;
+  left: 3px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.valences-toggle-btn.active {
+  background: var(--primary-green);
+}
+
+.valences-toggle-btn.active::before {
+  transform: translateX(20px);
+}
+
 .elec-legend {
   background: var(--bg-light);
   border-radius: 10px;
@@ -511,12 +570,10 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   padding: 0 16px;
   width: 100%;
   max-width: 800px;
-  display: flex;
-  gap: 8px;
 }
 
 .search-box {
-  flex: 1;
+  width: 100%;
   padding: 14px 18px;
   background: var(--bg-white);
   border: 2px solid var(--border-light);
@@ -537,38 +594,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
 .search-box::placeholder {
   color: var(--text-light);
   font-size: 15px;
-}
-
-/* Botón de valencias a la derecha del buscador */
-.btn-view-valences {
-  background: var(--bg-white);
-  border: 2px solid var(--primary-green);
-  color: var(--primary-green);
-  width: 54px;
-  height: 54px;
-  border-radius: 12px;
-  font-size: 20px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: var(--shadow-light);
-  flex-shrink: 0;
-}
-
-.btn-view-valences:hover {
-  background: var(--primary-green);
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-medium);
-}
-
-.btn-view-valences.active {
-  background: var(--primary-green);
-  color: white;
-  border-color: var(--primary-green);
 }
 
 .groups-container {
@@ -1021,6 +1046,14 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
       <div class="footer">Taula periodikoko datu orokorrak.</div>
     </div>
 
+    <!-- Nuevo contenedor para Balentziak (igual que los demás) -->
+    <div class="valences-container" id="valencesContainer">
+      <div class="valences-header">
+        <div class="valences-title">Balentziak</div>
+        <button class="valences-toggle-btn" id="valencesToggleBtn"></button>
+      </div>
+    </div>
+
     <div class="elec-legend" id="elecLegend">
       <div class="elec-legend-header">
         <div class="elec-legend-title">Orbital atomikoak</div>
@@ -1117,7 +1150,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   <main class="container">
     <div class="search-container">
       <input type="text" class="search-box" id="searchInput" placeholder="Bilatu elementua... (izenaz, sinboloaz edo zenbaki atomikoaz)">
-      <button class="btn-view-valences" id="btnViewValences" title="Ikusi balentziak">V</button>
     </div>
 
     <div class="table-complete-wrapper">
@@ -1342,7 +1374,8 @@ const table = document.getElementById('table');
 const lanthanidesContainer = document.getElementById('lanthanides');
 const actinidesContainer = document.getElementById('actinides');
 const searchInput = document.getElementById('searchInput');
-const btnViewValences = document.getElementById('btnViewValences');
+const valencesToggleBtn = document.getElementById('valencesToggleBtn');
+const valencesContainer = document.getElementById('valencesContainer');
 const elecToggleBtn = document.getElementById('elecToggleBtn');
 const elecLegend = document.getElementById('elecLegend');
 const electronegToggleBtn = document.getElementById('electronegToggleBtn');
@@ -1410,7 +1443,8 @@ function resetToGroupColors(keepValenciasMode = false) {
   // Si no debemos mantener el modo valencias, lo desactivamos
   if (!keepValenciasMode) {
     valenciasMode = false;
-    btnViewValences.classList.remove('active');
+    valencesToggleBtn.classList.remove('active');
+    valencesContainer.classList.remove('active');
   }
   
   // Restaurar colores de grupo en todas las celdas
@@ -1476,11 +1510,12 @@ function renderAllCells() {
 }
 
 // Evento para el botón de valencias
-btnViewValences.addEventListener('click', function() {
+valencesToggleBtn.addEventListener('click', function() {
   if (valenciasMode) {
     // Desactivar modo valencias
     valenciasMode = false;
     this.classList.remove('active');
+    valencesContainer.classList.remove('active');
     resetToGroupColors(false);
   } else {
     // Activar modo valencias - mantener colores actuales
@@ -1496,6 +1531,7 @@ btnViewValences.addEventListener('click', function() {
     
     valenciasMode = true;
     this.classList.add('active');
+    valencesContainer.classList.add('active');
     renderAllCells();
   }
 });
@@ -1503,7 +1539,8 @@ btnViewValences.addEventListener('click', function() {
 elecToggleBtn.addEventListener('click', function() {
   if (valenciasMode) {
     valenciasMode = false;
-    btnViewValences.classList.remove('active');
+    valencesToggleBtn.classList.remove('active');
+    valencesContainer.classList.remove('active');
   }
   
   if (this.classList.contains('active')) {
@@ -1542,7 +1579,8 @@ elecToggleBtn.addEventListener('click', function() {
 electronegToggleBtn.addEventListener('click', function() {
   if (valenciasMode) {
     valenciasMode = false;
-    btnViewValences.classList.remove('active');
+    valencesToggleBtn.classList.remove('active');
+    valencesContainer.classList.remove('active');
   }
   
   if (this.classList.contains('active')) {
@@ -1588,7 +1626,8 @@ electronegToggleBtn.addEventListener('click', function() {
 radiusToggleBtn.addEventListener('click', function() {
   if (valenciasMode) {
     valenciasMode = false;
-    btnViewValences.classList.remove('active');
+    valencesToggleBtn.classList.remove('active');
+    valencesContainer.classList.remove('active');
   }
   
   if (this.classList.contains('active')) {
@@ -1634,7 +1673,8 @@ radiusToggleBtn.addEventListener('click', function() {
 ionizationToggleBtn.addEventListener('click', function() {
   if (valenciasMode) {
     valenciasMode = false;
-    btnViewValences.classList.remove('active');
+    valencesToggleBtn.classList.remove('active');
+    valencesContainer.classList.remove('active');
   }
   
   if (this.classList.contains('active')) {
