@@ -29,7 +29,7 @@
   --text-light: #64748b;
   --bg-white: #ffffff;
   --bg-light: #f1f5f9;
-  --bg-medium: #e2e8f0;
+  --bg-medium: #e2e8e0;
   --border-light: rgba(45, 134, 89, 0.15);
   --border-medium: rgba(45, 134, 89, 0.25);
   --hover-green: rgba(45, 134, 89, 0.1);
@@ -511,6 +511,8 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   padding: 0 16px;
   width: 100%;
   max-width: 800px;
+  display: flex;
+  gap: 8px;
 }
 
 .search-box {
@@ -535,6 +537,38 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
 .search-box::placeholder {
   color: var(--text-light);
   font-size: 15px;
+}
+
+/* Estilo para el botón de valencias */
+.btn-view-valences {
+  background: var(--bg-white);
+  border: 2px solid var(--primary-green);
+  color: var(--primary-green);
+  width: 54px;
+  height: 54px;
+  border-radius: 12px;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-light);
+  flex-shrink: 0;
+}
+
+.btn-view-valences:hover {
+  background: var(--primary-green);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.btn-view-valences.active {
+  background: var(--primary-green);
+  color: white;
+  border-color: var(--primary-green);
 }
 
 .groups-container {
@@ -755,6 +789,32 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   letter-spacing:-0.02em;
   text-align:center;
   color:var(--text-dark);
+}
+.cell .valence-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 4px;
+}
+.cell .valence-item {
+  line-height: 1.2;
+}
+.cell .valence-item.negative {
+  color: #dc2626;  /* Color rojo para valencias negativas */
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: #dc2626;
+  text-underline-offset: 2px;
+}
+.cell .name-top {
+  font-size: 10px;
+  opacity: 0.9;
+  text-align: center;
+  margin-bottom: 2px;
+  font-weight: 500;
 }
 .cell:hover{
   transform:translateY(-3px) scale(1.03);
@@ -1057,6 +1117,7 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   <main class="container">
     <div class="search-container">
       <input type="text" class="search-box" id="searchInput" placeholder="Bilatu elementua... (izenaz, sinboloaz edo zenbaki atomikoaz)">
+      <button class="btn-view-valences" id="btnViewValences" title="Ikusi balentziak">V</button>
     </div>
 
     <div class="table-complete-wrapper">
@@ -1330,6 +1391,7 @@ const table = document.getElementById('table');
 const lanthanidesContainer = document.getElementById('lanthanides');
 const actinidesContainer = document.getElementById('actinides');
 const searchInput = document.getElementById('searchInput');
+const btnViewValences = document.getElementById('btnViewValences');
 const elecToggleBtn = document.getElementById('elecToggleBtn');
 const elecLegend = document.getElementById('elecLegend');
 const electronegToggleBtn = document.getElementById('electronegToggleBtn');
@@ -1353,6 +1415,7 @@ const resourcesToggle = document.getElementById('resourcesToggle');
 let allCells = [];
 let groupLabels = [];
 let periodLabels = [];
+let valenciasMode = false; // Nuevo estado para controlar la vista de valencias
 
 function toggleTrendArrows(show, type) {
   const allArrows = trendArrows.querySelectorAll('.trend-arrow');
@@ -1408,6 +1471,7 @@ resourcesToggle.addEventListener('click', function(e) {
   }
 });
 
+// Función para resetear colores de grupo y otros modos
 function resetToGroupColors() {
   // Desactivar todos los botones
   elecToggleBtn.classList.remove('active');
@@ -1418,6 +1482,10 @@ function resetToGroupColors() {
   radiusLegend.classList.remove('active');
   ionizationToggleBtn.classList.remove('active');
   ionizationLegend.classList.remove('active');
+  
+  // Si el modo valencias está activo, no cambiamos los colores de fondo,
+  // solo el contenido de las celdas se maneja en renderAllCells
+  if (valenciasMode) return;
   
   // Restaurar colores de grupo
   allCells.forEach(cell => {
@@ -1444,7 +1512,95 @@ function resetToGroupColors() {
   });
 }
 
+// Función para renderizar todas las celdas según el modo actual
+function renderAllCells() {
+  allCells.forEach(cell => {
+    const z = parseInt(cell.dataset.z);
+    let element;
+    
+    if (z >= 57 && z <= 71) {
+      element = lanthanides.find(el => el.z === z);
+    } else if (z >= 89 && z <= 103) {
+      element = actinides.find(el => el.z === z);
+    } else {
+      element = elements.find(el => el.z === z);
+    }
+    
+    if (element) {
+      if (valenciasMode) {
+        // Modo valencias: nombre arriba, símbolo, y valencias abajo
+        const valenceHtml = element.val && element.val.length 
+          ? element.val.map(v => `<span class="valence-item ${v < 0 ? 'negative' : ''}">${v}</span>`).join('')
+          : '—';
+        
+        cell.innerHTML = `
+          <div class="name-top">${element.name}</div>
+          <div class="sym">${element.sym}</div>
+          <div class="valence-container">${valenceHtml}</div>
+        `;
+        
+        // Mantener las clases de grupo o color actual
+        cell.className = cell.className.split(' ')[0] + ' cell';
+        if (cell.classList.contains('alkali') || 
+            cell.classList.contains('alkaline') || 
+            cell.classList.contains('lanthanide') || 
+            cell.classList.contains('actinide') || 
+            cell.classList.contains('transition') || 
+            cell.classList.contains('post-transition') || 
+            cell.classList.contains('metalloid') || 
+            cell.classList.contains('nonmetal') || 
+            cell.classList.contains('halogen') || 
+            cell.classList.contains('noble')) {
+          // Mantener la clase de grupo
+        }
+      } else {
+        // Modo normal: número arriba a la izquierda, nombre y símbolo centrados
+        cell.innerHTML = `
+          <div style="display:flex;justify-content:space-between"><div class='num'>${element.z}</div></div>
+          <div style="text-align:center;margin-top:4px">
+            <div class='sym'>${element.sym}</div>
+            <div class='ename'>${element.name}</div>
+          </div>
+        `;
+      }
+    }
+  });
+}
+
+// Evento para el botón de valencias
+btnViewValences.addEventListener('click', function() {
+  // Desactivar cualquier otro modo de visualización
+  resetToGroupColors();
+  
+  // Alternar el modo valencias
+  valenciasMode = !valenciasMode;
+  
+  // Actualizar estilo del botón
+  this.classList.toggle('active', valenciasMode);
+  
+  // Si se activa el modo valencias, aseguramos que los botones de propiedades estén desactivados
+  if (valenciasMode) {
+    elecToggleBtn.classList.remove('active');
+    elecLegend.classList.remove('active');
+    electronegToggleBtn.classList.remove('active');
+    electronegLegend.classList.remove('active');
+    radiusToggleBtn.classList.remove('active');
+    radiusLegend.classList.remove('active');
+    ionizationToggleBtn.classList.remove('active');
+    ionizationLegend.classList.remove('active');
+  }
+  
+  // Renderizar todas las celdas con el nuevo modo
+  renderAllCells();
+});
+
 elecToggleBtn.addEventListener('click', function() {
+  if (valenciasMode) {
+    // Si estamos en modo valencias, desactivarlo primero
+    valenciasMode = false;
+    btnViewValences.classList.remove('active');
+  }
+  
   if (this.classList.contains('active')) {
     resetToGroupColors();
   } else {
@@ -1475,11 +1631,21 @@ elecToggleBtn.addEventListener('click', function() {
       else if ((z >= 57 && z <= 70) || (z >= 89 && z <= 102)) {
         cell.classList.add('f-block');
       }
+      
+      // Mantener el contenido de la celda según el modo (normal porque valenciasMode es false)
+      renderAllCells();
     });
   }
 });
 
 electronegToggleBtn.addEventListener('click', function() {
+  if (valenciasMode) {
+    // Si estamos en modo valencias, desactivarlo primero
+    valenciasMode = false;
+    btnViewValences.classList.remove('active');
+    renderAllCells(); // Renderizar en modo normal
+  }
+  
   if (this.classList.contains('active')) {
     resetToGroupColors();
   } else {
@@ -1519,11 +1685,21 @@ electronegToggleBtn.addEventListener('click', function() {
         cell.style.backgroundColor = '#f1f5f9';
         cell.classList.add('unknown-electroneg');
       }
+      
+      // Mantener el contenido de la celda (modo normal)
+      renderAllCells();
     });
   }
 });
 
 radiusToggleBtn.addEventListener('click', function() {
+  if (valenciasMode) {
+    // Si estamos en modo valencias, desactivarlo primero
+    valenciasMode = false;
+    btnViewValences.classList.remove('active');
+    renderAllCells(); // Renderizar en modo normal
+  }
+  
   if (this.classList.contains('active')) {
     resetToGroupColors();
   } else {
@@ -1563,11 +1739,21 @@ radiusToggleBtn.addEventListener('click', function() {
         cell.style.backgroundColor = '#f1f5f9';
         cell.classList.add('unknown-radius');
       }
+      
+      // Mantener el contenido de la celda (modo normal)
+      renderAllCells();
     });
   }
 });
 
 ionizationToggleBtn.addEventListener('click', function() {
+  if (valenciasMode) {
+    // Si estamos en modo valencias, desactivarlo primero
+    valenciasMode = false;
+    btnViewValences.classList.remove('active');
+    renderAllCells(); // Renderizar en modo normal
+  }
+  
   if (this.classList.contains('active')) {
     resetToGroupColors();
   } else {
@@ -1607,6 +1793,9 @@ ionizationToggleBtn.addEventListener('click', function() {
         cell.style.backgroundColor = '#f1f5f9';
         cell.classList.add('unknown-ionization');
       }
+      
+      // Mantener el contenido de la celda (modo normal)
+      renderAllCells();
     });
   }
 });
@@ -1728,6 +1917,7 @@ function removeGroupAndPeriodHighlights() {
   periodLabels.forEach(label => label.classList.remove('highlighted'));
 }
 
+// Crear celdas iniciales
 elements.forEach(el=>{
   const d = document.createElement('div');
   d.className = 'cell ' + groupClass(el.group);
