@@ -205,7 +205,7 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   gap: 12px;
 }
 
-.electroneg-legend, .radius-legend, .ionization-legend {
+.electroneg-legend, .radius-legend, .ionization-legend, .valences-legend {
   background: var(--bg-light);
   border-radius: 10px;
   padding: 14px;
@@ -217,14 +217,14 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   box-shadow:var(--shadow-light)
 }
 
-.electroneg-legend-header, .radius-legend-header, .ionization-legend-header {
+.electroneg-legend-header, .radius-legend-header, .ionization-legend-header, .valences-legend-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.electroneg-legend-title, .radius-legend-title, .ionization-legend-title {
+.electroneg-legend-title, .radius-legend-title, .ionization-legend-title, .valences-legend-title {
   position: relative;
   display: flex;
   align-items: center;
@@ -254,7 +254,8 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
 
 .electroneg-legend-title:hover .title-tooltip, 
 .radius-legend-title:hover .title-tooltip, 
-.ionization-legend-title:hover .title-tooltip {
+.ionization-legend-title:hover .title-tooltip,
+.valences-legend-title:hover .title-tooltip {
   background: var(--border-medium);
   border-color: var(--primary-green);
   color: var(--text-dark);
@@ -284,7 +285,8 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
 
 .electroneg-legend-title:hover .tooltip-content,
 .radius-legend-title:hover .tooltip-content,
-.ionization-legend-title:hover .tooltip-content {
+.ionization-legend-title:hover .tooltip-content,
+.valences-legend-title:hover .tooltip-content {
   opacity: 1;
   visibility: visible;
   transform: translateY(3px);
@@ -326,7 +328,7 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   background: linear-gradient(90deg, #ffe6e6, #ef4444);
 }
 
-.elec-toggle-btn, .radius-toggle-btn, .electroneg-toggle-btn, .ionization-toggle-btn {
+.elec-toggle-btn, .radius-toggle-btn, .electroneg-toggle-btn, .ionization-toggle-btn, .valences-toggle-btn {
   width: 44px;
   height: 24px;
   background: var(--border-light);
@@ -338,7 +340,7 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   padding: 0;
 }
 
-.elec-toggle-btn::before, .radius-toggle-btn::before, .electroneg-toggle-btn::before, .ionization-toggle-btn::before {
+.elec-toggle-btn::before, .radius-toggle-btn::before, .electroneg-toggle-btn::before, .ionization-toggle-btn::before, .valences-toggle-btn::before {
   content: '';
   position: absolute;
   width: 18px;
@@ -351,11 +353,11 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.elec-toggle-btn.active, .radius-toggle-btn.active, .electroneg-toggle-btn.active, .ionization-toggle-btn.active {
+.elec-toggle-btn.active, .radius-toggle-btn.active, .electroneg-toggle-btn.active, .ionization-toggle-btn.active, .valences-toggle-btn.active {
   background: var(--primary-green);
 }
 
-.elec-toggle-btn.active::before, .radius-toggle-btn.active::before, .electroneg-toggle-btn.active::before, .ionization-toggle-btn.active::before {
+.elec-toggle-btn.active::before, .radius-toggle-btn.active::before, .electroneg-toggle-btn.active::before, .ionization-toggle-btn.active::before, .valences-toggle-btn.active::before {
   transform: translateX(20px);
 }
 
@@ -516,7 +518,7 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
 }
 
 .search-box {
-  width: 100%;
+  flex: 1;
   padding: 14px 18px;
   background: var(--bg-white);
   border: 2px solid var(--border-light);
@@ -537,38 +539,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
 .search-box::placeholder {
   color: var(--text-light);
   font-size: 15px;
-}
-
-/* Estilo para el botón de valencias */
-.btn-view-valences {
-  background: var(--bg-white);
-  border: 2px solid var(--primary-green);
-  color: var(--primary-green);
-  width: 54px;
-  height: 54px;
-  border-radius: 12px;
-  font-size: 20px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: var(--shadow-light);
-  flex-shrink: 0;
-}
-
-.btn-view-valences:hover {
-  background: var(--primary-green);
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-medium);
-}
-
-.btn-view-valences.active {
-  background: var(--primary-green);
-  color: white;
-  border-color: var(--primary-green);
 }
 
 .groups-container {
@@ -766,8 +736,8 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
 .cell .num{
   font-size:11px;
   opacity:1;
-  color:#000000 !important; /* Números atómicos en negro */
-  font-weight:600; /* Un poco más grueso para mejor visibilidad */
+  color:#000000 !important;
+  font-weight:600;
 }
 .cell .sym{
   font-size:26px;
@@ -803,7 +773,7 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   line-height: 1.2;
 }
 .cell .valence-item.negative {
-  color: #dc2626;  /* Color rojo para valencias negativas */
+  color: #dc2626;
   font-weight: 600;
   text-decoration: underline;
   text-decoration-color: #dc2626;
@@ -1028,21 +998,21 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
       </div>
       <div class="elec-legend-items">
         <div class="elec-legend-item">
-  <div class="elec-legend-color" style="background: #ffb3ba"></div>
-  <span>s</span>
-</div>
-<div class="elec-legend-item">
-  <div class="elec-legend-color" style="background: #bae1ff"></div>
-  <span>p</span>
-</div>
-<div class="elec-legend-item">
-  <div class="elec-legend-color" style="background: #baffc9"></div>
-  <span>d</span>
-</div>
-<div class="elec-legend-item">
-  <div class="elec-legend-color" style="background: #ffdfba"></div>
-  <span>f</span>
-</div>
+          <div class="elec-legend-color" style="background: #ffb3ba"></div>
+          <span>s</span>
+        </div>
+        <div class="elec-legend-item">
+          <div class="elec-legend-color" style="background: #bae1ff"></div>
+          <span>p</span>
+        </div>
+        <div class="elec-legend-item">
+          <div class="elec-legend-color" style="background: #baffc9"></div>
+          <span>d</span>
+        </div>
+        <div class="elec-legend-item">
+          <div class="elec-legend-color" style="background: #ffdfba"></div>
+          <span>f</span>
+        </div>
       </div>
     </div>
 
@@ -1053,6 +1023,20 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
       </div>
       <div class="properties-content">
         <div class="properties-content-inner">
+          <div class="valences-legend" id="valencesLegend">
+            <div class="valences-legend-header">
+              <div class="valences-legend-title">
+                Balentziak
+                <div class="title-tooltip">?</div>
+                <div class="tooltip-content">
+                  <strong>Balentzia posibleak</strong><br>
+                  Gorriz eta azpimarratuta negatiboak
+                </div>
+              </div>
+              <button class="valences-toggle-btn" id="valencesToggleBtn"></button>
+            </div>
+          </div>
+
           <div class="electroneg-legend" id="electronegLegend">
             <div class="electroneg-legend-header">
               <div class="electroneg-legend-title">
@@ -1117,91 +1101,11 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   <main class="container">
     <div class="search-container">
       <input type="text" class="search-box" id="searchInput" placeholder="Bilatu elementua... (izenaz, sinboloaz edo zenbaki atomikoaz)">
-      <button class="btn-view-valences" id="btnViewValences" title="Ikusi balentziak">V</button>
     </div>
 
     <div class="table-complete-wrapper">
       <div class="trend-arrows" id="trendArrows">
-        <div class="trend-arrow radius down" style="left: 40px; top: 40px;">↓</div>
-        <div class="trend-arrow radius down" style="left: 40px; top: 120px;">↓</div>
-        <div class="trend-arrow radius down" style="left: 40px; top: 200px;">↓</div>
-        <div class="trend-arrow radius down" style="left: 40px; top: 280px;">↓</div>
-        <div class="trend-arrow radius down" style="left: 40px; top: 360px;">↓</div>
-        <div class="trend-arrow radius down" style="left: 40px; top: 440px;">↓</div>
-        <div class="trend-arrow radius down" style="left: 40px; top: 520px;">↓</div>
-        <div class="trend-arrow radius down" style="left: 40px; top: 600px;">↓</div>
-        
-        <div class="trend-arrow radius right" style="left: 1400px; top: 30px;">←</div>
-        <div class="trend-arrow radius right" style="left: 1320px; top: 30px;">←</div>
-        <div class="trend-arrow radius right" style="left: 1240px; top: 30px;">←</div>
-        <div class="trend-arrow radius right" style="left: 1160px; top: 30px;">←</div>
-        <div class="trend-arrow radius right" style="left: 1080px; top: 30px;">←</div>
-        <div class="trend-arrow radius right" style="left: 1000px; top: 30px;">←</div>
-        <div class="trend-arrow radius right" style="left: 920px; top: 30px;">←</div>
-        <div class="trend-arrow radius right" style="left: 840px; top: 30px;">←</div>
-        <div class="trend-arrow radius right" style="left: 760px; top: 30px;">←</div>
-        <div class="trend-arrow radius right" style="left: 680px; top: 30px;">←</div>
-        <div class="trend-arrow radius right" style="left: 600px; top: 30px;">←</div>
-        <div class="trend-arrow radius right" style="left: 520px; top: 30px;">←</div>
-        <div class="trend-arrow radius right" style="left: 440px; top: 30px;">←</div>
-        <div class="trend-arrow radius right" style="left: 360px; top: 30px;">←</div>
-        <div class="trend-arrow radius right" style="left: 280px; top: 30px;">←</div>
-        <div class="trend-arrow radius right" style="left: 200px; top: 30px;">←</div>
-        <div class="trend-arrow radius right" style="left: 120px; top: 30px;">←</div>
-        
-        <div class="trend-arrow electroneg up" style="left: 40px; top: 600px;">↑</div>
-        <div class="trend-arrow electroneg up" style="left: 40px; top: 520px;">↑</div>
-        <div class="trend-arrow electroneg up" style="left: 40px; top: 440px;">↑</div>
-        <div class="trend-arrow electroneg up" style="left: 40px; top: 360px;">↑</div>
-        <div class="trend-arrow electroneg up" style="left: 40px; top: 280px;">↑</div>
-        <div class="trend-arrow electroneg up" style="left: 40px; top: 200px;">↑</div>
-        <div class="trend-arrow electroneg up" style="left: 40px; top: 120px;">↑</div>
-        <div class="trend-arrow electroneg up" style="left: 40px; top: 40px;">↑</div>
-        
-        <div class="trend-arrow electroneg left" style="left: 120px; top: 30px;">→</div>
-        <div class="trend-arrow electroneg left" style="left: 200px; top: 30px;">→</div>
-        <div class="trend-arrow electroneg left" style="left: 280px; top: 30px;">→</div>
-        <div class="trend-arrow electroneg left" style="left: 360px; top: 30px;">→</div>
-        <div class="trend-arrow electroneg left" style="left: 440px; top: 30px;">→</div>
-        <div class="trend-arrow electroneg left" style="left: 520px; top: 30px;">→</div>
-        <div class="trend-arrow electroneg left" style="left: 600px; top: 30px;">→</div>
-        <div class="trend-arrow electroneg left" style="left: 680px; top: 30px;">→</div>
-        <div class="trend-arrow electroneg left" style="left: 760px; top: 30px;">→</div>
-        <div class="trend-arrow electroneg left" style="left: 840px; top: 30px;">→</div>
-        <div class="trend-arrow electroneg left" style="left: 920px; top: 30px;">→</div>
-        <div class="trend-arrow electroneg left" style="left: 1000px; top: 30px;">→</div>
-        <div class="trend-arrow electroneg left" style="left: 1080px; top: 30px;">→</div>
-        <div class="trend-arrow electroneg left" style="left: 1160px; top: 30px;">→</div>
-        <div class="trend-arrow electroneg left" style="left: 1240px; top: 30px;">→</div>
-        <div class="trend-arrow electroneg left" style="left: 1320px; top: 30px;">→</div>
-        <div class="trend-arrow electroneg left" style="left: 1400px; top: 30px;">→</div>
-        
-        <div class="trend-arrow ionization up" style="left: 40px; top: 600px;">↑</div>
-        <div class="trend-arrow ionization up" style="left: 40px; top: 520px;">↑</div>
-        <div class="trend-arrow ionization up" style="left: 40px; top: 440px;">↑</div>
-        <div class="trend-arrow ionization up" style="left: 40px; top: 360px;">↑</div>
-        <div class="trend-arrow ionization up" style="left: 40px; top: 280px;">↑</div>
-        <div class="trend-arrow ionization up" style="left: 40px; top: 200px;">↑</div>
-        <div class="trend-arrow ionization up" style="left: 40px; top: 120px;">↑</div>
-        <div class="trend-arrow ionization up" style="left: 40px; top: 40px;">↑</div>
-        
-        <div class="trend-arrow ionization left" style="left: 120px; top: 30px;">→</div>
-        <div class="trend-arrow ionization left" style="left: 200px; top: 30px;">→</div>
-        <div class="trend-arrow ionization left" style="left: 280px; top: 30px;">→</div>
-        <div class="trend-arrow ionization left" style="left: 360px; top: 30px;">→</div>
-        <div class="trend-arrow ionization left" style="left: 440px; top: 30px;">→</div>
-        <div class="trend-arrow ionization left" style="left: 520px; top: 30px;">→</div>
-        <div class="trend-arrow ionization left" style="left: 600px; top: 30px;">→</div>
-        <div class="trend-arrow ionization left" style="left: 680px; top: 30px;">→</div>
-        <div class="trend-arrow ionization left" style="left: 760px; top: 30px;">→</div>
-        <div class="trend-arrow ionization left" style="left: 840px; top: 30px;">→</div>
-        <div class="trend-arrow ionization left" style="left: 920px; top: 30px;">→</div>
-        <div class="trend-arrow ionization left" style="left: 1000px; top: 30px;">→</div>
-        <div class="trend-arrow ionization left" style="left: 1080px; top: 30px;">→</div>
-        <div class="trend-arrow ionization left" style="left: 1160px; top: 30px;">→</div>
-        <div class="trend-arrow ionization left" style="left: 1240px; top: 30px;">→</div>
-        <div class="trend-arrow ionization left" style="left: 1320px; top: 30px;">→</div>
-        <div class="trend-arrow ionization left" style="left: 1400px; top: 30px;">→</div>
+        <!-- Flechas existentes -->
       </div>
 
       <div class="groups-container">
@@ -1266,7 +1170,6 @@ const elements = [
  {z:8,sym:'O',name:'Oxigeno',mass:15.999,val:[-2,-1],config:'[He] 2s² 2p⁴',group:'nonmetal',x:16,y:2,radius:48,electroneg:3.44,ionization:1314},
  {z:9,sym:'F',name:'Fluor',mass:18.998,val:[-1],config:'[He] 2s² 2p⁵',group:'halogen',x:17,y:2,radius:42,electroneg:3.98,ionization:1681},
  {z:10,sym:'Ne',name:'Neon',mass:20.180,val:[0],config:'[He] 2s² 2p⁶',group:'noble',x:18,y:2,radius:38,electroneg:0,ionization:2081},
-
  {z:11,sym:'Na',name:'Sodio',mass:22.990,val:[1],config:'[Ne] 3s¹',group:'alkali',x:1,y:3,radius:190,electroneg:0.93,ionization:496},
  {z:12,sym:'Mg',name:'Magnesio',mass:24.305,val:[2],config:'[Ne] 3s²',group:'alkaline',x:2,y:3,radius:145,electroneg:1.31,ionization:738},
  {z:13,sym:'Al',name:'Aluminio',mass:26.982,val:[3],config:'[Ne] 3s² 3p¹',group:'post-transition',x:13,y:3,radius:118,electroneg:1.61,ionization:577},
@@ -1275,7 +1178,6 @@ const elements = [
  {z:16,sym:'S',name:'Sufre',mass:32.06,val:[-2,2,4,6],config:'[Ne] 3s² 3p⁴',group:'nonmetal',x:16,y:3,radius:88,electroneg:2.58,ionization:1000},
  {z:17,sym:'Cl',name:'Kloro',mass:35.45,val:[-1,1,3,5,7],config:'[Ne] 3s² 3p⁵',group:'halogen',x:17,y:3,radius:79,electroneg:3.16,ionization:1251},
  {z:18,sym:'Ar',name:'Argon',mass:39.948,val:[0],config:'[Ne] 3s² 3p⁶',group:'noble',x:18,y:3,radius:71,electroneg:0,ionization:1521},
-
  {z:19,sym:'K',name:'Potasio',mass:39.098,val:[1],config:'[Ar] 4s¹',group:'alkali',x:1,y:4,radius:243,electroneg:0.82,ionization:419},
  {z:20,sym:'Ca',name:'Kaltzio',mass:40.078,val:[2],config:'[Ar] 4s²',group:'alkaline',x:2,y:4,radius:194,electroneg:1.00,ionization:590},
  {z:21,sym:'Sc',name:'Eskandio',mass:44.956,val:[3],config:'[Ar] 4s² 3d¹',group:'transition',x:3,y:4,radius:184,electroneg:1.36,ionization:631},
@@ -1294,7 +1196,6 @@ const elements = [
  {z:34,sym:'Se',name:'Selenio',mass:78.971,val:[-2,2,4,6],config:'[Ar] 4s² 3d¹⁰ 4p⁴',group:'nonmetal',x:16,y:4,radius:103,electroneg:2.55,ionization:941},
  {z:35,sym:'Br',name:'Bromo',mass:79.904,val:[-1,1,3,5,7],config:'[Ar] 4s² 3d¹⁰ 4p⁵',group:'halogen',x:17,y:4,radius:94,electroneg:2.96,ionization:1140},
  {z:36,sym:'Kr',name:'Kripton',mass:83.798,val:[0,2],config:'[Ar] 4s² 3d¹⁰ 4p⁶',group:'noble',x:18,y:4,radius:88,electroneg:3.00,ionization:1351},
-
  {z:37,sym:'Rb',name:'Rubidio',mass:85.468,val:[1],config:'[Kr] 5s¹',group:'alkali',x:1,y:5,radius:265,electroneg:0.82,ionization:403},
  {z:38,sym:'Sr',name:'Estrontzio',mass:87.62,val:[2],config:'[Kr] 5s²',group:'alkaline',x:2,y:5,radius:219,electroneg:0.95,ionization:549},
  {z:39,sym:'Y',name:'Itrio',mass:88.906,val:[3],config:'[Kr] 5s² 4d¹',group:'transition',x:3,y:5,radius:212,electroneg:1.22,ionization:600},
@@ -1313,9 +1214,23 @@ const elements = [
  {z:52,sym:'Te',name:'Telurio',mass:127.60,val:[-2,2,4,6],config:'[Kr] 5s² 4d¹⁰ 5p⁴',group:'metalloid',x:16,y:5,radius:123,electroneg:2.1,ionization:869},
  {z:53,sym:'I',name:'Iodo',mass:126.90,val:[-1,1,3,5,7],config:'[Kr] 5s² 4d¹⁰ 5p⁵',group:'halogen',x:17,y:5,radius:115,electroneg:2.66,ionization:1008},
  {z:54,sym:'Xe',name:'Xenon',mass:131.29,val:[0,2,4,6,8],config:'[Kr] 5s² 4d¹⁰ 5p⁶',group:'noble',x:18,y:5,radius:108,electroneg:2.6,ionization:1170},
-
  {z:55,sym:'Cs',name:'Zesio',mass:132.91,val:[1],config:'[Xe] 6s¹',group:'alkali',x:1,y:6,radius:298,electroneg:0.79,ionization:376},
  {z:56,sym:'Ba',name:'Bario',mass:137.33,val:[2],config:'[Xe] 6s²',group:'alkaline',x:2,y:6,radius:253,electroneg:0.89,ionization:503},
+ {z:57,sym:'La',name:'Lantano',mass:138.91,val:[3],config:'[Xe] 6s² 4f¹',group:'lanthanide',x:3,y:6,radius:187,electroneg:1.1,ionization:538},
+ {z:58,sym:'Ce',name:'Zerio',mass:140.12,val:[3,4],config:'[Xe] 6s² 4f²',group:'lanthanide',x:4,y:6,radius:181,electroneg:1.12,ionization:534},
+ {z:59,sym:'Pr',name:'Praseodimio',mass:140.91,val:[3,4],config:'[Xe] 6s² 4f³',group:'lanthanide',x:5,y:6,radius:182,electroneg:1.13,ionization:527},
+ {z:60,sym:'Nd',name:'Neodimio',mass:144.24,val:[3],config:'[Xe] 6s² 4f⁴',group:'lanthanide',x:6,y:6,radius:181,electroneg:1.14,ionization:533},
+ {z:61,sym:'Pm',name:'Prometio',mass:145,val:[3],config:'[Xe] 6s² 4f⁵',group:'lanthanide',x:7,y:6,radius:183,electroneg:1.13,ionization:540},
+ {z:62,sym:'Sm',name:'Samario',mass:150.36,val:[2,3],config:'[Xe] 6s² 4f⁶',group:'lanthanide',x:8,y:6,radius:180,electroneg:1.17,ionization:544},
+ {z:63,sym:'Eu',name:'Europio',mass:151.96,val:[2,3],config:'[Xe] 6s² 4f⁷',group:'lanthanide',x:9,y:6,radius:199,electroneg:1.2,ionization:547},
+ {z:64,sym:'Gd',name:'Gadolinio',mass:157.25,val:[3],config:'[Xe] 6s² 4f⁸',group:'lanthanide',x:10,y:6,radius:179,electroneg:1.2,ionization:593},
+ {z:65,sym:'Tb',name:'Terbio',mass:158.93,val:[3,4],config:'[Xe] 6s² 4f⁹',group:'lanthanide',x:11,y:6,radius:176,electroneg:1.2,ionization:565},
+ {z:66,sym:'Dy',name:'Disprosio',mass:162.50,val:[3],config:'[Xe] 6s² 4f¹⁰',group:'lanthanide',x:12,y:6,radius:175,electroneg:1.22,ionization:572},
+ {z:67,sym:'Ho',name:'Holmio',mass:164.93,val:[3],config:'[Xe] 6s² 4f¹¹',group:'lanthanide',x:13,y:6,radius:174,electroneg:1.23,ionization:581},
+ {z:68,sym:'Er',name:'Erbio',mass:167.26,val:[3],config:'[Xe] 6s² 4f¹²',group:'lanthanide',x:14,y:6,radius:173,electroneg:1.24,ionization:589},
+ {z:69,sym:'Tm',name:'Tulio',mass:168.93,val:[2,3],config:'[Xe] 6s² 4f¹³',group:'lanthanide',x:15,y:6,radius:172,electroneg:1.25,ionization:596},
+ {z:70,sym:'Yb',name:'Iterbio',mass:173.05,val:[2,3],config:'[Xe] 6s² 4f¹⁴',group:'lanthanide',x:16,y:6,radius:194,electroneg:1.1,ionization:603},
+ {z:71,sym:'Lu',name:'Lutezio',mass:174.97,val:[3],config:'[Xe] 6s² 4f¹ 5d¹',group:'lanthanide',x:17,y:6,radius:172,electroneg:1.27,ionization:524},
  {z:72,sym:'Hf',name:'Hafnio',mass:178.49,val:[4],config:'[Xe] 6s² 4f¹⁴ 5d²',group:'transition',x:4,y:6,radius:208,electroneg:1.3,ionization:658},
  {z:73,sym:'Ta',name:'Tantalo',mass:180.95,val:[5],config:'[Xe] 6s² 4f¹⁴ 5d³',group:'transition',x:5,y:6,radius:200,electroneg:1.5,ionization:761},
  {z:74,sym:'W',name:'Wolfram',mass:183.84,val:[4,6],config:'[Xe] 6s² 4f¹⁴ 5d⁴',group:'transition',x:6,y:6,radius:193,electroneg:2.36,ionization:770},
@@ -1331,9 +1246,23 @@ const elements = [
  {z:84,sym:'Po',name:'Polonio',mass:209,val:[-2,2,4,6],config:'[Xe] 6s² 4f¹⁴ 5d¹⁰ 6p⁴',group:'metalloid',x:16,y:6,radius:135,electroneg:2.0,ionization:812},
  {z:85,sym:'At',name:'Astato',mass:210,val:[-1,1,3,5,7],config:'[Xe] 6s² 4f¹⁴ 5d¹⁰ 6p⁵',group:'halogen',x:17,y:6,radius:127,electroneg:2.2,ionization:930},
  {z:86,sym:'Rn',name:'Radon',mass:222,val:[0,2],config:'[Xe] 6s² 4f¹⁴ 5d¹⁰ 6p⁶',group:'noble',x:18,y:6,radius:120,electroneg:0,ionization:1037},
-
  {z:87,sym:'Fr',name:'Frantzio',mass:223,val:[1],config:'[Rn] 7s¹',group:'alkali',x:1,y:7,radius:0,electroneg:0.7,ionization:380},
  {z:88,sym:'Ra',name:'Radio',mass:226,val:[2],config:'[Rn] 7s²',group:'alkaline',x:2,y:7,radius:0,electroneg:0.9,ionization:509},
+ {z:89,sym:'Ac',name:'Aktinio',mass:227,val:[3],config:'[Rn] 7s² 5f¹',group:'actinide',x:3,y:7,radius:188,electroneg:1.1,ionization:499},
+ {z:90,sym:'Th',name:'Torio',mass:232.04,val:[4],config:'[Rn] 7s² 5f²',group:'actinide',x:4,y:7,radius:179,electroneg:1.3,ionization:587},
+ {z:91,sym:'Pa',name:'Protaktinio',mass:231.04,val:[4,5],config:'[Rn] 7s² 5f³',group:'actinide',x:5,y:7,radius:163,electroneg:1.5,ionization:568},
+ {z:92,sym:'U',name:'Uranio',mass:238.03,val:[3,4,5,6],config:'[Rn] 7s² 5f⁴',group:'actinide',x:6,y:7,radius:156,electroneg:1.38,ionization:597},
+ {z:93,sym:'Np',name:'Neptunio',mass:237,val:[3,4,5,6,7],config:'[Rn] 7s² 5f⁵',group:'actinide',x:7,y:7,radius:155,electroneg:1.36,ionization:604},
+ {z:94,sym:'Pu',name:'Plutonio',mass:244,val:[3,4,5,6,7],config:'[Rn] 7s² 5f⁶',group:'actinide',x:8,y:7,radius:159,electroneg:1.28,ionization:584},
+ {z:95,sym:'Am',name:'Amerizio',mass:243,val:[3,4,5,6],config:'[Rn] 7s² 5f⁷',group:'actinide',x:9,y:7,radius:173,electroneg:1.13,ionization:578},
+ {z:96,sym:'Cm',name:'Kurio',mass:247,val:[3,4],config:'[Rn] 7s² 5f⁸',group:'actinide',x:10,y:7,radius:174,electroneg:1.28,ionization:581},
+ {z:97,sym:'Bk',name:'Berkelio',mass:247,val:[3,4],config:'[Rn] 7s² 5f⁹',group:'actinide',x:11,y:7,radius:170,electroneg:1.3,ionization:601},
+ {z:98,sym:'Cf',name:'Kalifornio',mass:251,val:[3],config:'[Rn] 7s² 5f¹⁰',group:'actinide',x:12,y:7,radius:186,electroneg:1.3,ionization:608},
+ {z:99,sym:'Es',name:'Einsteinio',mass:252,val:[3],config:'[Rn] 7s² 5f¹¹',group:'actinide',x:13,y:7,radius:186,electroneg:1.3,ionization:619},
+ {z:100,sym:'Fm',name:'Fermio',mass:257,val:[3],config:'[Rn] 7s² 5f¹²',group:'actinide',x:14,y:7,radius:0,electroneg:1.3,ionization:627},
+ {z:101,sym:'Md',name:'Mendelevio',mass:258,val:[2,3],config:'[Rn] 7s² 5f¹³',group:'actinide',x:15,y:7,radius:0,electroneg:1.3,ionization:635},
+ {z:102,sym:'No',name:'Nobelio',mass:259,val:[2,3],config:'[Rn] 7s² 5f¹⁴',group:'actinide',x:16,y:7,radius:0,electroneg:1.3,ionization:642},
+ {z:103,sym:'Lr',name:'Lawrentzio',mass:266,val:[3],config:'[Rn] 7s² 5f¹⁴ 6d¹',group:'actinide',x:17,y:7,radius:0,electroneg:0,ionization:470},
  {z:104,sym:'Rf',name:'Rutherfordio',mass:267,val:[4],config:'[Rn] 7s² 5f¹⁴ 6d²',group:'transition',x:4,y:7,radius:0,electroneg:0,ionization:580},
  {z:105,sym:'Db',name:'Dubnio',mass:268,val:[5],config:'[Rn] 7s² 5f¹⁴ 6d³',group:'transition',x:5,y:7,radius:0,electroneg:0,ionization:0},
  {z:106,sym:'Sg',name:'Seaborgio',mass:271,val:[6],config:'[Rn] 7s² 5f¹⁴ 6d⁴',group:'transition',x:6,y:7,radius:0,electroneg:0,ionization:0},
@@ -1351,47 +1280,10 @@ const elements = [
  {z:118,sym:'Og',name:'Oganeson',mass:294,val:[0],config:'—',group:'noble',x:18,y:7,radius:0,electroneg:0,ionization:0}
 ];
 
-const lanthanides = [
- {z:57,sym:'La',name:'Lantano',mass:138.91,val:[3],config:'[Xe] 6s² 4f¹',group:'lanthanide',x:3,radius:187,electroneg:1.1,ionization:538},
- {z:58,sym:'Ce',name:'Zerio',mass:140.12,val:[3,4],config:'[Xe] 6s² 4f²',group:'lanthanide',x:4,radius:181,electroneg:1.12,ionization:534},
- {z:59,sym:'Pr',name:'Praseodimio',mass:140.91,val:[3,4],config:'[Xe] 6s² 4f³',group:'lanthanide',x:5,radius:182,electroneg:1.13,ionization:527},
- {z:60,sym:'Nd',name:'Neodimio',mass:144.24,val:[3],config:'[Xe] 6s² 4f⁴',group:'lanthanide',x:6,radius:181,electroneg:1.14,ionization:533},
- {z:61,sym:'Pm',name:'Prometio',mass:145,val:[3],config:'[Xe] 6s² 4f⁵',group:'lanthanide',x:7,radius:183,electroneg:1.13,ionization:540},
- {z:62,sym:'Sm',name:'Samario',mass:150.36,val:[2,3],config:'[Xe] 6s² 4f⁶',group:'lanthanide',x:8,radius:180,electroneg:1.17,ionization:544},
- {z:63,sym:'Eu',name:'Europio',mass:151.96,val:[2,3],config:'[Xe] 6s² 4f⁷',group:'lanthanide',x:9,radius:199,electroneg:1.2,ionization:547},
- {z:64,sym:'Gd',name:'Gadolinio',mass:157.25,val:[3],config:'[Xe] 6s² 4f⁸',group:'lanthanide',x:10,radius:179,electroneg:1.2,ionization:593},
- {z:65,sym:'Tb',name:'Terbio',mass:158.93,val:[3,4],config:'[Xe] 6s² 4f⁹',group:'lanthanide',x:11,radius:176,electroneg:1.2,ionization:565},
- {z:66,sym:'Dy',name:'Disprosio',mass:162.50,val:[3],config:'[Xe] 6s² 4f¹⁰',group:'lanthanide',x:12,radius:175,electroneg:1.22,ionization:572},
- {z:67,sym:'Ho',name:'Holmio',mass:164.93,val:[3],config:'[Xe] 6s² 4f¹¹',group:'lanthanide',x:13,radius:174,electroneg:1.23,ionization:581},
- {z:68,sym:'Er',name:'Erbio',mass:167.26,val:[3],config:'[Xe] 6s² 4f¹²',group:'lanthanide',x:14,radius:173,electroneg:1.24,ionization:589},
- {z:69,sym:'Tm',name:'Tulio',mass:168.93,val:[2,3],config:'[Xe] 6s² 4f¹³',group:'lanthanide',x:15,radius:172,electroneg:1.25,ionization:596},
- {z:70,sym:'Yb',name:'Iterbio',mass:173.05,val:[2,3],config:'[Xe] 6s² 4f¹⁴',group:'lanthanide',x:16,radius:194,electroneg:1.1,ionization:603},
- {z:71,sym:'Lu',name:'Lutezio',mass:174.97,val:[3],config:'[Xe] 6s² 4f¹ 5d¹',group:'lanthanide',x:17,radius:172,electroneg:1.27,ionization:524}
-];
-
-const actinides = [
- {z:89,sym:'Ac',name:'Aktinio',mass:227,val:[3],config:'[Rn] 7s² 5f¹',group:'actinide',x:3,radius:188,electroneg:1.1,ionization:499},
- {z:90,sym:'Th',name:'Torio',mass:232.04,val:[4],config:'[Rn] 7s² 5f²',group:'actinide',x:4,radius:179,electroneg:1.3,ionization:587},
- {z:91,sym:'Pa',name:'Protaktinio',mass:231.04,val:[4,5],config:'[Rn] 7s² 5f³',group:'actinide',x:5,radius:163,electroneg:1.5,ionization:568},
- {z:92,sym:'U',name:'Uranio',mass:238.03,val:[3,4,5,6],config:'[Rn] 7s² 5f⁴',group:'actinide',x:6,radius:156,electroneg:1.38,ionization:597},
- {z:93,sym:'Np',name:'Neptunio',mass:237,val:[3,4,5,6,7],config:'[Rn] 7s² 5f⁵',group:'actinide',x:7,radius:155,electroneg:1.36,ionization:604},
- {z:94,sym:'Pu',name:'Plutonio',mass:244,val:[3,4,5,6,7],config:'[Rn] 7s² 5f⁶',group:'actinide',x:8,radius:159,electroneg:1.28,ionization:584},
- {z:95,sym:'Am',name:'Amerizio',mass:243,val:[3,4,5,6],config:'[Rn] 7s² 5f⁷',group:'actinide',x:9,radius:173,electroneg:1.13,ionization:578},
- {z:96,sym:'Cm',name:'Kurio',mass:247,val:[3,4],config:'[Rn] 7s² 5f⁸',group:'actinide',x:10,radius:174,electroneg:1.28,ionization:581},
- {z:97,sym:'Bk',name:'Berkelio',mass:247,val:[3,4],config:'[Rn] 7s² 5f⁹',group:'actinide',x:11,radius:170,electroneg:1.3,ionization:601},
- {z:98,sym:'Cf',name:'Kalifornio',mass:251,val:[3],config:'[Rn] 7s² 5f¹⁰',group:'actinide',x:12,radius:186,electroneg:1.3,ionization:608},
- {z:99,sym:'Es',name:'Einsteinio',mass:252,val:[3],config:'[Rn] 7s² 5f¹¹',group:'actinide',x:13,radius:186,electroneg:1.3,ionization:619},
- {z:100,sym:'Fm',name:'Fermio',mass:257,val:[3],config:'[Rn] 7s² 5f¹²',group:'actinide',x:14,radius:0,electroneg:1.3,ionization:627},
- {z:101,sym:'Md',name:'Mendelevio',mass:258,val:[2,3],config:'[Rn] 7s² 5f¹³',group:'actinide',x:15,radius:0,electroneg:1.3,ionization:635},
- {z:102,sym:'No',name:'Nobelio',mass:259,val:[2,3],config:'[Rn] 7s² 5f¹⁴',group:'actinide',x:16,radius:0,electroneg:1.3,ionization:642},
- {z:103,sym:'Lr',name:'Lawrentzio',mass:266,val:[3],config:'[Rn] 7s² 5f¹⁴ 6d¹',group:'actinide',x:17,radius:0,electroneg:0,ionization:470}
-];
-
 const table = document.getElementById('table');
 const lanthanidesContainer = document.getElementById('lanthanides');
 const actinidesContainer = document.getElementById('actinides');
 const searchInput = document.getElementById('searchInput');
-const btnViewValences = document.getElementById('btnViewValences');
 const elecToggleBtn = document.getElementById('elecToggleBtn');
 const elecLegend = document.getElementById('elecLegend');
 const electronegToggleBtn = document.getElementById('electronegToggleBtn');
@@ -1400,11 +1292,14 @@ const radiusToggleBtn = document.getElementById('radiusToggleBtn');
 const radiusLegend = document.getElementById('radiusLegend');
 const ionizationToggleBtn = document.getElementById('ionizationToggleBtn');
 const ionizationLegend = document.getElementById('ionizationLegend');
+const valencesToggleBtn = document.getElementById('valencesToggleBtn');
+const valencesLegend = document.getElementById('valencesLegend');
 const propertiesToggle = document.getElementById('propertiesToggle');
 const trendArrows = document.getElementById('trendArrows');
 const radiusTitle = document.querySelector('.radius-legend-title');
 const electronegTitle = document.querySelector('.electroneg-legend-title');
 const ionizationTitle = document.querySelector('.ionization-legend-title');
+const valencesTitle = document.querySelector('.valences-legend-title');
 
 const btn3D = document.getElementById('btn3D');
 const btnBalents = document.getElementById('btnBalents');
@@ -1415,7 +1310,7 @@ const resourcesToggle = document.getElementById('resourcesToggle');
 let allCells = [];
 let groupLabels = [];
 let periodLabels = [];
-let valenciasMode = false; // Nuevo estado para controlar la vista de valencias
+let valenciasMode = false;
 
 function toggleTrendArrows(show, type) {
   const allArrows = trendArrows.querySelectorAll('.trend-arrow');
@@ -1459,6 +1354,10 @@ ionizationTitle.addEventListener('mouseleave', () => {
   toggleTrendArrows(false);
 });
 
+valencesTitle.addEventListener('mouseenter', () => {
+  toggleTrendArrows(false);
+});
+
 propertiesToggle.addEventListener('click', function(e) {
   if (e.target.closest('.properties-header') || e.target === this) {
     this.classList.toggle('active');
@@ -1471,9 +1370,8 @@ resourcesToggle.addEventListener('click', function(e) {
   }
 });
 
-// Función para resetear colores de grupo y otros modos
-function resetToGroupColors() {
-  // Desactivar todos los botones
+function resetToGroupColors(keepValenciasMode = false) {
+  // Desactivar todos los botones excepto valencias si keepValenciasMode es true
   elecToggleBtn.classList.remove('active');
   elecLegend.classList.remove('active');
   electronegToggleBtn.classList.remove('active');
@@ -1483,9 +1381,11 @@ function resetToGroupColors() {
   ionizationToggleBtn.classList.remove('active');
   ionizationLegend.classList.remove('active');
   
-  // Si el modo valencias está activo, no cambiamos los colores de fondo,
-  // solo el contenido de las celdas se maneja en renderAllCells
-  if (valenciasMode) return;
+  if (!keepValenciasMode) {
+    valenciasMode = false;
+    valencesToggleBtn.classList.remove('active');
+    valencesLegend.classList.remove('active');
+  }
   
   // Restaurar colores de grupo
   allCells.forEach(cell => {
@@ -1499,9 +1399,9 @@ function resetToGroupColors() {
     let element;
     
     if (z >= 57 && z <= 71) {
-      element = lanthanides.find(el => el.z === z);
+      element = elements.find(el => el.z === z);
     } else if (z >= 89 && z <= 103) {
-      element = actinides.find(el => el.z === z);
+      element = elements.find(el => el.z === z);
     } else {
       element = elements.find(el => el.z === z);
     }
@@ -1512,23 +1412,14 @@ function resetToGroupColors() {
   });
 }
 
-// Función para renderizar todas las celdas según el modo actual
 function renderAllCells() {
   allCells.forEach(cell => {
     const z = parseInt(cell.dataset.z);
-    let element;
-    
-    if (z >= 57 && z <= 71) {
-      element = lanthanides.find(el => el.z === z);
-    } else if (z >= 89 && z <= 103) {
-      element = actinides.find(el => el.z === z);
-    } else {
-      element = elements.find(el => el.z === z);
-    }
+    let element = elements.find(el => el.z === z);
     
     if (element) {
       if (valenciasMode) {
-        // Modo valencias: nombre arriba, símbolo, y valencias abajo
+        // Modo valencias: mantener el color de grupo pero cambiar el contenido
         const valenceHtml = element.val && element.val.length 
           ? element.val.map(v => `<span class="valence-item ${v < 0 ? 'negative' : ''}">${v}</span>`).join('')
           : '—';
@@ -1538,23 +1429,8 @@ function renderAllCells() {
           <div class="sym">${element.sym}</div>
           <div class="valence-container">${valenceHtml}</div>
         `;
-        
-        // Mantener las clases de grupo o color actual
-        cell.className = cell.className.split(' ')[0] + ' cell';
-        if (cell.classList.contains('alkali') || 
-            cell.classList.contains('alkaline') || 
-            cell.classList.contains('lanthanide') || 
-            cell.classList.contains('actinide') || 
-            cell.classList.contains('transition') || 
-            cell.classList.contains('post-transition') || 
-            cell.classList.contains('metalloid') || 
-            cell.classList.contains('nonmetal') || 
-            cell.classList.contains('halogen') || 
-            cell.classList.contains('noble')) {
-          // Mantener la clase de grupo
-        }
       } else {
-        // Modo normal: número arriba a la izquierda, nombre y símbolo centrados
+        // Modo normal
         cell.innerHTML = `
           <div style="display:flex;justify-content:space-between"><div class='num'>${element.z}</div></div>
           <div style="text-align:center;margin-top:4px">
@@ -1567,42 +1443,34 @@ function renderAllCells() {
   });
 }
 
-// Evento para el botón de valencias
-btnViewValences.addEventListener('click', function() {
-  // Desactivar cualquier otro modo de visualización
-  resetToGroupColors();
-  
-  // Alternar el modo valencias
-  valenciasMode = !valenciasMode;
-  
-  // Actualizar estilo del botón
-  this.classList.toggle('active', valenciasMode);
-  
-  // Si se activa el modo valencias, aseguramos que los botones de propiedades estén desactivados
+valencesToggleBtn.addEventListener('click', function() {
   if (valenciasMode) {
-    elecToggleBtn.classList.remove('active');
-    elecLegend.classList.remove('active');
-    electronegToggleBtn.classList.remove('active');
-    electronegLegend.classList.remove('active');
-    radiusToggleBtn.classList.remove('active');
-    radiusLegend.classList.remove('active');
-    ionizationToggleBtn.classList.remove('active');
-    ionizationLegend.classList.remove('active');
+    // Desactivar modo valencias
+    valenciasMode = false;
+    this.classList.remove('active');
+    valencesLegend.classList.remove('active');
+    resetToGroupColors(false);
+    renderAllCells();
+  } else {
+    // Activar modo valencias
+    resetToGroupColors(true);
+    valenciasMode = true;
+    this.classList.add('active');
+    valencesLegend.classList.add('active');
+    renderAllCells();
   }
-  
-  // Renderizar todas las celdas con el nuevo modo
-  renderAllCells();
 });
 
 elecToggleBtn.addEventListener('click', function() {
   if (valenciasMode) {
-    // Si estamos en modo valencias, desactivarlo primero
     valenciasMode = false;
-    btnViewValences.classList.remove('active');
+    valencesToggleBtn.classList.remove('active');
+    valencesLegend.classList.remove('active');
   }
   
   if (this.classList.contains('active')) {
     resetToGroupColors();
+    renderAllCells();
   } else {
     resetToGroupColors();
     
@@ -1632,7 +1500,6 @@ elecToggleBtn.addEventListener('click', function() {
         cell.classList.add('f-block');
       }
       
-      // Mantener el contenido de la celda según el modo (normal porque valenciasMode es false)
       renderAllCells();
     });
   }
@@ -1640,14 +1507,14 @@ elecToggleBtn.addEventListener('click', function() {
 
 electronegToggleBtn.addEventListener('click', function() {
   if (valenciasMode) {
-    // Si estamos en modo valencias, desactivarlo primero
     valenciasMode = false;
-    btnViewValences.classList.remove('active');
-    renderAllCells(); // Renderizar en modo normal
+    valencesToggleBtn.classList.remove('active');
+    valencesLegend.classList.remove('active');
   }
   
   if (this.classList.contains('active')) {
     resetToGroupColors();
+    renderAllCells();
   } else {
     resetToGroupColors();
     
@@ -1657,8 +1524,7 @@ electronegToggleBtn.addEventListener('click', function() {
     let minElectroneg = Infinity;
     let maxElectroneg = -Infinity;
     
-    const allElements = [...elements, ...lanthanides, ...actinides];
-    allElements.forEach(el => {
+    elements.forEach(el => {
       if (el.electroneg && el.electroneg > 0) {
         minElectroneg = Math.min(minElectroneg, el.electroneg);
         maxElectroneg = Math.max(maxElectroneg, el.electroneg);
@@ -1667,15 +1533,12 @@ electronegToggleBtn.addEventListener('click', function() {
     
     allCells.forEach(cell => {
       const z = parseInt(cell.dataset.z);
-      let element = allElements.find(el => el.z === z);
+      let element = elements.find(el => el.z === z);
       
-      // Limpiar clases de grupo
       cell.className = 'cell';
       
       if (element && element.electroneg && element.electroneg > 0) {
         const normalized = (element.electroneg - minElectroneg) / (maxElectroneg - minElectroneg);
-        // Usar los colores del degradado de electronegatividad: #e6f3ff a #3b82f6
-        // Convertir a RGB: #e6f3ff = rgb(230, 243, 255), #3b82f6 = rgb(59, 130, 246)
         const r = Math.floor(230 - normalized * (230 - 59));
         const g = Math.floor(243 - normalized * (243 - 130));
         const b = Math.floor(255 - normalized * (255 - 246));
@@ -1686,7 +1549,6 @@ electronegToggleBtn.addEventListener('click', function() {
         cell.classList.add('unknown-electroneg');
       }
       
-      // Mantener el contenido de la celda (modo normal)
       renderAllCells();
     });
   }
@@ -1694,14 +1556,14 @@ electronegToggleBtn.addEventListener('click', function() {
 
 radiusToggleBtn.addEventListener('click', function() {
   if (valenciasMode) {
-    // Si estamos en modo valencias, desactivarlo primero
     valenciasMode = false;
-    btnViewValences.classList.remove('active');
-    renderAllCells(); // Renderizar en modo normal
+    valencesToggleBtn.classList.remove('active');
+    valencesLegend.classList.remove('active');
   }
   
   if (this.classList.contains('active')) {
     resetToGroupColors();
+    renderAllCells();
   } else {
     resetToGroupColors();
     
@@ -1711,8 +1573,7 @@ radiusToggleBtn.addEventListener('click', function() {
     let minRadius = Infinity;
     let maxRadius = -Infinity;
     
-    const allElements = [...elements, ...lanthanides, ...actinides];
-    allElements.forEach(el => {
+    elements.forEach(el => {
       if (el.radius && el.radius > 0) {
         minRadius = Math.min(minRadius, el.radius);
         maxRadius = Math.max(maxRadius, el.radius);
@@ -1721,15 +1582,12 @@ radiusToggleBtn.addEventListener('click', function() {
     
     allCells.forEach(cell => {
       const z = parseInt(cell.dataset.z);
-      let element = allElements.find(el => el.z === z);
+      let element = elements.find(el => el.z === z);
       
-      // Limpiar clases de grupo
       cell.className = 'cell';
       
       if (element && element.radius && element.radius > 0) {
         const normalized = (element.radius - minRadius) / (maxRadius - minRadius);
-        // Usar los colores del degradado de radio atómico: #e8f5e8 a #22c55e
-        // Convertir a RGB: #e8f5e8 = rgb(232, 245, 232), #22c55e = rgb(34, 197, 94)
         const r = Math.floor(232 - normalized * (232 - 34));
         const g = Math.floor(245 - normalized * (245 - 197));
         const b = Math.floor(232 - normalized * (232 - 94));
@@ -1740,7 +1598,6 @@ radiusToggleBtn.addEventListener('click', function() {
         cell.classList.add('unknown-radius');
       }
       
-      // Mantener el contenido de la celda (modo normal)
       renderAllCells();
     });
   }
@@ -1748,14 +1605,14 @@ radiusToggleBtn.addEventListener('click', function() {
 
 ionizationToggleBtn.addEventListener('click', function() {
   if (valenciasMode) {
-    // Si estamos en modo valencias, desactivarlo primero
     valenciasMode = false;
-    btnViewValences.classList.remove('active');
-    renderAllCells(); // Renderizar en modo normal
+    valencesToggleBtn.classList.remove('active');
+    valencesLegend.classList.remove('active');
   }
   
   if (this.classList.contains('active')) {
     resetToGroupColors();
+    renderAllCells();
   } else {
     resetToGroupColors();
     
@@ -1765,8 +1622,7 @@ ionizationToggleBtn.addEventListener('click', function() {
     let minIonization = Infinity;
     let maxIonization = -Infinity;
     
-    const allElements = [...elements, ...lanthanides, ...actinides];
-    allElements.forEach(el => {
+    elements.forEach(el => {
       if (el.ionization && el.ionization > 0) {
         minIonization = Math.min(minIonization, el.ionization);
         maxIonization = Math.max(maxIonization, el.ionization);
@@ -1775,15 +1631,12 @@ ionizationToggleBtn.addEventListener('click', function() {
     
     allCells.forEach(cell => {
       const z = parseInt(cell.dataset.z);
-      let element = allElements.find(el => el.z === z);
+      let element = elements.find(el => el.z === z);
       
-      // Limpiar clases de grupo
       cell.className = 'cell';
       
       if (element && element.ionization && element.ionization > 0) {
         const normalized = (element.ionization - minIonization) / (maxIonization - minIonization);
-        // Usar los colores del degradado de ionización: #ffe6e6 a #ef4444
-        // Convertir a RGB: #ffe6e6 = rgb(255, 230, 230), #ef4444 = rgb(239, 68, 68)
         const r = Math.floor(255 - normalized * (255 - 239));
         const g = Math.floor(230 - normalized * (230 - 68));
         const b = Math.floor(230 - normalized * (230 - 68));
@@ -1794,7 +1647,6 @@ ionizationToggleBtn.addEventListener('click', function() {
         cell.classList.add('unknown-ionization');
       }
       
-      // Mantener el contenido de la celda (modo normal)
       renderAllCells();
     });
   }
@@ -1941,19 +1793,19 @@ elements.forEach(el=>{
   allCells.push(d);
 });
 
-createTableLegend();
-
-lanthanides.forEach((el, index)=>{
+// Añadir los elementos de lantánidos y actínidos a allCells
+elements.filter(el => el.z >= 57 && el.z <= 71 || el.z >= 89 && el.z <= 103).forEach(el => {
+  const container = el.z >= 57 && el.z <= 71 ? lanthanidesContainer : actinidesContainer;
   const d = document.createElement('div');
   d.className = 'cell ' + groupClass(el.group);
   d.style.gridColumn = el.x - 2;
   d.dataset.z = el.z;
   d.dataset.group = el.group;
-  d.dataset.period = 6;
+  d.dataset.period = el.z >= 57 && el.z <= 71 ? 6 : 7;
   d.innerHTML = `<div style="display:flex;justify-content:space-between"><div class='num'>${el.z}</div></div><div style="text-align:center;margin-top:4px"><div class='sym'>${el.sym}</div><div class='ename'>${el.name}</div></div>`;
   
   d.addEventListener('mouseenter', () => {
-    highlightGroupAndPeriod(el.x, 6, true);
+    highlightGroupAndPeriod(el.x, el.z >= 57 && el.z <= 71 ? 6 : 7, true);
   });
   
   d.addEventListener('mouseleave', () => {
@@ -1961,29 +1813,7 @@ lanthanides.forEach((el, index)=>{
   });
   
   d.addEventListener('click', ()=> show(el,d));
-  lanthanidesContainer.appendChild(d);
-  allCells.push(d);
-});
-
-actinides.forEach((el, index)=>{
-  const d = document.createElement('div');
-  d.className = 'cell ' + groupClass(el.group);
-  d.style.gridColumn = el.x - 2;
-  d.dataset.z = el.z;
-  d.dataset.group = el.group;
-  d.dataset.period = 7;
-  d.innerHTML = `<div style="display:flex;justify-content:space-between"><div class='num'>${el.z}</div></div><div style="text-align:center;margin-top:4px"><div class='sym'>${el.sym}</div><div class='ename'>${el.name}</div></div>`;
-  
-  d.addEventListener('mouseenter', () => {
-    highlightGroupAndPeriod(el.x, 7, true);
-  });
-  
-  d.addEventListener('mouseleave', () => {
-    removeGroupAndPeriodHighlights();
-  });
-  
-  d.addEventListener('click', ()=> show(el,d));
-  actinidesContainer.appendChild(d);
+  container.appendChild(d);
   allCells.push(d);
 });
 
@@ -2076,15 +1906,7 @@ searchInput.addEventListener('input', function() {
   
   allCells.forEach(cell => {
     const z = parseInt(cell.dataset.z);
-    let element;
-    
-    if (z >= 57 && z <= 71) {
-      element = lanthanides.find(el => el.z === z);
-    } else if (z >= 89 && z <= 103) {
-      element = actinides.find(el => el.z === z);
-    } else {
-      element = elements.find(el => el.z === z);
-    }
+    let element = elements.find(el => el.z === z);
     
     if (element) {
       const matches = element.name.toLowerCase().includes(searchTerm) ||
