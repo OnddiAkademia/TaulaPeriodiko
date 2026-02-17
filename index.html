@@ -433,38 +433,61 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   transition: all 0.3s ease;
 }
 
-.property-mode .alkali,
-.property-mode .alkaline,
-.property-mode .lanthanide,
-.property-mode .actinide,
-.property-mode .transition,
-.property-mode .post-transition,
-.property-mode .metalloid,
-.property-mode .nonmetal,
-.property-mode .halogen,
-.property-mode .noble,
-.property-mode .other {
+/* Classes para modos de visualización */
+.mode-orbitales .alkali,
+.mode-orbitales .alkaline,
+.mode-orbitales .lanthanide,
+.mode-orbitales .actinide,
+.mode-orbitales .transition,
+.mode-orbitales .post-transition,
+.mode-orbitales .metalloid,
+.mode-orbitales .nonmetal,
+.mode-orbitales .halogen,
+.mode-orbitales .noble,
+.mode-orbitales .other {
   background: inherit !important;
 }
 
-.property-mode .s-block { 
-  background: #ffb3ba !important;
-  border-color: #ff8a95 !important;
+.mode-electroneg .alkali,
+.mode-electroneg .alkaline,
+.mode-electroneg .lanthanide,
+.mode-electroneg .actinide,
+.mode-electroneg .transition,
+.mode-electroneg .post-transition,
+.mode-electroneg .metalloid,
+.mode-electroneg .nonmetal,
+.mode-electroneg .halogen,
+.mode-electroneg .noble,
+.mode-electroneg .other {
+  background: inherit !important;
 }
 
-.property-mode .p-block { 
-  background: #bae1ff !important;
-  border-color: #8ac8ff !important;
+.mode-radius .alkali,
+.mode-radius .alkaline,
+.mode-radius .lanthanide,
+.mode-radius .actinide,
+.mode-radius .transition,
+.mode-radius .post-transition,
+.mode-radius .metalloid,
+.mode-radius .nonmetal,
+.mode-radius .halogen,
+.mode-radius .noble,
+.mode-radius .other {
+  background: inherit !important;
 }
 
-.property-mode .d-block { 
-  background: #baffc9 !important;
-  border-color: #8affa3 !important;
-}
-
-.property-mode .f-block { 
-  background: #ffdfba !important;
-  border-color: #ffc085 !important;
+.mode-ionization .alkali,
+.mode-ionization .alkaline,
+.mode-ionization .lanthanide,
+.mode-ionization .actinide,
+.mode-ionization .transition,
+.mode-ionization .post-transition,
+.mode-ionization .metalloid,
+.mode-ionization .nonmetal,
+.mode-ionization .halogen,
+.mode-ionization .noble,
+.mode-ionization .other {
+  background: inherit !important;
 }
 
 .cell.unknown-radius, .cell.unknown-electroneg, .cell.unknown-ionization {
@@ -1377,10 +1400,6 @@ const resourcesToggle = document.getElementById('resourcesToggle');
 let allCells = [];
 let groupLabels = [];
 let periodLabels = [];
-let isElecConfigMode = false;
-let isElectronegMode = false;
-let isRadiusMode = false;
-let isIonizationMode = false;
 
 function toggleTrendArrows(show, type) {
   const allArrows = trendArrows.querySelectorAll('.trend-arrow');
@@ -1436,12 +1455,13 @@ resourcesToggle.addEventListener('click', function(e) {
   }
 });
 
-function resetAllModes() {
-  isElecConfigMode = false;
-  isElectronegMode = false;
-  isRadiusMode = false;
-  isIonizationMode = false;
+function resetToGroupColors() {
+  // Eliminar todas las clases de modo
+  table.classList.remove('mode-orbitales', 'mode-electroneg', 'mode-radius', 'mode-ionization');
+  lanthanidesContainer.classList.remove('mode-orbitales', 'mode-electroneg', 'mode-radius', 'mode-ionization');
+  actinidesContainer.classList.remove('mode-orbitales', 'mode-electroneg', 'mode-radius', 'mode-ionization');
   
+  // Desactivar todos los botones
   elecToggleBtn.classList.remove('active');
   elecLegend.classList.remove('active');
   electronegToggleBtn.classList.remove('active');
@@ -1451,15 +1471,14 @@ function resetAllModes() {
   ionizationToggleBtn.classList.remove('active');
   ionizationLegend.classList.remove('active');
   
-  table.classList.remove('property-mode');
-  lanthanidesContainer.classList.remove('property-mode');
-  actinidesContainer.classList.remove('property-mode');
-  
+  // Restaurar colores de grupo
   allCells.forEach(cell => {
-    cell.classList.remove('s-block', 'p-block', 'd-block', 'f-block', 'atomic-radius', 'electronegativity', 'ionization-energy');
-    cell.classList.remove('unknown-radius', 'unknown-electroneg', 'unknown-ionization');
+    // Limpiar estilos inline y clases adicionales
     cell.style.backgroundColor = '';
+    cell.classList.remove('s-block', 'p-block', 'd-block', 'f-block', 'electronegativity', 'atomic-radius', 'ionization-energy');
+    cell.classList.remove('unknown-radius', 'unknown-electroneg', 'unknown-ionization');
     
+    // Restaurar la clase de grupo original
     const z = parseInt(cell.dataset.z);
     let element;
     
@@ -1478,166 +1497,181 @@ function resetAllModes() {
 }
 
 elecToggleBtn.addEventListener('click', function() {
-  resetAllModes();
-  
-  isElecConfigMode = true;
-  this.classList.add('active');
-  elecLegend.classList.add('active');
-  
-  table.classList.add('property-mode');
-  lanthanidesContainer.classList.add('property-mode');
-  actinidesContainer.classList.add('property-mode');
-  
-  allCells.forEach(cell => {
-    const z = parseInt(cell.dataset.z);
+  if (this.classList.contains('active')) {
+    // Si ya está activo, desactivar
+    resetToGroupColors();
+  } else {
+    // Activar modo orbitales
+    resetToGroupColors();
     
-    cell.classList.remove('s-block', 'p-block', 'd-block', 'f-block');
+    this.classList.add('active');
+    elecLegend.classList.add('active');
     
-    if (z === 1 || z === 3 || z === 4 || z === 11 || z === 12 || z === 19 || z === 20 || 
-        z === 37 || z === 38 || z === 55 || z === 56 || z === 87 || z === 88 || z === 2) {
-      cell.classList.add('s-block');
-    }
-    else if ((z >= 5 && z <= 10) || (z >= 13 && z <= 18) || (z >= 31 && z <= 36) || 
-             (z >= 49 && z <= 54) || (z >= 81 && z <= 86) || (z >= 113 && z <= 118)) {
-      cell.classList.add('p-block');
-    }
-    else if ((z >= 21 && z <= 30) || (z >= 39 && z <= 48) || (z >= 72 && z <= 80) || 
-             (z >= 104 && z <= 112) || z === 71 || z === 103) {
-      cell.classList.add('d-block');
-    }
-    else if ((z >= 57 && z <= 70) || (z >= 89 && z <= 102)) {
-      cell.classList.add('f-block');
-    }
-  });
+    table.classList.add('mode-orbitales');
+    lanthanidesContainer.classList.add('mode-orbitales');
+    actinidesContainer.classList.add('mode-orbitales');
+    
+    allCells.forEach(cell => {
+      const z = parseInt(cell.dataset.z);
+      
+      cell.classList.add('s-block', 'p-block', 'd-block', 'f-block');
+      
+      // Bloque s: Grupos 1 y 2 + Helio
+      if (z === 1 || z === 3 || z === 4 || z === 11 || z === 12 || z === 19 || z === 20 || 
+          z === 37 || z === 38 || z === 55 || z === 56 || z === 87 || z === 88 || z === 2) {
+        cell.classList.add('s-block');
+      }
+      // Bloque p: Grupos 13-18 (excepto Helio)
+      else if ((z >= 5 && z <= 10) || (z >= 13 && z <= 18) || (z >= 31 && z <= 36) || 
+               (z >= 49 && z <= 54) || (z >= 81 && z <= 86) || (z >= 113 && z <= 118)) {
+        cell.classList.add('p-block');
+      }
+      // Bloque d: Grupos 3-12 + Lutecio (71) + Lawrencio (103)
+      else if ((z >= 21 && z <= 30) || (z >= 39 && z <= 48) || (z >= 72 && z <= 80) || 
+               (z >= 104 && z <= 112) || z === 71 || z === 103) {
+        cell.classList.add('d-block');
+      }
+      // Bloque f: Lantánidos (57-70) + Actínidos (89-102)
+      else if ((z >= 57 && z <= 70) || (z >= 89 && z <= 102)) {
+        cell.classList.add('f-block');
+      }
+    });
+  }
 });
 
 electronegToggleBtn.addEventListener('click', function() {
-  resetAllModes();
-  
-  isElectronegMode = true;
-  this.classList.add('active');
-  electronegLegend.classList.add('active');
-  
-  table.classList.add('property-mode');
-  lanthanidesContainer.classList.add('property-mode');
-  actinidesContainer.classList.add('property-mode');
-  
-  let minElectroneg = Infinity;
-  let maxElectroneg = -Infinity;
-  
-  const allElements = [...elements, ...lanthanides, ...actinides];
-  allElements.forEach(el => {
-    if (el.electroneg && el.electroneg > 0) {
-      minElectroneg = Math.min(minElectroneg, el.electroneg);
-      maxElectroneg = Math.max(maxElectroneg, el.electroneg);
-    }
-  });
-  
-  allCells.forEach(cell => {
-    const z = parseInt(cell.dataset.z);
-    let element = allElements.find(el => el.z === z);
+  if (this.classList.contains('active')) {
+    // Si ya está activo, desactivar
+    resetToGroupColors();
+  } else {
+    // Activar modo electronegatividad
+    resetToGroupColors();
     
-    cell.classList.remove('s-block', 'p-block', 'd-block', 'f-block', 'atomic-radius', 'ionization-energy');
-    cell.classList.remove('unknown-radius', 'unknown-electroneg', 'unknown-ionization');
+    this.classList.add('active');
+    electronegLegend.classList.add('active');
     
-    if (element && element.electroneg && element.electroneg > 0) {
-      const normalized = (element.electroneg - minElectroneg) / (maxElectroneg - minElectroneg);
-      const r = Math.floor(200 - normalized * 200);
-      const g = Math.floor(230 - normalized * 230);
-      const b = Math.floor(200 + normalized * 55);
-      cell.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
-      cell.classList.add('electronegativity');
-    } else {
-      cell.style.backgroundColor = '#f1f5f9';
-      cell.classList.add('unknown-electroneg');
-    }
-  });
+    table.classList.add('mode-electroneg');
+    lanthanidesContainer.classList.add('mode-electroneg');
+    actinidesContainer.classList.add('mode-electroneg');
+    
+    let minElectroneg = Infinity;
+    let maxElectroneg = -Infinity;
+    
+    const allElements = [...elements, ...lanthanides, ...actinides];
+    allElements.forEach(el => {
+      if (el.electroneg && el.electroneg > 0) {
+        minElectroneg = Math.min(minElectroneg, el.electroneg);
+        maxElectroneg = Math.max(maxElectroneg, el.electroneg);
+      }
+    });
+    
+    allCells.forEach(cell => {
+      const z = parseInt(cell.dataset.z);
+      let element = allElements.find(el => el.z === z);
+      
+      if (element && element.electroneg && element.electroneg > 0) {
+        const normalized = (element.electroneg - minElectroneg) / (maxElectroneg - minElectroneg);
+        const r = Math.floor(200 - normalized * 200);
+        const g = Math.floor(230 - normalized * 230);
+        const b = Math.floor(200 + normalized * 55);
+        cell.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+        cell.classList.add('electronegativity');
+      } else {
+        cell.style.backgroundColor = '#f1f5f9';
+        cell.classList.add('unknown-electroneg');
+      }
+    });
+  }
 });
 
 radiusToggleBtn.addEventListener('click', function() {
-  resetAllModes();
-  
-  isRadiusMode = true;
-  this.classList.add('active');
-  radiusLegend.classList.add('active');
-  
-  table.classList.add('property-mode');
-  lanthanidesContainer.classList.add('property-mode');
-  actinidesContainer.classList.add('property-mode');
-  
-  let minRadius = Infinity;
-  let maxRadius = -Infinity;
-  
-  const allElements = [...elements, ...lanthanides, ...actinides];
-  allElements.forEach(el => {
-    if (el.radius && el.radius > 0) {
-      minRadius = Math.min(minRadius, el.radius);
-      maxRadius = Math.max(maxRadius, el.radius);
-    }
-  });
-  
-  allCells.forEach(cell => {
-    const z = parseInt(cell.dataset.z);
-    let element = allElements.find(el => el.z === z);
+  if (this.classList.contains('active')) {
+    // Si ya está activo, desactivar
+    resetToGroupColors();
+  } else {
+    // Activar modo radio atómico
+    resetToGroupColors();
     
-    cell.classList.remove('s-block', 'p-block', 'd-block', 'f-block', 'electronegativity', 'ionization-energy');
-    cell.classList.remove('unknown-radius', 'unknown-electroneg', 'unknown-ionization');
+    this.classList.add('active');
+    radiusLegend.classList.add('active');
     
-    if (element && element.radius && element.radius > 0) {
-      const normalized = (element.radius - minRadius) / (maxRadius - minRadius);
-      const r = Math.floor(200 - normalized * 200);
-      const g = Math.floor(200 + normalized * 55);
-      const b = Math.floor(200 - normalized * 200);
-      cell.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
-      cell.classList.add('atomic-radius');
-    } else {
-      cell.style.backgroundColor = '#f1f5f9';
-      cell.classList.add('unknown-radius');
-    }
-  });
+    table.classList.add('mode-radius');
+    lanthanidesContainer.classList.add('mode-radius');
+    actinidesContainer.classList.add('mode-radius');
+    
+    let minRadius = Infinity;
+    let maxRadius = -Infinity;
+    
+    const allElements = [...elements, ...lanthanides, ...actinides];
+    allElements.forEach(el => {
+      if (el.radius && el.radius > 0) {
+        minRadius = Math.min(minRadius, el.radius);
+        maxRadius = Math.max(maxRadius, el.radius);
+      }
+    });
+    
+    allCells.forEach(cell => {
+      const z = parseInt(cell.dataset.z);
+      let element = allElements.find(el => el.z === z);
+      
+      if (element && element.radius && element.radius > 0) {
+        const normalized = (element.radius - minRadius) / (maxRadius - minRadius);
+        const r = Math.floor(200 - normalized * 200);
+        const g = Math.floor(200 + normalized * 55);
+        const b = Math.floor(200 - normalized * 200);
+        cell.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+        cell.classList.add('atomic-radius');
+      } else {
+        cell.style.backgroundColor = '#f1f5f9';
+        cell.classList.add('unknown-radius');
+      }
+    });
+  }
 });
 
 ionizationToggleBtn.addEventListener('click', function() {
-  resetAllModes();
-  
-  isIonizationMode = true;
-  this.classList.add('active');
-  ionizationLegend.classList.add('active');
-  
-  table.classList.add('property-mode');
-  lanthanidesContainer.classList.add('property-mode');
-  actinidesContainer.classList.add('property-mode');
-  
-  let minIonization = Infinity;
-  let maxIonization = -Infinity;
-  
-  const allElements = [...elements, ...lanthanides, ...actinides];
-  allElements.forEach(el => {
-    if (el.ionization && el.ionization > 0) {
-      minIonization = Math.min(minIonization, el.ionization);
-      maxIonization = Math.max(maxIonization, el.ionization);
-    }
-  });
-  
-  allCells.forEach(cell => {
-    const z = parseInt(cell.dataset.z);
-    let element = allElements.find(el => el.z === z);
+  if (this.classList.contains('active')) {
+    // Si ya está activo, desactivar
+    resetToGroupColors();
+  } else {
+    // Activar modo energía de ionización
+    resetToGroupColors();
     
-    cell.classList.remove('s-block', 'p-block', 'd-block', 'f-block', 'electronegativity', 'atomic-radius');
-    cell.classList.remove('unknown-radius', 'unknown-electroneg', 'unknown-ionization');
+    this.classList.add('active');
+    ionizationLegend.classList.add('active');
     
-    if (element && element.ionization && element.ionization > 0) {
-      const normalized = (element.ionization - minIonization) / (maxIonization - minIonization);
-      const r = Math.floor(200 + normalized * 55);
-      const g = Math.floor(200 - normalized * 200);
-      const b = Math.floor(200 - normalized * 200);
-      cell.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
-      cell.classList.add('ionization-energy');
-    } else {
-      cell.style.backgroundColor = '#f1f5f9';
-      cell.classList.add('unknown-ionization');
-    }
-  });
+    table.classList.add('mode-ionization');
+    lanthanidesContainer.classList.add('mode-ionization');
+    actinidesContainer.classList.add('mode-ionization');
+    
+    let minIonization = Infinity;
+    let maxIonization = -Infinity;
+    
+    const allElements = [...elements, ...lanthanides, ...actinides];
+    allElements.forEach(el => {
+      if (el.ionization && el.ionization > 0) {
+        minIonization = Math.min(minIonization, el.ionization);
+        maxIonization = Math.max(maxIonization, el.ionization);
+      }
+    });
+    
+    allCells.forEach(cell => {
+      const z = parseInt(cell.dataset.z);
+      let element = allElements.find(el => el.z === z);
+      
+      if (element && element.ionization && element.ionization > 0) {
+        const normalized = (element.ionization - minIonization) / (maxIonization - minIonization);
+        const r = Math.floor(200 + normalized * 55);
+        const g = Math.floor(200 - normalized * 200);
+        const b = Math.floor(200 - normalized * 200);
+        cell.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+        cell.classList.add('ionization-energy');
+      } else {
+        cell.style.backgroundColor = '#f1f5f9';
+        cell.classList.add('unknown-ionization');
+      }
+    });
+  }
 });
 
 for(let r=1;r<=7;r++){
