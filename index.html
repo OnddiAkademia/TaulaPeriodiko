@@ -1122,7 +1122,7 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
 
     <div class="table-complete-wrapper">
       <div class="trend-arrows" id="trendArrows">
-        <!-- Flechas existentes -->
+        <!-- Las flechas se mantienen igual -->
       </div>
 
       <div class="groups-container">
@@ -1370,59 +1370,32 @@ let valenciasMode = false;
 
 function toggleTrendArrows(show, type) {
   const allArrows = trendArrows.querySelectorAll('.trend-arrow');
-  
-  allArrows.forEach(arrow => {
-    arrow.style.display = 'none';
-  });
-  
+  allArrows.forEach(arrow => arrow.style.display = 'none');
   if (show) {
     const arrowsToShow = trendArrows.querySelectorAll(`.trend-arrow.${type}`);
-    arrowsToShow.forEach(arrow => {
-      arrow.style.display = 'block';
-    });
+    arrowsToShow.forEach(arrow => arrow.style.display = 'block');
     trendArrows.classList.add('active');
   } else {
     trendArrows.classList.remove('active');
   }
 }
 
-radiusTitle.addEventListener('mouseenter', () => {
-  toggleTrendArrows(true, 'radius');
-});
-
-radiusTitle.addEventListener('mouseleave', () => {
-  toggleTrendArrows(false);
-});
-
-electronegTitle.addEventListener('mouseenter', () => {
-  toggleTrendArrows(true, 'electroneg');
-});
-
-electronegTitle.addEventListener('mouseleave', () => {
-  toggleTrendArrows(false);
-});
-
-ionizationTitle.addEventListener('mouseenter', () => {
-  toggleTrendArrows(true, 'ionization');
-});
-
-ionizationTitle.addEventListener('mouseleave', () => {
-  toggleTrendArrows(false);
-});
+radiusTitle.addEventListener('mouseenter', () => toggleTrendArrows(true, 'radius'));
+radiusTitle.addEventListener('mouseleave', () => toggleTrendArrows(false));
+electronegTitle.addEventListener('mouseenter', () => toggleTrendArrows(true, 'electroneg'));
+electronegTitle.addEventListener('mouseleave', () => toggleTrendArrows(false));
+ionizationTitle.addEventListener('mouseenter', () => toggleTrendArrows(true, 'ionization'));
+ionizationTitle.addEventListener('mouseleave', () => toggleTrendArrows(false));
 
 propertiesToggle.addEventListener('click', function(e) {
-  if (e.target.closest('.properties-header') || e.target === this) {
-    this.classList.toggle('active');
-  }
+  if (e.target.closest('.properties-header') || e.target === this) this.classList.toggle('active');
 });
 
 resourcesToggle.addEventListener('click', function(e) {
-  if (e.target.closest('.resources-header') || e.target === this) {
-    this.classList.toggle('active');
-  }
+  if (e.target.closest('.resources-header') || e.target === this) this.classList.toggle('active');
 });
 
-// Función mejorada para resetear a colores de grupo sin perder el modo valencias
+// Función para resetear a colores de grupo
 function resetToGroupColors(keepValenciasMode = false) {
   // Desactivar todos los botones de propiedades
   elecToggleBtn.classList.remove('active');
@@ -1442,12 +1415,10 @@ function resetToGroupColors(keepValenciasMode = false) {
   
   // Restaurar colores de grupo en todas las celdas
   allCells.forEach(cell => {
-    // Limpiar estilos inline y clases especiales
     cell.style.backgroundColor = '';
     cell.classList.remove('s-block', 'p-block', 'd-block', 'f-block', 'electronegativity', 'atomic-radius', 'ionization-energy');
     cell.classList.remove('unknown-radius', 'unknown-electroneg', 'unknown-ionization');
     
-    // Restaurar la clase de grupo original
     const z = parseInt(cell.dataset.z);
     let element;
     
@@ -1464,7 +1435,6 @@ function resetToGroupColors(keepValenciasMode = false) {
     }
   });
   
-  // Renderizar el contenido según el modo actual
   renderAllCells();
 }
 
@@ -1483,7 +1453,6 @@ function renderAllCells() {
     
     if (element) {
       if (valenciasMode) {
-        // Modo valencias: mantener el color de grupo pero cambiar el contenido
         const valenceHtml = element.val && element.val.length 
           ? element.val.map(v => `<span class="valence-item ${v < 0 ? 'negative' : ''}">${v}</span>`).join('')
           : '—';
@@ -1494,7 +1463,6 @@ function renderAllCells() {
           <div class="valence-container">${valenceHtml}</div>
         `;
       } else {
-        // Modo normal
         cell.innerHTML = `
           <div style="display:flex;justify-content:space-between"><div class='num'>${element.z}</div></div>
           <div style="text-align:center;margin-top:4px">
@@ -1515,8 +1483,17 @@ btnViewValences.addEventListener('click', function() {
     this.classList.remove('active');
     resetToGroupColors(false);
   } else {
-    // Activar modo valencias
-    resetToGroupColors(true); // Mantener colores de grupo
+    // Activar modo valencias - mantener colores actuales
+    // Primero desactivamos otros modos pero guardamos el estado de colores
+    elecToggleBtn.classList.remove('active');
+    elecLegend.classList.remove('active');
+    electronegToggleBtn.classList.remove('active');
+    electronegLegend.classList.remove('active');
+    radiusToggleBtn.classList.remove('active');
+    radiusLegend.classList.remove('active');
+    ionizationToggleBtn.classList.remove('active');
+    ionizationLegend.classList.remove('active');
+    
     valenciasMode = true;
     this.classList.add('active');
     renderAllCells();
@@ -1539,11 +1516,8 @@ elecToggleBtn.addEventListener('click', function() {
     
     allCells.forEach(cell => {
       const z = parseInt(cell.dataset.z);
-      
-      // Limpiar clases de grupo pero mantener cell
       cell.className = 'cell';
       
-      // Añadir clase de bloque correspondiente
       if (z === 1 || z === 3 || z === 4 || z === 11 || z === 12 || z === 19 || z === 20 || 
           z === 37 || z === 38 || z === 55 || z === 56 || z === 87 || z === 88 || z === 2) {
         cell.classList.add('s-block');
@@ -1581,7 +1555,6 @@ electronegToggleBtn.addEventListener('click', function() {
     
     let minElectroneg = Infinity;
     let maxElectroneg = -Infinity;
-    
     const allElements = [...elements, ...lanthanides, ...actinides];
     allElements.forEach(el => {
       if (el.electroneg && el.electroneg > 0) {
@@ -1593,7 +1566,6 @@ electronegToggleBtn.addEventListener('click', function() {
     allCells.forEach(cell => {
       const z = parseInt(cell.dataset.z);
       let element = allElements.find(el => el.z === z);
-      
       cell.className = 'cell';
       
       if (element && element.electroneg && element.electroneg > 0) {
@@ -1629,7 +1601,6 @@ radiusToggleBtn.addEventListener('click', function() {
     
     let minRadius = Infinity;
     let maxRadius = -Infinity;
-    
     const allElements = [...elements, ...lanthanides, ...actinides];
     allElements.forEach(el => {
       if (el.radius && el.radius > 0) {
@@ -1641,7 +1612,6 @@ radiusToggleBtn.addEventListener('click', function() {
     allCells.forEach(cell => {
       const z = parseInt(cell.dataset.z);
       let element = allElements.find(el => el.z === z);
-      
       cell.className = 'cell';
       
       if (element && element.radius && element.radius > 0) {
@@ -1677,7 +1647,6 @@ ionizationToggleBtn.addEventListener('click', function() {
     
     let minIonization = Infinity;
     let maxIonization = -Infinity;
-    
     const allElements = [...elements, ...lanthanides, ...actinides];
     allElements.forEach(el => {
       if (el.ionization && el.ionization > 0) {
@@ -1689,7 +1658,6 @@ ionizationToggleBtn.addEventListener('click', function() {
     allCells.forEach(cell => {
       const z = parseInt(cell.dataset.z);
       let element = allElements.find(el => el.z === z);
-      
       cell.className = 'cell';
       
       if (element && element.ionization && element.ionization > 0) {
@@ -1709,6 +1677,7 @@ ionizationToggleBtn.addEventListener('click', function() {
   }
 });
 
+// Crear placeholders para los huecos de la tabla principal
 for(let r=1;r<=7;r++){
   for(let c=1;c<=18;c++){
     const ph = document.createElement('div');
@@ -1728,6 +1697,7 @@ function createPlaceholderCell(text, column, row) {
   table.appendChild(placeholder);
 }
 
+// Crear los placeholders para lantánidos y actínidos
 createPlaceholderCell('57-71', 3, 6);
 createPlaceholderCell('89-103', 3, 7);
 
@@ -1736,17 +1706,17 @@ function createTableLegend() {
   legend.className = 'table-legend';
   
   const legendItems = [
-  {color: '#f8d7da', text: 'Metal Alkalinoak', group: 'alkali'},
-  {color: '#fff3cd', text: 'Metal Lurralkalinoak', group: 'alkaline'},
-  {color: '#cce5ff', text: 'Trantsizio Metalak', group: 'transition'},
-  {color: '#f0e6ff', text: 'Beste metalak', group: 'post-transition'},
-  {color: '#d4edda', text: 'Metaloideak', group: 'metalloid'},
-  {color: '#fff9c4', text: 'Ez-metalak', group: 'nonmetal'},
-  {color: '#ffe4b5', text: 'Halogenoak', group: 'halogen'},
-  {color: '#f8d7f8', text: 'Gas nobleak', group: 'noble'},
-  {color: '#d1ecf1', text: 'Lantanoideak', group: 'lanthanide'},
-  {color: '#e2e3f3', text: 'Aktinoideak', group: 'actinide'}
-];
+    {color: '#f8d7da', text: 'Metal Alkalinoak', group: 'alkali'},
+    {color: '#fff3cd', text: 'Metal Lurralkalinoak', group: 'alkaline'},
+    {color: '#cce5ff', text: 'Trantsizio Metalak', group: 'transition'},
+    {color: '#f0e6ff', text: 'Beste metalak', group: 'post-transition'},
+    {color: '#d4edda', text: 'Metaloideak', group: 'metalloid'},
+    {color: '#fff9c4', text: 'Ez-metalak', group: 'nonmetal'},
+    {color: '#ffe4b5', text: 'Halogenoak', group: 'halogen'},
+    {color: '#f8d7f8', text: 'Gas nobleak', group: 'noble'},
+    {color: '#d1ecf1', text: 'Lantanoideak', group: 'lanthanide'},
+    {color: '#e2e3f3', text: 'Aktinoideak', group: 'actinide'}
+  ];
 
   legendItems.forEach(item => {
     const legendItem = document.createElement('div');
@@ -1768,7 +1738,6 @@ function createTableLegend() {
 
 function highlightGroup(group, legendItem) {
   legendItem.classList.add('active');
-  
   allCells.forEach(cell => {
     if (cell.classList.contains(group)) {
       cell.classList.add('highlighted');
@@ -1780,7 +1749,6 @@ function highlightGroup(group, legendItem) {
 
 function removeHighlight(legendItem) {
   legendItem.classList.remove('active');
-  
   allCells.forEach(cell => {
     cell.classList.remove('highlighted');
     cell.classList.remove('dimmed');
@@ -1808,16 +1776,12 @@ function highlightGroupAndPeriod(group, period, isLanthanideOrActinide = false) 
   
   if (!isLanthanideOrActinide && group >= 1 && group <= 18) {
     const groupLabel = groupLabels[group - 1];
-    if (groupLabel) {
-      groupLabel.classList.add('highlighted');
-    }
+    if (groupLabel) groupLabel.classList.add('highlighted');
   }
   
   if (period >= 1 && period <= 7) {
     const periodLabel = periodLabels[period - 1];
-    if (periodLabel) {
-      periodLabel.classList.add('highlighted');
-    }
+    if (periodLabel) periodLabel.classList.add('highlighted');
   }
 }
 
@@ -1826,28 +1790,25 @@ function removeGroupAndPeriodHighlights() {
   periodLabels.forEach(label => label.classList.remove('highlighted'));
 }
 
-// Crear celdas principales
+// Crear celdas principales (excluyendo lantánidos y actínidos que van en las series inferiores)
 elements.forEach(el=>{
-  const d = document.createElement('div');
-  d.className = 'cell ' + groupClass(el.group);
-  d.style.gridColumn = el.x;
-  d.style.gridRow = el.y;
-  d.dataset.z = el.z;
-  d.dataset.group = el.group;
-  d.dataset.period = el.y;
-  d.innerHTML = `<div style="display:flex;justify-content:space-between"><div class='num'>${el.z}</div></div><div style="text-align:center;margin-top:4px"><div class='sym'>${el.sym}</div><div class='ename'>${el.name}</div></div>`;
-  
-  d.addEventListener('mouseenter', () => {
-    highlightGroupAndPeriod(el.x, el.y, false);
-  });
-  
-  d.addEventListener('mouseleave', () => {
-    removeGroupAndPeriodHighlights();
-  });
-  
-  d.addEventListener('click', ()=> show(el,d));
-  table.appendChild(d);
-  allCells.push(d);
+  // Solo los elementos que no son lantánidos ni actínidos van en la tabla principal
+  if (!(el.z >= 57 && el.z <= 71) && !(el.z >= 89 && el.z <= 103)) {
+    const d = document.createElement('div');
+    d.className = 'cell ' + groupClass(el.group);
+    d.style.gridColumn = el.x;
+    d.style.gridRow = el.y;
+    d.dataset.z = el.z;
+    d.dataset.group = el.group;
+    d.dataset.period = el.y;
+    d.innerHTML = `<div style="display:flex;justify-content:space-between"><div class='num'>${el.z}</div></div><div style="text-align:center;margin-top:4px"><div class='sym'>${el.sym}</div><div class='ename'>${el.name}</div></div>`;
+    
+    d.addEventListener('mouseenter', () => highlightGroupAndPeriod(el.x, el.y, false));
+    d.addEventListener('mouseleave', () => removeGroupAndPeriodHighlights());
+    d.addEventListener('click', ()=> show(el,d));
+    table.appendChild(d);
+    allCells.push(d);
+  }
 });
 
 createTableLegend();
@@ -1862,14 +1823,8 @@ lanthanides.forEach((el, index)=>{
   d.dataset.period = 6;
   d.innerHTML = `<div style="display:flex;justify-content:space-between"><div class='num'>${el.z}</div></div><div style="text-align:center;margin-top:4px"><div class='sym'>${el.sym}</div><div class='ename'>${el.name}</div></div>`;
   
-  d.addEventListener('mouseenter', () => {
-    highlightGroupAndPeriod(el.x, 6, true);
-  });
-  
-  d.addEventListener('mouseleave', () => {
-    removeGroupAndPeriodHighlights();
-  });
-  
+  d.addEventListener('mouseenter', () => highlightGroupAndPeriod(el.x, 6, true));
+  d.addEventListener('mouseleave', () => removeGroupAndPeriodHighlights());
   d.addEventListener('click', ()=> show(el,d));
   lanthanidesContainer.appendChild(d);
   allCells.push(d);
@@ -1885,14 +1840,8 @@ actinides.forEach((el, index)=>{
   d.dataset.period = 7;
   d.innerHTML = `<div style="display:flex;justify-content:space-between"><div class='num'>${el.z}</div></div><div style="text-align:center;margin-top:4px"><div class='sym'>${el.sym}</div><div class='ename'>${el.name}</div></div>`;
   
-  d.addEventListener('mouseenter', () => {
-    highlightGroupAndPeriod(el.x, 7, true);
-  });
-  
-  d.addEventListener('mouseleave', () => {
-    removeGroupAndPeriodHighlights();
-  });
-  
+  d.addEventListener('mouseenter', () => highlightGroupAndPeriod(el.x, 7, true));
+  d.addEventListener('mouseleave', () => removeGroupAndPeriodHighlights());
   d.addEventListener('click', ()=> show(el,d));
   actinidesContainer.appendChild(d);
   allCells.push(d);
@@ -1931,25 +1880,13 @@ function show(el, cell){
   document.getElementById('iconfig').textContent = el.config || '—';
   
   const electronegDisplay = document.getElementById('ielectroneg');
-  if (el.electroneg && el.electroneg > 0) {
-    electronegDisplay.textContent = el.electroneg.toFixed(2);
-  } else {
-    electronegDisplay.textContent = 'Ezezaguna';
-  }
+  electronegDisplay.textContent = (el.electroneg && el.electroneg > 0) ? el.electroneg.toFixed(2) : 'Ezezaguna';
   
   const radiusDisplay = document.getElementById('iradius');
-  if (el.radius && el.radius > 0) {
-    radiusDisplay.textContent = el.radius + ' pm';
-  } else {
-    radiusDisplay.textContent = 'Ezezaguna';
-  }
+  radiusDisplay.textContent = (el.radius && el.radius > 0) ? el.radius + ' pm' : 'Ezezaguna';
   
   const ionizationDisplay = document.getElementById('iionization');
-  if (el.ionization && el.ionization > 0) {
-    ionizationDisplay.textContent = el.ionization + ' kJ/mol';
-  } else {
-    ionizationDisplay.textContent = 'Ezezaguna';
-  }
+  ionizationDisplay.textContent = (el.ionization && el.ionization > 0) ? el.ionization + ' kJ/mol' : 'Ezezaguna';
   
   let bgColor = cell.style.backgroundColor;
   
@@ -1966,21 +1903,10 @@ function show(el, cell){
   icon.textContent = el.sym;
 }
 
-btn3D.addEventListener('click', () => {
-  window.location.href = 'Orbitalak/';
-});
-
-btnBalents.addEventListener('click', () => {
-  window.location.href = 'BalentzienTaula/';
-});
-
-btnCompounds.addEventListener('click', () => {
-  window.location.href = 'KonposatuInorganiko/';
-});
-
-btnCalc.addEventListener('click', () => {
-  window.location.href = 'Kalkulagailu/';
-});
+btn3D.addEventListener('click', () => window.location.href = 'Orbitalak/');
+btnBalents.addEventListener('click', () => window.location.href = 'BalentzienTaula/');
+btnCompounds.addEventListener('click', () => window.location.href = 'KonposatuInorganiko/');
+btnCalc.addEventListener('click', () => window.location.href = 'Kalkulagailu/');
 
 searchInput.addEventListener('input', function() {
   const searchTerm = this.value.toLowerCase().trim();
