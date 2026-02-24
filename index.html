@@ -20,7 +20,7 @@
   --panel-width:360px; 
   --cell-size: 72px;
   --gap-size: 6px;
-  --bg:#f8fafc;
+  --bg:#f0f2f5;
   --zoom-level: 0.75;
   --primary-green: #2d8659;
   --secondary-green: #3A795E;
@@ -35,12 +35,58 @@
   --hover-green: rgba(45, 134, 89, 0.1);
   --shadow-light: 0 4px 12px rgba(0,0,0,0.05);
   --shadow-medium: 0 8px 24px rgba(0,0,0,0.08);
+  
+  /* Izarera metalikoa koloreak */
+  --metal-light: #d1d9e6;
+  --metal-medium: #b0bec5;
+  --metal-dark: #8a9aa8;
+  --metal-gradient: linear-gradient(145deg, #e8eef2, #b8c4cc);
+  --metal-shine: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 100%);
 }
 
 *{box-sizing:border-box}
 body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;background:var(--bg);color:var(--text-dark);overflow:hidden;font-weight:400}
 .app{display:flex;height:100vh;width:100vw}
-.panel{width:var(--panel-width);min-width:var(--panel-width);background:var(--bg-white);padding:24px;border-right:1px solid var(--border-light);overflow:auto;flex-shrink:0;box-shadow:2px 0 8px rgba(0,0,0,0.03)}
+
+/* Panel con acabado metálico */
+.panel{
+  width:var(--panel-width);
+  min-width:var(--panel-width);
+  background: var(--metal-gradient);
+  padding:24px;
+  border-right:2px solid var(--metal-dark);
+  overflow:auto;
+  flex-shrink:0;
+  box-shadow:4px 0 12px rgba(0,0,0,0.1);
+  position:relative;
+  background-image: var(--metal-gradient), var(--metal-shine);
+  background-blend-mode: overlay;
+}
+
+/* Efecto metálico adicional para tarjetas */
+.card, .resources-toggle, .valences-container, .elec-legend, .properties-toggle,
+.electroneg-legend, .radius-legend, .ionization-legend, .electronaffinity-legend {
+  background: linear-gradient(145deg, #f0f4f8, #d5dee6) !important;
+  border: 1px solid var(--metal-medium) !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1), inset 0 1px 1px rgba(255,255,255,0.8) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::after, .resources-toggle::after, .valences-container::after, 
+.elec-legend::after, .properties-toggle::after,
+.electroneg-legend::after, .radius-legend::after, 
+.ionization-legend::after, .electronaffinity-legend::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 60%);
+  pointer-events: none;
+  border-radius: inherit;
+}
 
 .onddi-title {
   font-family: 'Arista 2.0 Alternate', sans-serif;
@@ -52,7 +98,7 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   padding: 0;
   letter-spacing: 0.5px;
   width: 100%;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  text-shadow: 0 2px 3px rgba(0,0,0,0.1), 0 1px 1px rgba(255,255,255,0.5);
 }
 
 .panel h1{margin:0 0 10px 0;font-size:18px;color:var(--text-dark);font-weight:600}
@@ -68,7 +114,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
 .footer{margin-top:16px;font-size:12px;opacity:0.7;color:var(--text-light)}
 
 .resources-toggle {
-  background: var(--bg-light);
   border-radius: 10px;
   padding: 14px;
   margin: 16px 0;
@@ -125,7 +170,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
 
 /* Estilo para el contenedor de Balentziak (igual que los demás) */
 .valences-container {
-  background: var(--bg-light);
   border-radius: 10px;
   padding: 14px;
   margin: 16px 0;
@@ -183,7 +227,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
 }
 
 .elec-legend {
-  background: var(--bg-light);
   border-radius: 10px;
   padding: 14px;
   margin: 16px 0;
@@ -209,7 +252,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
 }
 
 .properties-toggle {
-  background: var(--bg-light);
   border-radius: 10px;
   padding: 14px;
   margin: 16px 0;
@@ -231,10 +273,37 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
 }
 
 .properties-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 15px;
   font-weight: 600;
   color: var(--text-dark);
   margin: 0;
+}
+
+.properties-help-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--metal-medium);
+  border: 1px solid var(--metal-dark);
+  color: var(--text-dark);
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.5), 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.properties-help-btn:hover {
+  background: var(--primary-green);
+  color: white;
+  transform: scale(1.1);
+  border-color: var(--primary-green);
 }
 
 .properties-icon {
@@ -254,7 +323,7 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
 }
 
 .properties-toggle.active .properties-content {
-  max-height: 500px;
+  max-height: 800px;
 }
 
 .properties-content-inner {
@@ -264,8 +333,110 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   gap: 12px;
 }
 
+/* Ventana modal flotante para ayuda de propiedades */
+.properties-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 380px;
+  max-width: 90vw;
+  background: var(--metal-gradient);
+  border: 2px solid var(--metal-dark);
+  border-radius: 16px;
+  padding: 24px;
+  z-index: 10000;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3), inset 0 1px 2px rgba(255,255,255,0.5);
+  color: var(--text-dark);
+}
+
+.properties-modal.active {
+  display: block;
+}
+
+.properties-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--metal-dark);
+  padding-bottom: 12px;
+}
+
+.properties-modal-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--primary-green);
+}
+
+.properties-modal-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--metal-medium);
+  border: 1px solid var(--metal-dark);
+  color: var(--text-dark);
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.properties-modal-close:hover {
+  background: var(--primary-green);
+  color: white;
+  transform: scale(1.1);
+}
+
+.properties-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.prop-help-item {
+  border-bottom: 1px dashed var(--metal-medium);
+  padding-bottom: 10px;
+}
+
+.prop-help-item h4 {
+  margin: 0 0 5px 0;
+  font-size: 16px;
+  color: var(--text-dark);
+}
+
+.prop-help-item p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-medium);
+}
+
+.prop-help-item strong {
+  color: var(--primary-green);
+}
+
+.properties-modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 9999;
+}
+
+.properties-modal-overlay.active {
+  display: block;
+}
+
 .electroneg-legend, .radius-legend, .ionization-legend, .electronaffinity-legend {
-  background: var(--bg-light);
   border-radius: 10px;
   padding: 14px;
   border: 1px solid var(--border-light);
@@ -374,6 +545,8 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   height: 20px;
   border-radius: 6px;
   margin: 0 8px;
+  border: 1px solid rgba(0,0,0,0.1);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
 }
 
 .electroneg-gradient-bar {
@@ -627,12 +800,13 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   font-size: 12px;
   font-weight: 600;
   color: var(--text-medium);
-  background: var(--bg-light);
+  background: var(--metal-gradient);
   border-radius: 6px;
   padding: 4px;
   min-height: 30px;
   transition: all 0.3s ease;
-  border: 1px solid var(--border-light);
+  border: 1px solid var(--metal-medium);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.5), 0 1px 2px rgba(0,0,0,0.1);
 }
 
 .group-label.highlighted {
@@ -649,13 +823,14 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   font-size: 12px;
   font-weight: 600;
   color: var(--text-medium);
-  background: var(--bg-light);
+  background: var(--metal-gradient);
   border-radius: 6px;
   padding: 4px;
   min-width: 30px;
   height: var(--cell-size);
   transition: all 0.3s ease;
-  border: 1px solid var(--border-light);
+  border: 1px solid var(--metal-medium);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.5), 0 1px 2px rgba(0,0,0,0.1);
 }
 
 .period-label.highlighted {
@@ -683,19 +858,19 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   position: fixed;
   top: 20px;
   right: 20px;
-  background: var(--bg-white);
+  background: var(--metal-gradient);
   border-radius: 10px;
   padding: 10px;
   display: flex;
   gap: 8px;
   z-index: 1000;
   backdrop-filter: blur(5px);
-  border: 1px solid var(--border-light);
-  box-shadow: var(--shadow-medium);
+  border: 1px solid var(--metal-dark);
+  box-shadow: var(--shadow-medium), inset 0 1px 2px rgba(255,255,255,0.5);
 }
 
 .zoom-btn {
-  background: var(--bg-light);
+  background: var(--metal-light);
   border: none;
   color: var(--text-dark);
   width: 36px;
@@ -708,7 +883,8 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   font-size: 18px;
   font-weight: bold;
   transition: all 0.2s ease;
-  border: 1px solid var(--border-light);
+  border: 1px solid var(--metal-dark);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.5), 0 1px 2px rgba(0,0,0,0.1);
 }
 
 .zoom-btn:hover {
@@ -755,11 +931,11 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   grid-template-columns:repeat(18, var(--cell-size));
   grid-auto-rows:var(--cell-size);
   gap:var(--gap-size);
-  background:var(--bg-white);
+  background: var(--metal-gradient);
   padding:16px;
   border-radius:12px;
   box-shadow:var(--shadow-medium);
-  border:1px solid var(--border-light);
+  border:1px solid var(--metal-dark);
   position: relative;
 }
 
@@ -778,11 +954,11 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   grid-template-columns:repeat(15, var(--cell-size));
   grid-auto-rows:var(--cell-size);
   gap:var(--gap-size);
-  background:var(--bg-white);
+  background: var(--metal-gradient);
   padding:16px;
   border-radius:12px;
   box-shadow:var(--shadow-medium);
-  border:1px solid var(--border-light);
+  border:1px solid var(--metal-dark);
   margin-left: calc(44px + 8px + (var(--cell-size) * 2) + (var(--gap-size) * 2));
   width: calc((var(--cell-size) * 15) + (var(--gap-size) * 14) + 28px);
 }
@@ -901,9 +1077,9 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   grid-template-rows:repeat(2,1fr);
   gap:8px;
   padding:16px;
-  background:var(--bg-light);
+  background: var(--metal-gradient);
   border-radius:10px;
-  border:1px solid var(--border-light);
+  border:1px solid var(--metal-medium);
   font-size:13px;
   box-shadow:var(--shadow-light)
 }
@@ -939,7 +1115,7 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
 }
 
 .btn-3d, .btn-balents, .btn-compounds, .btn-calc {
-  background: var(--bg-white) !important;
+  background: var(--metal-gradient) !important;
   border: 2px solid var(--primary-green) !important;
   color: var(--primary-green) !important;
   padding: 12px 16px !important;
@@ -955,7 +1131,7 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   margin: 0 !important;
   width: 100% !important;
   min-width: auto !important;
-  box-shadow: var(--shadow-light);
+  box-shadow: var(--shadow-light), inset 0 1px 2px rgba(255,255,255,0.5);
 }
 
 .btn-3d:hover, .btn-balents:hover, .btn-compounds:hover, .btn-calc:hover {
@@ -1097,7 +1273,10 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
 
     <div class="properties-toggle" id="propertiesToggle">
       <div class="properties-header">
-        <div class="properties-title">Propietateak</div>
+        <div class="properties-title">
+          Propietateak
+          <div class="properties-help-btn" id="propertiesHelpBtn">?</div>
+        </div>
         <div class="properties-icon">▼</div>
       </div>
       <div class="properties-content">
@@ -1106,11 +1285,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
             <div class="electronaffinity-legend-header">
               <div class="electronaffinity-legend-title">
                 Afinitate elektronikoa
-                <div class="title-tooltip">?</div>
-                <div class="tooltip-content">
-                  <strong>Afinitate elektronikoaren definizioa</strong><br>
-                  Atomo neutro batek elektroi bat hartzean askatzen den energia (kJ/mol). Balio positiboak adierazten du prozesua exotermikoa dela (energia askatzen du).
-                </div>
               </div>
               <button class="electronaffinity-toggle-btn" id="electronaffinityToggleBtn"></button>
             </div>
@@ -1125,11 +1299,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
             <div class="electroneg-legend-header">
               <div class="electroneg-legend-title">
                 Elektronegatibitatea
-                <div class="title-tooltip">?</div>
-                <div class="tooltip-content">
-                  <strong>Elektronegatibitatearen definizioa</strong><br>
-                  Atomo batek lotura kimiko batean elektroiak bereganatzeko duen gaitasuna. Pauling-en eskalan neurtzen da, eta taulan behetik gora eta ezkerretik eskuinera handitzen da.
-                </div>
               </div>
               <button class="electroneg-toggle-btn" id="electronegToggleBtn"></button>
             </div>
@@ -1144,11 +1313,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
             <div class="radius-legend-header">
               <div class="radius-legend-title">
                 Erradio atomikoak
-                <div class="title-tooltip">?</div>
-                <div class="tooltip-content">
-                  <strong>Erradio atomikoaren definizioa</strong><br>
-                  Atomo baten nukleotik kanpoaldeko elektroi-geruzarainoko distantzia (pm). Taulan behetik gora eta eskuinetik ezkerrera txikituz doa.
-                </div>
               </div>
               <button class="radius-toggle-btn" id="radiusToggleBtn"></button>
             </div>
@@ -1163,11 +1327,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
             <div class="ionization-legend-header">
               <div class="ionization-legend-title">
                 Ionizazio energia
-                <div class="title-tooltip">?</div>
-                <div class="tooltip-content">
-                  <strong>Ionizazio energiaren definizioa</strong><br>
-                  Atomo neutro batetik elektroi bat kentzeko behar den energia (kJ/mol). Taulan behetik gora eta ezkerretik eskuinera handitzen da.
-                </div>
               </div>
               <button class="ionization-toggle-btn" id="ionizationToggleBtn"></button>
             </div>
@@ -1241,6 +1400,37 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   <div class="zoom-display" id="zoomLevel">100%</div>
   <button class="zoom-btn" id="zoomIn">+</button>
   <button class="zoom-btn" id="zoomReset">↺</button>
+</div>
+
+<!-- Ventana modal flotante para ayuda de propiedades -->
+<div class="properties-modal-overlay" id="propertiesModalOverlay"></div>
+<div class="properties-modal" id="propertiesModal">
+  <div class="properties-modal-header">
+    <h3>Propietateen Azalpenak</h3>
+    <div class="properties-modal-close" id="propertiesModalClose">×</div>
+  </div>
+  <div class="properties-modal-content">
+    <div class="prop-help-item">
+      <h4>Afinitate elektronikoa</h4>
+      <p><strong>Definizioa:</strong> Atomo neutro batek elektroi bat hartzean askatzen den energia (kJ/mol). Balio positiboak adierazten du prozesua exotermikoa dela (energia askatzen du).</p>
+      <p><strong>Joera taulan:</strong> Behetik gora eta ezkerretik eskuinera handitzen da.</p>
+    </div>
+    <div class="prop-help-item">
+      <h4>Elektronegatibitatea</h4>
+      <p><strong>Definizioa:</strong> Atomo batek lotura kimiko batean elektroiak bereganatzeko duen gaitasuna. Pauling-en eskalan neurtzen da.</p>
+      <p><strong>Joera taulan:</strong> Behetik gora eta ezkerretik eskuinera handitzen da.</p>
+    </div>
+    <div class="prop-help-item">
+      <h4>Erradio atomikoa</h4>
+      <p><strong>Definizioa:</strong> Atomo baten nukleotik kanpoaldeko elektroi-geruzarainoko distantzia (pm).</p>
+      <p><strong>Joera taulan:</strong> Behetik gora eta eskuinetik ezkerrera txikituz doa.</p>
+    </div>
+    <div class="prop-help-item">
+      <h4>Ionizazio energia</h4>
+      <p><strong>Definizioa:</strong> Atomo neutro batetik elektroi bat kentzeko behar den energia (kJ/mol).</p>
+      <p><strong>Joera taulan:</strong> Behetik gora eta ezkerretik eskuinera handitzen da.</p>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -1435,10 +1625,31 @@ const btnCompounds = document.getElementById('btnCompounds');
 const btnCalc = document.getElementById('btnCalc');
 const resourcesToggle = document.getElementById('resourcesToggle');
 
+// Elementos para la ventana modal de ayuda
+const propertiesHelpBtn = document.getElementById('propertiesHelpBtn');
+const propertiesModal = document.getElementById('propertiesModal');
+const propertiesModalOverlay = document.getElementById('propertiesModalOverlay');
+const propertiesModalClose = document.getElementById('propertiesModalClose');
+
 let allCells = [];
 let groupLabels = [];
 let periodLabels = [];
 let valenciasMode = false;
+
+// Función para abrir/cerrar el modal de ayuda
+function openPropertiesModal() {
+  propertiesModal.classList.add('active');
+  propertiesModalOverlay.classList.add('active');
+}
+
+function closePropertiesModal() {
+  propertiesModal.classList.remove('active');
+  propertiesModalOverlay.classList.remove('active');
+}
+
+propertiesHelpBtn.addEventListener('click', openPropertiesModal);
+propertiesModalClose.addEventListener('click', closePropertiesModal);
+propertiesModalOverlay.addEventListener('click', closePropertiesModal);
 
 function toggleTrendArrows(show, type) {
   const allArrows = trendArrows.querySelectorAll('.trend-arrow');
