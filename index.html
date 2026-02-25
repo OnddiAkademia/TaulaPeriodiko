@@ -302,14 +302,14 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   gap: 12px;
 }
 
-/* Ventana modal flotante para ayuda de propiedades */
+/* Ventana modal flotante para ayuda de propiedades - HORIZONTAL */
 .properties-modal {
   display: none;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 380px;
+  width: 750px;
   max-width: 90vw;
   background: var(--bg-white);
   border: 2px solid var(--primary-green);
@@ -335,7 +335,7 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
 
 .properties-modal-header h3 {
   margin: 0;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 600;
   color: var(--primary-green);
 }
@@ -363,23 +363,38 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
 
 .properties-modal-content {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
 }
 
 .prop-help-item {
-  border-bottom: 1px dashed var(--border-light);
-  padding-bottom: 10px;
+  flex: 1 1 calc(50% - 20px);
+  min-width: 280px;
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  padding: 15px;
+  background: var(--bg-light);
+  box-shadow: var(--shadow-light);
+  transition: transform 0.2s ease;
+}
+
+.prop-help-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+  border-color: var(--primary-green);
 }
 
 .prop-help-item h4 {
-  margin: 0 0 5px 0;
+  margin: 0 0 10px 0;
   font-size: 16px;
-  color: var(--text-dark);
+  color: var(--primary-green);
+  border-bottom: 1px dashed var(--border-medium);
+  padding-bottom: 5px;
 }
 
 .prop-help-item p {
-  margin: 0;
+  margin: 0 0 8px 0;
   font-size: 13px;
   line-height: 1.5;
   color: var(--text-medium);
@@ -387,6 +402,7 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
 
 .prop-help-item strong {
   color: var(--primary-green);
+  font-weight: 600;
 }
 
 .properties-modal-overlay {
@@ -404,7 +420,7 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   display: block;
 }
 
-/* Estilos para las leyendas de propiedades */
+/* Estilos para las leyendas de propiedades - SIN botones de ayuda */
 .electroneg-legend, .radius-legend, .ionization-legend, .electronaffinity-legend, .metallic-legend {
   background: var(--bg-light);
   border-radius: 10px;
@@ -425,82 +441,10 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
 }
 
 .electroneg-legend-title, .radius-legend-title, .ionization-legend-title, .electronaffinity-legend-title, .metallic-legend-title {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  cursor: help;
   font-size: 15px;
   font-weight: 600;
   color: var(--text-dark);
   margin: 0;
-}
-
-.title-tooltip {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--border-light);
-  border: 1px solid var(--border-medium);
-  color: var(--text-medium);
-  font-size: 11px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: help;
-  transition: all 0.2s ease;
-}
-
-.electroneg-legend-title:hover .title-tooltip, 
-.radius-legend-title:hover .title-tooltip, 
-.ionization-legend-title:hover .title-tooltip,
-.electronaffinity-legend-title:hover .title-tooltip,
-.metallic-legend-title:hover .title-tooltip {
-  background: var(--border-medium);
-  border-color: var(--primary-green);
-  color: var(--text-dark);
-  transform: scale(1.1);
-}
-
-.tooltip-content {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: var(--bg-white);
-  border: 1px solid var(--border-medium);
-  border-radius: 8px;
-  padding: 10px 12px;
-  font-size: 12px;
-  line-height: 1.4;
-  color: var(--text-dark);
-  width: 220px;
-  box-shadow: var(--shadow-medium);
-  z-index: 1000;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-8px);
-  transition: all 0.25s ease;
-  pointer-events: none;
-  text-align: left;
-}
-
-.electroneg-legend-title:hover .tooltip-content,
-.radius-legend-title:hover .tooltip-content,
-.ionization-legend-title:hover .tooltip-content,
-.electronaffinity-legend-title:hover .tooltip-content,
-.metallic-legend-title:hover .tooltip-content {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(3px);
-}
-
-.tooltip-content strong {
-  color: var(--primary-green);
-  display: block;
-  margin-bottom: 4px;
-  font-size: 12px;
-  white-space: normal;
 }
 
 .electroneg-legend-gradient, .radius-legend-gradient, .ionization-legend-gradient, .electronaffinity-legend-gradient, .metallic-legend-gradient {
@@ -1161,6 +1105,14 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   .container {
     height: 60vh;
   }
+  
+  .properties-modal-content {
+    flex-direction: column;
+  }
+  
+  .prop-help-item {
+    flex: 1 1 100%;
+  }
 }
 </style>
 </head>
@@ -1265,11 +1217,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
             <div class="electronaffinity-legend-header">
               <div class="electronaffinity-legend-title">
                 Afinitate elektronikoa
-                <div class="title-tooltip">?</div>
-                <div class="tooltip-content">
-                  <strong>Afinitate elektronikoaren definizioa</strong><br>
-                  Atomo neutro batek elektroi bat hartzean askatzen den energia (kJ/mol). Balio positiboak adierazten du prozesua exotermikoa dela (energia askatzen du).
-                </div>
               </div>
               <button class="electronaffinity-toggle-btn" id="electronaffinityToggleBtn"></button>
             </div>
@@ -1284,11 +1231,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
             <div class="electroneg-legend-header">
               <div class="electroneg-legend-title">
                 Elektronegatibitatea
-                <div class="title-tooltip">?</div>
-                <div class="tooltip-content">
-                  <strong>Elektronegatibitatearen definizioa</strong><br>
-                  Atomo batek lotura kimiko batean elektroiak bereganatzeko duen gaitasuna. Pauling-en eskalan neurtzen da, eta taulan behetik gora eta ezkerretik eskuinera handitzen da.
-                </div>
               </div>
               <button class="electroneg-toggle-btn" id="electronegToggleBtn"></button>
             </div>
@@ -1303,11 +1245,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
             <div class="radius-legend-header">
               <div class="radius-legend-title">
                 Erradio atomikoak
-                <div class="title-tooltip">?</div>
-                <div class="tooltip-content">
-                  <strong>Erradio atomikoaren definizioa</strong><br>
-                  Atomo baten nukleotik kanpoaldeko elektroi-geruzarainoko distantzia (pm). Taulan behetik gora eta eskuinetik ezkerrera txikituz doa.
-                </div>
               </div>
               <button class="radius-toggle-btn" id="radiusToggleBtn"></button>
             </div>
@@ -1322,11 +1259,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
             <div class="ionization-legend-header">
               <div class="ionization-legend-title">
                 Ionizazio energia
-                <div class="title-tooltip">?</div>
-                <div class="tooltip-content">
-                  <strong>Ionizazio energiaren definizioa</strong><br>
-                  Atomo neutro batetik elektroi bat kentzeko behar den energia (kJ/mol). Taulan behetik gora eta ezkerretik eskuinera handitzen da.
-                </div>
               </div>
               <button class="ionization-toggle-btn" id="ionizationToggleBtn"></button>
             </div>
@@ -1341,11 +1273,6 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
             <div class="metallic-legend-header">
               <div class="metallic-legend-title">
                 Izaera metalikoa
-                <div class="title-tooltip">?</div>
-                <div class="tooltip-content">
-                  <strong>Izaera metalikoaren definizioa</strong><br>
-                  Elementu batek metalen ezaugarriak izateko joera (distira, eroankortasuna, malgutasuna). Taulan behetik gora eta eskuinetik ezkerrera handitzen da.
-                </div>
               </div>
               <button class="metallic-toggle-btn" id="metallicToggleBtn"></button>
             </div>
@@ -1421,7 +1348,7 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   <button class="zoom-btn" id="zoomReset">↺</button>
 </div>
 
-<!-- Ventana modal flotante para ayuda de propiedades -->
+<!-- Ventana modal flotante para ayuda de propiedades - HORIZONTAL -->
 <div class="properties-modal-overlay" id="propertiesModalOverlay"></div>
 <div class="properties-modal" id="propertiesModal">
   <div class="properties-modal-header">
@@ -1431,7 +1358,7 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
   <div class="properties-modal-content">
     <div class="prop-help-item">
       <h4>Afinitate elektronikoa</h4>
-      <p><strong>Definizioa:</strong> Atomo neutro batek elektroi bat hartzean askatzen den energia (kJ/mol). Balio positiboak adierazten du prozesua exotermikoa dela (energia askatzen du).</p>
+      <p><strong>Definizioa:</strong> Atomo neutro batek elektroi bat hartzean askatzen den energia (kJ/mol). Balio positiboak adierazten du prozesua exotermikoa dela.</p>
       <p><strong>Joera taulan:</strong> Behetik gora eta ezkerretik eskuinera handitzen da.</p>
     </div>
     <div class="prop-help-item">
@@ -1452,7 +1379,7 @@ body{margin:0;font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-seri
     <div class="prop-help-item">
       <h4>Izaera metalikoa</h4>
       <p><strong>Definizioa:</strong> Elementu batek metalen ezaugarriak izateko joera (distira, eroankortasuna, malgutasuna).</p>
-      <p><strong>Joera taulan:</strong> Behetik gora eta eskuinetik ezkerrera handitzen da (alderantzizko joera elektronegatibitatearekiko).</p>
+      <p><strong>Joera taulan:</strong> Behetik gora eta eskuinetik ezkerrera handitzen da.</p>
     </div>
   </div>
 </div>
@@ -1640,11 +1567,6 @@ const metallicToggleBtn = document.getElementById('metallicToggleBtn');
 const metallicLegend = document.getElementById('metallicLegend');
 const propertiesToggle = document.getElementById('propertiesToggle');
 const trendArrows = document.getElementById('trendArrows');
-const radiusTitle = document.querySelector('.radius-legend-title');
-const electronegTitle = document.querySelector('.electroneg-legend-title');
-const ionizationTitle = document.querySelector('.ionization-legend-title');
-const affinityTitle = document.querySelector('.electronaffinity-legend-title');
-const metallicTitle = document.querySelector('.metallic-legend-title');
 
 const btn3D = document.getElementById('btn3D');
 const btnBalents = document.getElementById('btnBalents');
@@ -1677,29 +1599,6 @@ function closePropertiesModal() {
 propertiesHelpBtn.addEventListener('click', openPropertiesModal);
 propertiesModalClose.addEventListener('click', closePropertiesModal);
 propertiesModalOverlay.addEventListener('click', closePropertiesModal);
-
-function toggleTrendArrows(show, type) {
-  const allArrows = trendArrows.querySelectorAll('.trend-arrow');
-  allArrows.forEach(arrow => arrow.style.display = 'none');
-  if (show) {
-    const arrowsToShow = trendArrows.querySelectorAll(`.trend-arrow.${type}`);
-    arrowsToShow.forEach(arrow => arrow.style.display = 'block');
-    trendArrows.classList.add('active');
-  } else {
-    trendArrows.classList.remove('active');
-  }
-}
-
-radiusTitle.addEventListener('mouseenter', () => toggleTrendArrows(true, 'radius'));
-radiusTitle.addEventListener('mouseleave', () => toggleTrendArrows(false));
-electronegTitle.addEventListener('mouseenter', () => toggleTrendArrows(true, 'electroneg'));
-electronegTitle.addEventListener('mouseleave', () => toggleTrendArrows(false));
-ionizationTitle.addEventListener('mouseenter', () => toggleTrendArrows(true, 'ionization'));
-ionizationTitle.addEventListener('mouseleave', () => toggleTrendArrows(false));
-affinityTitle.addEventListener('mouseenter', () => toggleTrendArrows(true, 'affinity'));
-affinityTitle.addEventListener('mouseleave', () => toggleTrendArrows(false));
-metallicTitle.addEventListener('mouseenter', () => toggleTrendArrows(true, 'metallic'));
-metallicTitle.addEventListener('mouseleave', () => toggleTrendArrows(false));
 
 propertiesToggle.addEventListener('click', function(e) {
   if (e.target.closest('.properties-header') || e.target === this) this.classList.toggle('active');
@@ -2415,7 +2314,6 @@ window.addEventListener('resize', applyZoom);
 
 initLabels();
 show(elements[0], document.querySelector('.cell'));
-toggleTrendArrows(false);
 </script> 
 </body>
 </html>
